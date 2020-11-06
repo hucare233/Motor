@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-06 15:44:05
+ * @LastEditTime: 2020-11-06 18:40:30
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -218,7 +218,7 @@ static void Task_DataScope(void *pdata)
 		//          while((USART1->SR&0X40)==0);
 		//          USART1->DR = DataScope_OutPut_Buffer[i];
 		//          }
-		OSTimeDly(300);
+		OSTimeDly(200);  //¿É¿ØÖÆÖ¡ÊýFPS
 	}
 }
 #endif
