@@ -3,7 +3,7 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_gpio.h"
-#include "stm32f4xx_rcc.h" 
+#include "stm32f4xx_rcc.h"
 
 #define Set_LED8CLK() 		GPIO_SetBits(GPIOB, GPIO_Pin_8)
 #define Reset_LED8CLK() 	GPIO_ResetBits(GPIOB, GPIO_Pin_8)

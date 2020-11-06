@@ -3,15 +3,14 @@
 /** 
   * @brief  —” ±°¢∫¡√Î
   */
-
+	
 void Delay_ms(unsigned int t)
 {
 	int i;
-	for (i = 0; i < t; i++)
+	for( i=0;i<t;i++)
 	{
-		int a = 42000;
-		while (a--)
-			;
+		int a=42000;
+		while(a--);
 	}
 }
 
@@ -21,11 +20,10 @@ void Delay_ms(unsigned int t)
 void Delay_us(unsigned int t)
 {
 	int i;
-	for (i = 0; i < t; i++)
+	for( i=0;i<t;i++)
 	{
-		int a = 40;
-		while (a--)
-			;
+		int a=40;
+		while(a--);
 	}
 }
 
@@ -35,6 +33,5 @@ void Delay_us(unsigned int t)
 
 void Delay(u16 t)
 {
-	while (t--)
-		;
+	while(t--);
 }

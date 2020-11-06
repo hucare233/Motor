@@ -1,7 +1,6 @@
 .\obj\dma.o: GeneralFunction\src\dma.c
 .\obj\dma.o: .\GeneralFunction\inc\dma.h
 .\obj\dma.o: .\GeneralFunction\inc\sys.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\obj\dma.o: .\Libraries\CMSIS\stm32f4xx.h
 .\obj\dma.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm4.h
 .\obj\dma.o: E:\NEW_mdk\ARM\ARMCC\Bin\..\include\stdint.h
@@ -12,14 +11,7 @@
 .\obj\dma.o: .\Libraries\CMSIS\system_stm32f4xx.h
 .\obj\dma.o: .\USER\INC\stm32f4xx_conf.h
 .\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma.h
+.\obj\dma.o: .\Libraries\CMSIS\stm32f4xx.h
 .\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h
-.\obj\dma.o: .\USER\INC\stm32f4xx_it.h
-.\obj\dma.o: .\USER\INC\led8.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_spi.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h
-.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h
+.\obj\dma.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma.h
 .\obj\dma.o: .\USER\INC\delay.h
