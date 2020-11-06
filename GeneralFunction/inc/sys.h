@@ -1,7 +1,7 @@
 #ifndef __SYS_H
 #define __SYS_H	 
-//#include "stm32f4xx.h" 
-//#include "stm32f4xx_gpio.h"
+#include "stm32f4xx.h" 
+#include "stm32f4xx_gpio.h"
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //ALIENTEK STM32F407开发板
@@ -19,16 +19,6 @@
 //无
 ////////////////////////////////////////////////////////////////////////////////// 
 
-#include "misc.h"
-#include "stm32f4xx_adc.h"
-#include "stm32f4xx_dcmi.h"
-#include "stm32f4xx_dma.h"
-#include "stm32f4xx_gpio.h"
-#include "stm32f4xx_it.h"
-#include "stm32f4xx_rcc.h"
-#include "stm32f4xx_spi.h"
-#include "stm32f4xx_tim.h"
-#include "stm32f4xx_usart.h"
 
 //0,不支持ucos
 //1,支持ucos
@@ -98,9 +88,9 @@
 #define GPIO_D 				3
 #define GPIO_E 				4
 #define GPIO_F 				5
-#define GPIO_G 				6
-#define GPIO_H 				7
-#define GPIO_I 				8
+#define GPIO_G 				6 
+#define GPIO_H 				7 
+#define GPIO_I 				8 
 
 #define FTIR   				1  		//下降沿触发
 #define RTIR   				2  		//上升沿触发

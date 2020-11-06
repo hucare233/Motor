@@ -1,18 +1,6 @@
-/*
- * @Descripttion: 蜂鸣器
- * @version: 第一版
- * @Author: 叮咚蛋
- * @Date: 2020-10-17 14:52:41
- * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-03 19:52:00
- * @FilePath: \MotoPro\USER\SRC\beep.c
- */
 #include "beep.h"
 
-/** 
-  * @brief  BB响初始化函数
-  */
-void Beep_Init(void)
+void Beep_Configuration(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -33,12 +21,10 @@ void Beep_Init(void)
 
 void Beep_Show(u8 num)
 {
-	for (int i = 0; i < num; i++)
+	for(int i=0; i<num; i++)
 	{
-		BEEP_ON;
-		Delay_ms(200);
-		BEEP_OFF;
-		Delay_ms(200);
+		BEEP_ON;Delay_ms(100);
+		BEEP_OFF;Delay_ms(100);
 	}
 }
 
@@ -95,3 +81,28 @@ void play_Music_1(void)
                 }        
         }
 }
+
+//世间美好与你环环相扣
+void play_Music_2(void)
+{
+        //生日快乐    
+                  // 0   1   2   3   4   5   6   7  低1  低2 低3 低4 低5 低6低7
+    uc16 tone[] ={250,262,294,330,350,393,441,495,525,589,661,700,786,882,990}; //音调        
+    u8 music[]={5,5,6,5,8,7,5,5,6,5,9,8,5,5,12,10,8,7,6,11,
+                  11,10,8,9,8,5,5,8,5,5,12,10,8,7,6,11,11,10,8,9,8    //乐谱音调
+    };     
+        u8 time[] = {1,2,2,2,2,4,1,2,2,2,2,4,1,2,2,2,1,4,
+                      4,1,2,2,2,2,4,1,2,4,1,2,2,2,1,4, 4,1,2,2,2,2,4,4        //节拍时间
+        }; 
+        u32 delayShow;
+        u16 i,j;
+        delayShow = 8;//播放速度
+        for(i=0;i<sizeof(music)/sizeof(music[0]);i++)//放歌
+        {
+                for(j=0;j<((u16)time[i])*tone[music[i]]/delayShow;j++)
+                {
+                        Sound((u32)tone[music[i]]);
+                }        
+        }
+}
+
