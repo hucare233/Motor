@@ -21,8 +21,6 @@ unsigned short CRC_CHECK(unsigned char * Buf, unsigned char CRC_CNT)
     return(CRC_Temp);
 }
 
-
-
 /*虚拟示波器的输出函数*/
  void VS4Channal_Send(int16_t n_dataCH1, int16_t n_dataCH2, int16_t n_dataCH3, int16_t n_dataCH4)
 {      
@@ -41,6 +39,6 @@ unsigned short CRC_CHECK(unsigned char * Buf, unsigned char CRC_CNT)
     CRC16 = CRC_CHECK(SendData, 8);
     SendData[8] = CRC16 % 256;
     SendData[9] = CRC16 / 256;
-
-//		USART1_sendData(SendData,10);
+	
+	  USART1_Send(SendData,10);
 }

@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 定时器3（电机报文发送）
- * @version: 第一版
- * @Author: 叮咚蛋
- * @Date: 2020-10-17 14:52:41
- * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 19:17:59
- * @FilePath: \MotoPro\USER\SRC\tim3.c
- */
 #include "tim3.h"
 #include "pid.h"
 #include "can2.h"

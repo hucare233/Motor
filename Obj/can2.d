@@ -1,2 +1,17 @@
 .\obj\can2.o: USER\SRC\can2.c
 .\obj\can2.o: .\USER\INC\can2.h
+.\obj\can2.o: .\GeneralFunction\inc\sys.h
+.\obj\can2.o: .\Libraries\CMSIS\stm32f4xx.h
+.\obj\can2.o: E:\mdk\ARM\CMSIS\4.2.0\CMSIS\Include\core_cm4.h
+.\obj\can2.o: E:\mdk\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\can2.o: E:\mdk\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmInstr.h
+.\obj\can2.o: E:\mdk\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmFunc.h
+.\obj\can2.o: E:\mdk\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmSimd.h
+.\obj\can2.o: .\Libraries\CMSIS\system_stm32f4xx.h
+.\obj\can2.o: .\USER\INC\stm32f4xx_conf.h
+.\obj\can2.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
+.\obj\can2.o: .\Libraries\CMSIS\stm32f4xx.h
+.\obj\can2.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h
+.\obj\can2.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
+.\obj\can2.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h
+.\obj\can2.o: .\USER\INC\delay.h

@@ -88,9 +88,9 @@
 #define GPIO_D 				3
 #define GPIO_E 				4
 #define GPIO_F 				5
-#define GPIO_G 				6 
-#define GPIO_H 				7 
-#define GPIO_I 				8 
+#define GPIO_G 				6
+#define GPIO_H 				7
+#define GPIO_I 				8
 
 #define FTIR   				1  		//下降沿触发
 #define RTIR   				2  		//上升沿触发

@@ -15,7 +15,8 @@
                 "E:\\NEW_mdk\\ARM\\ARMCC\\include\\rw",
                 "c:\\Users\\huzhijie\\Desktop\\MotoPro\\USER\\SRC",
                 "c:\\Users\\huzhijie\\Desktop\\MotoPro\\GeneralFunction\\src",
-                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\Libraries\\STM32F4xx_StdPeriph_Driver\\src"
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\Libraries\\STM32F4xx_StdPeriph_Driver\\src",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro"
             ],
             "defines": [
                 "USE_STDPERIPH_DRIVER",
