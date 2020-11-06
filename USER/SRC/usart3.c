@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-06 20:56:56
+ * @LastEditTime: 2020-11-06 21:01:55
  * @FilePath: \MotoPro\USER\SRC\usart3.c
  */
 #include "usart3.h"
@@ -48,8 +48,8 @@ void USART3_Init()
 	USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
 
 	NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 
 	NVIC_Init(&NVIC_InitStructure);

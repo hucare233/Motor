@@ -1,5 +1,5 @@
 
-# Funcition:
+# Funcition
 
 ![logo](\md_pictures\logo.png)
 ![bejite](\md_pictures\bejite.png)
@@ -16,13 +16,13 @@
 |中断/事件|抢占优先级|响应优先级|用途|
 |:-:|:-:|:-:|:-:|
 |TIM3_IRQn|1|0|VESC、DJ电机驱动|
-|TIM2_IRQn|1|1|电机超时检测|
+|TIM2_IRQn|2|2|电机超时检测|
 |CAN2_RX0_IRQn|2|0|DJ报文获取|
 |CAN2_RX1_IRQn|2|1|ELMO/VESC/EPOS报文获取|
 |CAN1_RX0_IRQn|3|0|主控|
 |USART2_IRQn|4|1|串口屏|
 |USART2_DMA|7|1||
-|USART1_DMA|5|1|虚拟示波器|
+|USART1_DMA|6|1|虚拟示波器|
 |USART3_IRQn|4|0|编码器|
 
 ---  
@@ -213,7 +213,8 @@
 
 # --to be continue
 
-## 一只19级的咸鱼
+# 一只19级的咸鱼
+
 [fad]: \md_pictures\fad.png
 [shuai]: \md_pictures\shuai.png
 [xk]: \md_pictures\xk.png

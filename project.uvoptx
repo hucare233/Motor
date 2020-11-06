@@ -417,7 +417,7 @@
 
   <Group>
     <GroupName>WHULIB</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -428,8 +428,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\USER\SRC\canctrllist.c</PathWithFileName>
-      <FilenameWithoutPath>canctrllist.c</FilenameWithoutPath>
+      <PathWithFileName>.\USER\SRC\motor.c</PathWithFileName>
+      <FilenameWithoutPath>motor.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -452,8 +452,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\USER\SRC\epos.c</PathWithFileName>
-      <FilenameWithoutPath>epos.c</FilenameWithoutPath>
+      <PathWithFileName>.\USER\SRC\vesc.c</PathWithFileName>
+      <FilenameWithoutPath>vesc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -464,8 +464,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\USER\SRC\motor.c</PathWithFileName>
-      <FilenameWithoutPath>motor.c</FilenameWithoutPath>
+      <PathWithFileName>.\USER\SRC\epos.c</PathWithFileName>
+      <FilenameWithoutPath>epos.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -488,8 +488,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\USER\SRC\vesc.c</PathWithFileName>
-      <FilenameWithoutPath>vesc.c</FilenameWithoutPath>
+      <PathWithFileName>.\USER\SRC\canctrllist.c</PathWithFileName>
+      <FilenameWithoutPath>canctrllist.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -601,7 +601,7 @@
 
   <Group>
     <GroupName>GeneralFunction</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -624,8 +624,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\GeneralFunction\src\visual_scope.c</PathWithFileName>
-      <FilenameWithoutPath>visual_scope.c</FilenameWithoutPath>
+      <PathWithFileName>.\GeneralFunction\src\sys.c</PathWithFileName>
+      <FilenameWithoutPath>sys.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -636,8 +636,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\GeneralFunction\src\sys.c</PathWithFileName>
-      <FilenameWithoutPath>sys.c</FilenameWithoutPath>
+      <PathWithFileName>.\GeneralFunction\src\visual_scope.c</PathWithFileName>
+      <FilenameWithoutPath>visual_scope.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

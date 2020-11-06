@@ -444,9 +444,9 @@
           <GroupName>WHULIB</GroupName>
           <Files>
             <File>
-              <FileName>canctrllist.c</FileName>
+              <FileName>motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\USER\SRC\canctrllist.c</FilePath>
+              <FilePath>.\USER\SRC\motor.c</FilePath>
             </File>
             <File>
               <FileName>elmo.c</FileName>
@@ -454,14 +454,14 @@
               <FilePath>.\USER\SRC\elmo.c</FilePath>
             </File>
             <File>
+              <FileName>vesc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\USER\SRC\vesc.c</FilePath>
+            </File>
+            <File>
               <FileName>epos.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\USER\SRC\epos.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\USER\SRC\motor.c</FilePath>
             </File>
             <File>
               <FileName>queue.c</FileName>
@@ -469,9 +469,9 @@
               <FilePath>.\USER\SRC\queue.c</FilePath>
             </File>
             <File>
-              <FileName>vesc.c</FileName>
+              <FileName>canctrllist.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\USER\SRC\vesc.c</FilePath>
+              <FilePath>.\USER\SRC\canctrllist.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -529,14 +529,14 @@
               <FilePath>.\GeneralFunction\src\dma.c</FilePath>
             </File>
             <File>
-              <FileName>visual_scope.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\GeneralFunction\src\visual_scope.c</FilePath>
-            </File>
-            <File>
               <FileName>sys.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GeneralFunction\src\sys.c</FilePath>
+            </File>
+            <File>
+              <FileName>visual_scope.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GeneralFunction\src\visual_scope.c</FilePath>
             </File>
             <File>
               <FileName>DataScope_DP.C</FileName>
