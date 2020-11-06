@@ -57,3 +57,4 @@
 .\obj\main.o: .\USER\INC\pstwo.h
 .\obj\main.o: .\GeneralFunction\inc\visual_scope.h
 .\obj\main.o: .\USER\INC\usart1.h
+.\obj\main.o: .\GeneralFunction\inc\DataScope_DP.h

@@ -9,12 +9,12 @@ FlagTypeDef flag;
 void param_Init(void)
 {
   ELMO_Motor_Init();
-	ELMO_Init(CAN2);
-	EPOS_Motor_Init();
-	EPOS_Init(CAN2);
-	Motor_Init();
-	VESCInit();
-	Flag_Init();
+  ELMO_Init(CAN2);
+  EPOS_Motor_Init();
+  EPOS_Init(CAN2);
+  Motor_Init();
+  VESCInit();
+  Flag_Init();
   {
     for (int i = 0; i < 2; i++)
     {

@@ -538,6 +538,11 @@
               <FileType>1</FileType>
               <FilePath>.\GeneralFunction\src\sys.c</FilePath>
             </File>
+            <File>
+              <FileName>DataScope_DP.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GeneralFunction\src\DataScope_DP.C</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

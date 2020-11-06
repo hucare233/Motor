@@ -1,5 +1,21 @@
+/*
+ * @Descripttion: pid控制
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:08:18
+ * @FilePath: \MotoPro\USER\SRC\pid.c
+ */
 #include "pid.h"
 #include "can2.h"
+
+/**
+ * @author: 叮咚蛋
+ * @brief: pid初始化
+ * @param PID_setTypeDef
+ */
+
 void PID_Init(PID_setTypeDef *PID, float KP, float KI, float KD, float KS, s32 Set)
 {
 	PID->CurVal = 0;
@@ -13,6 +29,12 @@ void PID_Init(PID_setTypeDef *PID, float KP, float KI, float KD, float KS, s32 S
 	PID->uKS_Coe = KS;
 }
 
+/**
+ * @author: 叮咚蛋
+ * @brief: 进行pid运算
+ * @param PID_setTypeDef
+ */
+
 void PID_Operation(PID_setTypeDef *PID)
 {
 	PID->liEkVal[0] = PID->SetVal - PID->CurVal;
@@ -20,6 +42,12 @@ void PID_Operation(PID_setTypeDef *PID)
 	PID->liEkVal[2] = PID->liEkVal[1];
 	PID->liEkVal[1] = PID->liEkVal[0];
 }
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 发送DJ id 5-7
+ */
+
 void SetM3508_2(short ID5, short ID6, short ID7, short ID8) //发送5-8电机
 {
 
@@ -74,6 +102,11 @@ void SetM3508_2(short ID5, short ID6, short ID7, short ID8) //发送5-8电机
 	CAN_Transmit(CAN2, &tx_message);
 }
 
+/**
+ * @author: 叮咚蛋
+ * @brief: 发送电流 id 1-4
+ */
+
 void SetM3508_1(short ID1, short ID2, short ID3, short ID4) //发送1-4电机
 {
 	unsigned short can_id = 0x000;
@@ -126,6 +159,11 @@ void SetM3508_1(short ID1, short ID2, short ID3, short ID4) //发送1-4电机
 	}
 	CAN_Transmit(CAN2, &tx_message);
 }
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 电流限制
+ */
 
 void peakcurrent(void)
 {

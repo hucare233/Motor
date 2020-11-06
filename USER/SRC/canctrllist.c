@@ -1,8 +1,22 @@
+/*
+ * @Descripttion: 报文控制表
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:10:42
+ * @FilePath: \MotoPro\USER\SRC\canctrllist.c
+ */
 #include "canctrllist.h"
 
 CAN_ProcedureTypeDef CAN_Procedure;
 
-/****初始化CAN报文控制表****/
+/**
+ * @author: 叮咚蛋
+ * @brief: 初始化报文控制表
+ * @param MesgControlGrpTypeDef
+ */
+
 void InitCANControlList(MesgControlGrpTypeDef *CAN_MesgSentList, u8 CAN_x)
 {
 	u8 CAN_NodeNumber = 0;
@@ -28,7 +42,14 @@ void InitCANControlList(MesgControlGrpTypeDef *CAN_MesgSentList, u8 CAN_x)
 		CAN_MesgSentList[i].SentQueue.Can_DataSend[0].InConGrpFlag = 0;
 	}
 }
-/****遍历已发送报文状态****/
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 遍历报文发送状态
+ * @param MesgControlGrpTypeDef 
+ * @param Can_QueueTypeDef
+ */
+
 void TraversalControlList(MesgControlGrpTypeDef *CAN_MesgSentList, Can_QueueTypeDef *can_queue, u8 CAN_x)
 {
 	u8 CAN_NodeNumber = 0;
@@ -97,7 +118,11 @@ void TraversalControlList(MesgControlGrpTypeDef *CAN_MesgSentList, Can_QueueType
 	}
 }
 
-/****将正要出队的报文放入对应板子的控制块中****/
+/**
+ * @author: 叮咚蛋
+ * @brief: 对应报文放入控制块中
+ */
+
 void Can_MesgCtrlList(MesgControlGrpTypeDef *CAN_MesgSentList, Can_QueueTypeDef *can_queue, u8 CAN_x)
 {
 	u8 CAN_NodeNumber = 0;

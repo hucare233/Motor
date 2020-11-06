@@ -26,6 +26,7 @@
 ".\obj\dma.o"
 ".\obj\visual_scope.o"
 ".\obj\sys.o"
+".\obj\datascope_dp.o"
 ".\obj\misc.o"
 ".\obj\stm32f4xx_can.o"
 ".\obj\stm32f4xx_dma.o"

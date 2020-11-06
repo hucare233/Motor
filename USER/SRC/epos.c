@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: µÚ¶þ°æ
+ * @Author: ¶£ßËµ°
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: ¶£ßËµ°
+ * @LastEditTime: 2020-11-06 20:13:50
+ * @FilePath: \MotoPro\USER\SRC\epos.c
+ */
 #include "epos.h"
 #include "macro.h"
 /*

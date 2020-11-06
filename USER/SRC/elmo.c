@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:31:23
+ * @FilePath: \MotoPro\USER\SRC\elmo.c
+ */
 #include "elmo.h"
 #include "queue.h"
 ELMOParam Flat90, U10, EC_4P_30;
@@ -297,6 +306,173 @@ void Elmo_Motor_JV(u32 ID, s32 JV, u8 InConGrpFlag)
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
 		EncodeS32Data(&Jv, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+void Elmo_Motor_RM(u32 ID, s32 data, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'R';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'M';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&data, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+void Elmo_Motor_PV(u32 ID, u8 PV, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'P';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'V';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4] = PV;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[5] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[6] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[7] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+void Elmo_Motor_MP(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'M';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'P';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = Sub;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&data, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+void Elmo_Motor_QP(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'Q';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'P';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = Sub;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&data, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+void Elmo_Motor_QT(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'Q';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'T';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = Sub;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&data, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+void Elmo_Motor_QV(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'Q';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'V';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = Sub;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&data, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+void Elmo_Motor_PT(u32 ID, u8 PT, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'P';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'T';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4] = PT;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[5] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[6] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[7] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
 	}
 	Can2_Sendqueue.Rear = Rear2;

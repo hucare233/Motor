@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: DJ电机
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:13:55
+ * @FilePath: \MotoPro\USER\SRC\motor.c
+ */
 #include "motor.h"
 
 MotorParam M2006instrin, M3508instrin;

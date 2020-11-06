@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 第一版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:14:12
+ * @FilePath: \MotoPro\USER\SRC\queue.c
+ */
 #include "queue.h"
 
 /****相关结构体定义****/

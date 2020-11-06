@@ -67,6 +67,11 @@ typedef struct{
 		bool um;
 	  bool jv;
 	  bool st;
+    bool px;
+    bool mp;
+    bool qt;
+    bool qv;
+    bool rm;
 }ELMOflag;
 /****ELMO限制保护结构体****/
 typedef struct{
@@ -116,15 +121,22 @@ void Elmo_Motor_BG(u32 ID,u8 InConGrpFlag) ;
 void Elmo_Motor_Enable_Or_Disable(u32 ID,u8 enable_or_disable,u8 InConGrpFlag);
 void Elmo_Motor_SV(u32 ID,u8 InConGrpFlag) ;
 void Elmo_Motor_UM(u32 ID,u8 UM,u8 InConGrpFlag) ;
+void Elmo_Motor_PT(u32 ID,u8 PT,u8 InConGrpFlag) ;
+void Elmo_Motor_PV(u32 ID,u8 PV,u8 InConGrpFlag) ;
 void ELMO_Init(CAN_TypeDef* CANx);
 void ELMO_Motor_Init(void);
 void elmo_control(u32 id);
 void Elmo_Motor_PX(u32 ID,s32 data,u8 InConGrpFlag);
 void Elmo_Motor_JV(u32 ID,s32 JV,u8 InConGrpFlag);
 void Elmo_Motor_ST(u32 ID,u8 InConGrpFlag);
+void Elmo_Motor_RM(u32 ID,s32 data,u8 InConGrpFlag);
 void Elmo_Motor_ASKjv(u32 ID,u8 InConGrpFlag);   
 void Elmo_Motor_ASKsp(u32 ID,u8 InConGrpFlag);
 void Elmo_Motor_ASKum(u32 ID,u8 InConGrpFlag); 
 void Elmo_Motor_ASKpx(u32 ID,u8 InConGrpFlag);  
-void Elmo_Motor_ASKpa(u32 ID,u8 InConGrpFlag);  
+void Elmo_Motor_ASKpa(u32 ID,u8 InConGrpFlag); 
+void Elmo_Motor_MP(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag); 
+void Elmo_Motor_QP(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag); 
+void Elmo_Motor_QT(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag); 
+void Elmo_Motor_QV(u32 ID,u8 Sub,s32 data,u8 InConGrpFlag); 
 #endif

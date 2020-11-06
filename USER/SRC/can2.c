@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 电机报文
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:07:36
+ * @FilePath: \MotoPro\USER\SRC\can2.c
+ */
 #include "can2.h"
 #include "delay.h"
 #include "motor.h"
@@ -196,7 +205,7 @@ void CAN2_RX0_IRQHandler(void)
 		motor[id].valueReal.pulseRead = (RxMessage.Data[0] << 8) | (RxMessage.Data[1]);
 		motor[id].valueReal.current = (RxMessage.Data[4] << 8) | (RxMessage.Data[5]);
 		motor[id].valueReal.tempeture = RxMessage.Data[6];
-		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO /motor[id].intrinsic.GearRatio/ motor[id].intrinsic.PULSE;
+		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
 	}
 	CAN_ClearITPendingBit(CAN2, CAN_IT_FMP0);
 	CAN_ClearFlag(CAN2, CAN_IT_FMP0);

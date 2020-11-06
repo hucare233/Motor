@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 定时器2超时检测
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:06:39
+ * @FilePath: \MotoPro\USER\SRC\tim2.c
+ */
 #include "tim2.h"
 
 void TIM2_Configuration(void)

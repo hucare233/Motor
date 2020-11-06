@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 主控通信
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:07:30
+ * @FilePath: \MotoPro\USER\SRC\can1.c
+ */
 #include "can1.h"
 
 static s16 s16TempData[4];

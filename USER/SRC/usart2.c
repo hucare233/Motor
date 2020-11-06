@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 串口屏
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:08:04
+ * @FilePath: \MotoPro\USER\SRC\usart2.c
+ */
 #include "usart2.h"
 void USART2_Configuration()
 {
@@ -75,8 +84,8 @@ void USART2_IRQHandler(void)
         switch (usart.RxBuffer_USART2[5])
         {
         case 0x08:
-          RESET_PRO    //可以正常使用， 应该是软件bug
-          break;
+          RESET_PRO //可以正常使用， 应该是软件bug
+              break;
         default:;
         }
       }

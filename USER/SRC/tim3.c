@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 定时器三，报文发送
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:07:17
+ * @FilePath: \MotoPro\USER\SRC\tim3.c
+ */
 #include "tim3.h"
 #include "pid.h"
 #include "can2.h"
@@ -20,7 +29,7 @@ void TIM3_Init(void)
     TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE); //允许定时器3更新中断
     TIM_Cmd(TIM3, ENABLE);                     //使能定时器3
 
-    NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;              //定时器3中断
+    NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;           //定时器3中断
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; //抢占优先级1
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;        //子优先级2
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -62,8 +71,8 @@ void TIM3_IRQHandler(void)
         }
         peakcurrent(); //DJ电流限制
 
-        SetM3508_1(motor[0].valueSet.current ,motor[1].valueSet.current,  motor[2].valueSet.current, motor[3].valueSet.current);
-        SetM3508_2(motor[4].valueSet.current ,motor[5].valueSet.current,  motor[6].valueSet.current, motor[7].valueSet.current);
+        SetM3508_1(motor[0].valueSet.current, motor[1].valueSet.current, motor[2].valueSet.current, motor[3].valueSet.current);
+        SetM3508_2(motor[4].valueSet.current, motor[5].valueSet.current, motor[6].valueSet.current, motor[7].valueSet.current);
 #endif
 #ifdef USE_VESC
         for (int i = 0; i < 8; i++)

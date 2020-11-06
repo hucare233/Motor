@@ -20,6 +20,7 @@
 #include "usart2.h"
 #include "pstwo.h"
 #include "visual_scope.h"
+#include "DataScope_DP.h"
 /****UCOSII任务设置****/
 //START任务
 #define START_TASK_PRIO         5
@@ -68,5 +69,10 @@ static void Task_VESC(void *pdata);
 #define SCOPE_STK_SIZE			128
 __align(8) OS_STK SCOPE_TASK_STK[SCOPE_STK_SIZE];
 static void Task_Scope(void *pdata);
+
+#define DataSCOPE_TASK_PRIO			14
+#define DataSCOPE_STK_SIZE			128
+__align(8) OS_STK DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE];
+static void Task_DataScope(void *pdata);
 
 #endif
