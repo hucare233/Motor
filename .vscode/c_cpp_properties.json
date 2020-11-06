@@ -3,19 +3,19 @@
         {
             "name": "Target 1",
             "includePath": [
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\GeneralFunction\\inc",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\Libraries\\CMSIS",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\Libraries\\Startup",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\Libraries\\STM32F4xx_StdPeriph_Driver\\inc",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\uCOSII\\CONFIG",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\uCOSII\\CORE",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\uCOSII\\PORT",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\USER\\INC",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\GeneralFunction\\inc",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\Libraries\\CMSIS",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\Libraries\\Startup",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\Libraries\\STM32F4xx_StdPeriph_Driver\\inc",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\uCOSII\\CONFIG",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\uCOSII\\CORE",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\uCOSII\\PORT",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\USER\\INC",
                 "E:\\NEW_mdk\\ARM\\ARMCC\\include",
                 "E:\\NEW_mdk\\ARM\\ARMCC\\include\\rw",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\USER\\SRC",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\GeneralFunction\\src",
-                "c:\\Users\\huzhijie\\Desktop\\F4舵机板\\Libraries\\STM32F4xx_StdPeriph_Driver\\src"
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\USER\\SRC",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\GeneralFunction\\src",
+                "c:\\Users\\huzhijie\\Desktop\\MotoPro\\Libraries\\STM32F4xx_StdPeriph_Driver\\src"
             ],
             "defines": [
                 "USE_STDPERIPH_DRIVER",
