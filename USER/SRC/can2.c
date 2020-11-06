@@ -17,7 +17,7 @@ u32 timeout_ticks = 2000; //200ms
 s16 timeout_counts = 0;	  //超时计数
 u32 last_update_time[8] = {0};
 u32 now_update_time[8] = {0};
-bool clear_flag[8]={0};
+bool clear_flag[8] = {0};
 //CAN初始化
 //tsjw:重新同步跳跃时间单元.范围:CAN_SJW_1tq~ CAN_SJW_4tq
 //tbs2:时间段2的时间单元.   范围:CAN_BS2_1tq~CAN_BS2_8tq;
@@ -191,7 +191,7 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 void CAN2_RX0_IRQHandler(void)
 {
 	CanRxMsg RxMessage;
-    
+
 	CAN_Receive(CAN2, 0, &RxMessage);
 	if (
 		(RxMessage.IDE == CAN_Id_Standard)												   //标准帧、
@@ -206,13 +206,13 @@ void CAN2_RX0_IRQHandler(void)
 		motor[id].valueReal.current = (RxMessage.Data[4] << 8) | (RxMessage.Data[5]);
 		motor[id].valueReal.tempeture = RxMessage.Data[6];
 		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
-		if(!clear_flag[id])  //上电第一次进中断清除位置计算误差。
+		if (!motor[id].status.clearFlag) //上电第一次进中断清除位置计算误差。
 		{
-       clear_flag[id]=true;
-		   motor[id].argum.distance=0;
+			motor[id].status.clearFlag;
+			motor[id].argum.distance = 0;
 		}
 	}
-	
+
 	CAN_ClearITPendingBit(CAN2, CAN_IT_FMP0);
 	CAN_ClearFlag(CAN2, CAN_IT_FMP0);
 }

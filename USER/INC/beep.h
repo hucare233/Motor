@@ -10,12 +10,11 @@
 #include "delay.h"
 #include "param.h"
 
+#define BEEP_OFF GPIOA->BSRRH = GPIO_Pin_8
 
-#define BEEP_OFF      GPIOA->BSRRH = GPIO_Pin_8
+#define BEEP_ON GPIOA->BSRRL = GPIO_Pin_8
 
-#define BEEP_ON       GPIOA->BSRRL = GPIO_Pin_8
-
-#define BEEP_TOGGLE	   GPIOA->ODR ^= GPIO_Pin_8
+#define BEEP_TOGGLE GPIOA->ODR ^= GPIO_Pin_8
 
 void Beep_Init(void);
 

@@ -6,7 +6,7 @@
 #include "includes.h"
 
 /****CAN报文流程号****/
-typedef struct 
+typedef struct
 {
   vu8 order_valid; //当前有效报文流程号
   vu8 order_real;  //当前报文流程号

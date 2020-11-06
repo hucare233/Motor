@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 第一版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-07 00:12:47
+ * @FilePath: \MotoPro\USER\INC\pstwo.h
+ */
 #ifndef __PSTWO_H
 #define __PSTWO_H
 #include "stm32f4xx.h"
