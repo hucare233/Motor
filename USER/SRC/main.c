@@ -1,5 +1,5 @@
 #include "main.h"
-
+s32 pwm;
 int main(void)
 
 {
@@ -16,6 +16,7 @@ int main(void)
 //	Beep_Show(2);
 	//Sound(2);
 	//play_Music_1();
+	pwm=600;
 	while(1)
 	{
                Delay_ms(10);
@@ -23,7 +24,7 @@ int main(void)
 //               else led0pwmval--; //dir==0 led0pwmval 递减
 //               if(led0pwmval>8000)dir=0;//led0pwmval 到达 300 后，方向为递减
 //                   if(led0pwmval==0)dir=1; //led0pwmval 递减到 0 后，方向改为递增
-                TIM_SetCompare2(TIM2,4400); //修改比较值，修改占空比
+                TIM_SetCompare2(TIM2,pwm); //修改比较值，修改占空比
 		            TIM_SetCompare1(TIM3,4400);
 		            TIM_SetCompare2(TIM4,4400);
 	}            
