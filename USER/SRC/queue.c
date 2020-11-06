@@ -1,6 +1,6 @@
 /*
- * @Descripttion: 
- * @version: 第一版
+ * @Descripttion: can队列
+ * @version: 第二版
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
@@ -76,7 +76,7 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 		TxMessage.DLC = can_queue->Can_DataSend[can_queue->Front].DLC;
 		TxMessage.RTR = CAN_RTR_DATA;
 		memcpy(TxMessage.Data, (can_queue->Can_DataSend[can_queue->Front].Data), TxMessage.DLC * sizeof(uint8_t));
-		can_queue->Can_DataSend[can_queue->Front].InConGrpFlag=0;      //出队flag清0
+		can_queue->Can_DataSend[can_queue->Front].InConGrpFlag = 0; //出队flag清0
 		can_queue->Front = (can_queue->Front + 1) % CAN_QUEUESIZE;
 
 		/****保护措施****/

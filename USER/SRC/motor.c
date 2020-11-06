@@ -15,10 +15,15 @@ MotorArgum Motorargum;
 DJmotor motor[8];
 Djflag DJflag;
 bool enable_or_dis;
-u32  angle;
-u32  Speed;
+u32 angle;
+u32 Speed;
 bool ifbegin;
-//电机参数初始化
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 电机参数初始化
+ */
+
 void Motor_Init(void)
 {
   { //电机内参
@@ -44,7 +49,7 @@ void Motor_Init(void)
   }
   {                                 //电机其他参数设置
     Motorargum.timeoutTicks = 2000; //2000ms
-		Motorargum.lockPulse=0;
+    Motorargum.lockPulse = 0;
   }
   /****0号电机初始化****/
   motor[0].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
@@ -141,22 +146,26 @@ void Motor_Init(void)
   PID_Init(&motor[7].PIDx, 8, 0.2, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
   PID_Init(&motor[7].PIDs, 8, 0.3, 0, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[7].limit = Motorlimit;
-	for(int i=0;i<8;i++)
+  for (int i = 0; i < 8; i++)
   {
-    motor[i].argum=Motorargum;
-    motor[i].argum.maxPulse=motor[i].limit.maxAngle*motor[i].intrinsic.RATIO* motor[i].intrinsic.GearRatio*motor[i].intrinsic.PULSE/360.f;
-    motor[i].valueSet.pulse=motor[i].valueSet.angle* motor[i].intrinsic.GearRatio*motor[i].intrinsic.RATIO*motor[i].intrinsic.PULSE/360.f;
+    motor[i].argum = Motorargum;
+    motor[i].argum.maxPulse = motor[i].limit.maxAngle * motor[i].intrinsic.RATIO * motor[i].intrinsic.GearRatio * motor[i].intrinsic.PULSE / 360.f;
+    motor[i].valueSet.pulse = motor[i].valueSet.angle * motor[i].intrinsic.GearRatio * motor[i].intrinsic.RATIO * motor[i].intrinsic.PULSE / 360.f;
   }
-	{
-	  DJflag.angle=0;
-		DJflag.begin=0;
-		DJflag.enable=0;
-		DJflag.speed=0;
-		DJflag.um=0;
-	}
+  {
+    DJflag.angle = 0;
+    DJflag.begin = 0;
+    DJflag.enable = 0;
+    DJflag.speed = 0;
+    DJflag.um = 0;
+  }
 }
 
-/****设置当前位置为零点****/
+/**
+ * @author: 叮咚蛋
+ * @brief: 设置当前位置为零点
+ */
+
 void setZero(DJmotor *motor)
 {
   motor->status.isSetZero = false;
@@ -164,7 +173,12 @@ void setZero(DJmotor *motor)
   motor->valueReal.angle = 0;
 }
 
-void speed_mode(s16 id) //速度模式
+/**
+ * @author: 叮咚蛋
+ * @brief: 速度模式
+ */
+
+void speed_mode(s16 id)
 {
   motor[id].PIDs.SetVal = motor[id].PIDs.uKS_Coe * motor[id].valueSet.speed;
   motor[id].PIDs.CurVal = motor[id].valueReal.speed;
@@ -172,13 +186,19 @@ void speed_mode(s16 id) //速度模式
   motor[id].valueSet.current += motor[id].PIDs.Udlt;
 }
 
-void position_mode(s16 id) //位置模式
+/**
+ * @author: 叮咚蛋
+ * @brief: 位置模式
+ */
+
+void position_mode(s16 id)
 {
-  motor[id].valueSet.pulse = motor[id].valueSet.angle * motor[id].intrinsic.GearRatio*motor[id].intrinsic.RATIO * motor[id].intrinsic.PULSE / 360.f;
+  motor[id].valueSet.pulse = motor[id].valueSet.angle * motor[id].intrinsic.GearRatio * motor[id].intrinsic.RATIO * motor[id].intrinsic.PULSE / 360.f;
   motor[id].PIDx.SetVal = motor[id].valueSet.pulse;
   if (!motor[id].begin)
-  motor[id].PIDx.SetVal = motor[id].argum.lockPulse; //如果为锁电机状态，位置设定屏蔽，改为锁位置
-	if(motor[id].limit.isPosLimitON) PEAK(motor[id].PIDx.SetVal,motor[id].argum.maxPulse);
+    motor[id].PIDx.SetVal = motor[id].argum.lockPulse; //如果为锁电机状态，位置设定屏蔽，改为锁位置
+  if (motor[id].limit.isPosLimitON)
+    PEAK(motor[id].PIDx.SetVal, motor[id].argum.maxPulse);
   motor[id].PIDx.CurVal = motor[id].valueReal.pulse;
   PID_Operation(&motor[id].PIDx);
   motor[id].PIDs.SetVal = motor[id].PIDx.uKS_Coe * motor[id].PIDx.Udlt;
@@ -187,9 +207,16 @@ void position_mode(s16 id) //位置模式
   motor[id].PIDs.CurVal = motor[id].valueReal.speed;
   PID_Operation(&motor[id].PIDs);
   motor[id].valueSet.current += motor[id].PIDs.Udlt;
-	if(ABS(motor[id].argum.difPulseSet)<60) motor[id].status.arrived=true;//到达指定位置
-  else motor[id].status.arrived=false;
+  if (ABS(motor[id].argum.difPulseSet) < 60)
+    motor[id].status.arrived = true; //到达指定位置
+  else
+    motor[id].status.arrived = false;
 }
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 寻零模式
+ */
 
 void zero_mode(s16 id) //寻零模式
 {
@@ -207,10 +234,16 @@ void zero_mode(s16 id) //寻零模式
     motor[id].valueReal.pulse = 0;
     motor[id].mode = position;
     motor[id].status.zero = 1;
-		motor[id].valueSet.angle=0; 
+    motor[id].valueSet.angle = 0;
   }
 }
-void pulse_caculate(void) //位置计算
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 位置计算
+ */
+
+void pulse_caculate(void)
 {
 
   for (int id = 0; id < 8; id++)
@@ -223,11 +256,17 @@ void pulse_caculate(void) //位置计算
     motor[id].argum.difPulseSet = motor[id].valueSet.pulse - motor[id].valueReal.pulse; //更新误差
     if (motor[id].begin)
       motor[id].argum.lockPulse = motor[id].valueReal.pulse;
-		/* 判断是否需要重置零点 */
-        if(motor[id].status.isSetZero) 
-					setZero(&motor[id]);
+    /* 判断是否需要重置零点 */
+    if (motor[id].status.isSetZero)
+      setZero(&motor[id]);
   }
 }
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 是否堵转
+ * @return 1-正常 0-堵转
+ */
 
 u8 ifstuck(u16 id) //判断是否堵转
 {
@@ -299,6 +338,11 @@ u8 ifstuck(u16 id) //判断是否堵转
   return 0;
 }
 
+/**
+ * @author: 叮咚蛋
+ * @brief: 超时检测
+ */
+
 void iftimeout(u16 id) //超时检测
 {
   if (motor[id].enable == 1)
@@ -329,47 +373,46 @@ void iftimeout(u16 id) //超时检测
   }
 }
 
-
 void djcontrol(void)
 {
- if(DJflag.um)
- {
-	 motor[0].mode=5;
-	 motor[1].mode=5;
-	 motor[2].mode=5;
-	 motor[3].mode=5;
-	 DJflag.um=0;
- }
- if(DJflag.enable)
- {
-   motor[0].enable=enable_or_dis;
-   motor[1].enable=enable_or_dis;
-	 motor[2].enable=enable_or_dis;
-	 motor[3].enable=enable_or_dis;
-	 DJflag.enable=0;
- }
- if(DJflag.begin)
- {
-   motor[0].begin=ifbegin;
-   motor[1].begin=ifbegin;
-	 motor[2].begin=ifbegin;
-	 motor[3].begin=ifbegin;
-	 DJflag.begin=0;
- }
- if(DJflag.speed)
- {
-   motor[0].limit.posSPlimit=Speed;
-	 motor[1].limit.posSPlimit=Speed;
-	 motor[2].limit.posSPlimit=Speed;
-	 motor[3].limit.posSPlimit=Speed;
-	 DJflag.speed=0;
- }
- if(DJflag.angle)
- {
-   motor[0].valueSet.angle=-angle;
-	 motor[1].valueSet.angle=angle;
- 	 motor[2].valueSet.angle=-angle;
-	 motor[3].valueSet.angle=angle;
-	 DJflag.angle=0;
- }
+  if (DJflag.um)
+  {
+    motor[0].mode = 5;
+    motor[1].mode = 5;
+    motor[2].mode = 5;
+    motor[3].mode = 5;
+    DJflag.um = 0;
+  }
+  if (DJflag.enable)
+  {
+    motor[0].enable = enable_or_dis;
+    motor[1].enable = enable_or_dis;
+    motor[2].enable = enable_or_dis;
+    motor[3].enable = enable_or_dis;
+    DJflag.enable = 0;
+  }
+  if (DJflag.begin)
+  {
+    motor[0].begin = ifbegin;
+    motor[1].begin = ifbegin;
+    motor[2].begin = ifbegin;
+    motor[3].begin = ifbegin;
+    DJflag.begin = 0;
+  }
+  if (DJflag.speed)
+  {
+    motor[0].limit.posSPlimit = Speed;
+    motor[1].limit.posSPlimit = Speed;
+    motor[2].limit.posSPlimit = Speed;
+    motor[3].limit.posSPlimit = Speed;
+    DJflag.speed = 0;
+  }
+  if (DJflag.angle)
+  {
+    motor[0].valueSet.angle = -angle;
+    motor[1].valueSet.angle = angle;
+    motor[2].valueSet.angle = -angle;
+    motor[3].valueSet.angle = angle;
+    DJflag.angle = 0;
+  }
 }

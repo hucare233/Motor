@@ -1,3 +1,12 @@
+/*
+ * @Descripttion:矩阵键盘 
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:34:59
+ * @FilePath: \MotoPro\USER\SRC\key.c
+ */
 #include "key.h"
 
 void Key_Configuration()
@@ -8,6 +17,11 @@ void Key_Configuration()
     GPIO_Set(GPIOB, PIN12 | PIN13 | PIN14 | PIN15, GPIO_MODE_OUT, GPIO_OTYPE_PP, GPIO_SPEED_2M, GPIO_PUPD_PU); //行线 推挽输出
     GPIO_Set(GPIOC, PIN6 | PIN7 | PIN8 | PIN9, GPIO_MODE_IN, GPIO_OTYPE_PP, GPIO_SPEED_2M, GPIO_PUPD_PU);      //列线 上拉输入
 }
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 按键检测
+ */
 
 u8 Check_Matrixkey(void)
 {

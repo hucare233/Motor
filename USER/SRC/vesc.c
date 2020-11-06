@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: VESC
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:36:46
+ * @FilePath: \MotoPro\USER\SRC\vesc.c
+ */
 #include "vesc.h"
 
 VESCParam SUNNYSKYinstrin;
@@ -9,7 +18,12 @@ s32 setduty;
 s32 setspeed;
 s32 setosition;
 s32 handlecurect;
-//电机参数初始化
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 电机参数初始化
+ */
+
 void VESCInit(void)
 {
 	{//电机内参

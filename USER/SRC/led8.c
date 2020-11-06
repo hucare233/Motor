@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: ÊýÂë¹Ü
+ * @version: µÚ¶þ°æ
+ * @Author: ¶£ßËµ°
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: ¶£ßËµ°
+ * @LastEditTime: 2020-11-06 20:35:36
+ * @FilePath: \MotoPro\USER\SRC\led8.c
+ */
 #include "led8.h"
 
 const unsigned char LED_table[] = {0x77, 0x41, 0x3B, 0x6B, 0x4D, 0x6E, 0x7E, 0x43, 0x7F, 0x6F, 0x5F, 0x7C, 0x36, 0x79, 0x3E, 0x1E, //0-F

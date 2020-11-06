@@ -1,5 +1,5 @@
 /*
- * @Descripttion: 
+ * @Descripttion: EPOS
  * @version: 第二版
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
@@ -24,6 +24,11 @@ EPOSParam FLat90;
 EPOSLimit EPOSlimit;
 EPOSArgum EPOSargum;
 EPOS_Motor EPOSmotor[5];
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 电机参数初始化
+ */
 
 void EPOS_Motor_Init(void)
 {
@@ -76,9 +81,6 @@ void EPOS_Motor_Init(void)
 		EPOSmotor[3].valSet.current = 100;
 		EPOSmotor[3].valSet.pulse = 0;
 	}
-}
-void EPOS_Init(CAN_TypeDef *CANx)
-{
 	{
 		EPOSflag.bgppm = 0;
 		EPOSflag.bgpvm = 0;
@@ -93,6 +95,15 @@ void EPOS_Init(CAN_TypeDef *CANx)
 		EPOSflag.um = 0;
 		EPOSflag.relieve = 0;
 	}
+}
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 报文初始化
+ */
+
+void EPOS_Init(CAN_TypeDef *CANx)
+{
 	CanTxMsg tx_message;
 	tx_message.StdId = 0x000;
 	tx_message.RTR = CAN_RTR_Data;
@@ -203,8 +214,12 @@ void EPOS_StartMotor(u8 ID, u8 InConGrpFlag)
 	EPOSmotor[ID - 1].argum.timeout = 1;
 	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
 }
-
-void EPOS_AGAINMotorPPM(u8 ID, u8 InConGrpFlag) //启动PPM操作
+/*
+ * @descrription: PPM beigin
+ * @param: ID:  node-ID
+ *         InConGrpFlag: put the CAN message in the control group
+ */
+void EPOS_AGAINMotorPPM(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
@@ -690,7 +705,11 @@ void EPOS_ReadStatusword(u8 ID, u8 InConGrpFlag)
 	}
 	Can2_Sendqueue.Rear = Rear2;
 }
-
+/*
+ * @descrription: boot up
+ * @param: ID:  node-ID
+ *         InConGrpFlag: put the CAN message in the control group
+ */
 void EPOS_BootUP(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)

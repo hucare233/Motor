@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: µÚ¶þ°æ
+ * @Author: ¶£ßËµ°
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: ¶£ßËµ°
+ * @LastEditTime: 2020-11-06 20:34:43
+ * @FilePath: \MotoPro\USER\SRC\delay.c
+ */
 #include "delay.h"
 
 /** 

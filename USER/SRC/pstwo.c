@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 手柄
+ * @version: 第一版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:35:23
+ * @FilePath: \MotoPro\USER\SRC\pstwo.c
+ */
 #include "pstwo.h"
 /*********************************************************
 Copyright (C), 2015-2025, YFRobot.
@@ -90,105 +99,96 @@ void handle_button(void)
 		{
 			Beep_Show(1);
 		}
-			if (true == PS2_R1)
-			{
-				Beep_Show(1);
-			}
-			if (true == PS2_R2)
-			{
-				Beep_Show(2);
-			}
-			if (true == PS2_L1)
-			{
-				Beep_Show(1);
-			}
-			if (true == PS2_L2)
-			{
-				Beep_Show(2);
-			}
-			if (true == PS2_R3)
-			{
-				Beep_Show(3);
-			}
-			if (true == PS2_L3)
-			{
-				Beep_Show(3);
-			}
-			//			if(True == PS2_PINK)
-			//			{
-			//				balance_play();
-			//				my_flag.balance_play;
-			//			}
-			if (true == PS2_BLUE)
-			{
-				Beep_Show(1);
-			}
-			if (true == PS2_GREEN)
-			{
-				Beep_Show(1);
-			}
-			if (true == PS2_RED)
-			{
-				Beep_Show(1);
-			}
-			if (true == PS2_START)
-			{
-				Beep_Show(1);
-			}
+		if (true == PS2_R1)
+		{
+			Beep_Show(1);
+		}
+		if (true == PS2_R2)
+		{
+			Beep_Show(2);
+		}
+		if (true == PS2_L1)
+		{
+			Beep_Show(1);
+		}
+		if (true == PS2_L2)
+		{
+			Beep_Show(2);
+		}
+		if (true == PS2_R3)
+		{
+			Beep_Show(3);
+		}
+		if (true == PS2_L3)
+		{
+			Beep_Show(3);
+		}
+		//			if(True == PS2_PINK)
+		//			{
+		//				balance_play();
+		//				my_flag.balance_play;
+		//			}
+		if (true == PS2_BLUE)
+		{
+			Beep_Show(1);
+		}
+		if (true == PS2_GREEN)
+		{
+			Beep_Show(1);
+		}
+		if (true == PS2_RED)
+		{
+			Beep_Show(1);
+		}
+		if (true == PS2_START)
+		{
+			Beep_Show(1);
+		}
 
-			// L ps2_data[7] 左右摇杆 左0x00 右 0xFF
-			// L ps2_data[8]前后摇杆 前0x00 后0xFF
-			// R ps2_data[5]ps2_data[6]同上
-			if ((127 - ps2_data[6]) > abs(ps2_data[5] - 127)) //up
-			{
-			}
-			if ((127 - ps2_data[6]) < (ps2_data[5] - 127) && (127 - ps2_data[6]) < -(ps2_data[5] - 127)) //down
-			{
-
-			}
-			if ((127 - ps2_data[6]) > (ps2_data[5] - 127) && (127 - ps2_data[6]) < -(ps2_data[5] - 127)) //left
-			{
-
-			}
-			if ((127 - ps2_data[6]) < (ps2_data[5] - 127) && (127 - ps2_data[6]) > -(ps2_data[5] - 127)) //right
-			{
-
-			}
-			if (true == PS2_PAD_UP) //前
-			{
-
-			}
-			if (true == PS2_PAD_DOWN) //后
-			{
-
-			}
-			if (true == PS2_PAD_LEFT) //左
-			{
-
-			}
-			if (true == PS2_PAD_RIGHT) //右
-			{
-
-			}
+		// L ps2_data[7] 左右摇杆 左0x00 右 0xFF
+		// L ps2_data[8]前后摇杆 前0x00 后0xFF
+		// R ps2_data[5]ps2_data[6]同上
+		if ((127 - ps2_data[6]) > abs(ps2_data[5] - 127)) //up
+		{
+		}
+		if ((127 - ps2_data[6]) < (ps2_data[5] - 127) && (127 - ps2_data[6]) < -(ps2_data[5] - 127)) //down
+		{
+		}
+		if ((127 - ps2_data[6]) > (ps2_data[5] - 127) && (127 - ps2_data[6]) < -(ps2_data[5] - 127)) //left
+		{
+		}
+		if ((127 - ps2_data[6]) < (ps2_data[5] - 127) && (127 - ps2_data[6]) > -(ps2_data[5] - 127)) //right
+		{
+		}
+		if (true == PS2_PAD_UP) //前
+		{
+		}
+		if (true == PS2_PAD_DOWN) //后
+		{
+		}
+		if (true == PS2_PAD_LEFT) //左
+		{
+		}
+		if (true == PS2_PAD_RIGHT) //右
+		{
+		}
 		//	ps2_step();
-		
-				//得到手柄模拟量
-				//				lock_yaw += -(ps2_data[5] - 127) * 0.2f;
 
-				//				if(True == my_flag.motor_enable)//只有在使能后才接受模拟量
-				//				{
-				//					fly_lock.roll_set = -(ps2_data[7] - 127) * 0.2f;
-				//					fly_lock.pitch_set = (ps2_data[8] - 127) * 0.2f;
-				//					fly_lock.yaw_set = -(ps2_data[5] - 127) * 0.2f;
-				//					fly_lock.height_set -= (ps2_data[6] - 127) * 0.002f;
-				//				}
-			
+		//得到手柄模拟量
+		//				lock_yaw += -(ps2_data[5] - 127) * 0.2f;
 
-			//			if(fly_lock.height_set > max_height)
-			//				fly_lock.height_set = max_height;//限高
-			//			if(fly_lock.height_set < min_height)
-			//				fly_lock.height_set = min_height;
-		
+		//				if(True == my_flag.motor_enable)//只有在使能后才接受模拟量
+		//				{
+		//					fly_lock.roll_set = -(ps2_data[7] - 127) * 0.2f;
+		//					fly_lock.pitch_set = (ps2_data[8] - 127) * 0.2f;
+		//					fly_lock.yaw_set = -(ps2_data[5] - 127) * 0.2f;
+		//					fly_lock.height_set -= (ps2_data[6] - 127) * 0.002f;
+		//				}
+
+		//			if(fly_lock.height_set > max_height)
+		//				fly_lock.height_set = max_height;//限高
+		//			if(fly_lock.height_set < min_height)
+		//				fly_lock.height_set = min_height;
 	}
 }
 

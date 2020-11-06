@@ -1,11 +1,13 @@
 /*
- * @Author: your name
- * @Date: 2020-09-28 21:07:51
- * @LastEditTime: 2020-10-16 11:55:12
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \Projectf:\MotoPro\USER\SRC\buffer.c
+ * @Descripttion: 数组转换
+ * @version: 第二版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-06 20:34:32
+ * @FilePath: \MotoPro\USER\SRC\buffer.c
  */
+
 #include "buffer.h"
 
 /**
