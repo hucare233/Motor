@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 23:56:35
+ * @LastEditTime: 2020-11-07 08:22:11
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -208,7 +208,7 @@ void CAN2_RX0_IRQHandler(void)
 		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
 		if (!motor[id].status.clearFlag) //上电第一次进中断清除位置计算误差。
 		{
-			motor[id].status.clearFlag;
+			motor[id].status.clearFlag=true;
 			motor[id].argum.distance = 0;
 		}
 	}
