@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 20:13:55
+ * @LastEditTime: 2020-11-07 10:54:41
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -33,8 +33,8 @@ void Motor_Init(void)
     M2006instrin.RATIO = 36;
     M3508instrin.CURRENT_LIMIT = 14745;
     M2006instrin.CURRENT_LIMIT = 9000;
-    M3508instrin.GearRatio = 2.94f;
-    M2006instrin.GearRatio = 2.94f; //外参齿数比
+    M3508instrin.GearRatio = 2.94f; //全局变量
+    M2006instrin.GearRatio = 0.67f; //外参齿数比
   }
   { //电机限制保护设置
     Motorlimit.isPosLimitON = false;
@@ -52,19 +52,21 @@ void Motor_Init(void)
     Motorargum.lockPulse = 0;
   }
   /****0号电机初始化****/
-  motor[0].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[0].intrinsic = M2006instrin; //| M2006instrin  M3508instrin
+  motor[0].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[0].enable = DISABLE;
   motor[0].begin = false;
   motor[0].mode = position; //速度模式
   motor[0].valueSet.angle = 1800;
   motor[0].valueSet.speed = 100;
   motor[0].valueSet.current = 50;
-  PID_Init(&motor[0].PIDx, 8, 0.2, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
-  PID_Init(&motor[0].PIDs, 8, 0.3, 0, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
+  PID_Init(&motor[0].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
+  PID_Init(&motor[0].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[0].limit = Motorlimit;
 
   /****1号电机初始化****/
   motor[1].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[1].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[1].enable = DISABLE;
   motor[1].begin = false;
   motor[1].mode = position; //速度模式
@@ -77,6 +79,7 @@ void Motor_Init(void)
 
   /****2号电机初始化****/
   motor[2].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[2].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[2].enable = DISABLE;
   motor[2].begin = false;
   motor[2].mode = position; //速度模式
@@ -89,6 +92,7 @@ void Motor_Init(void)
 
   /****3号电机初始化****/
   motor[3].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[3].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[3].enable = DISABLE;
   motor[3].begin = false;
   motor[3].mode = position; //速度模式
@@ -101,6 +105,7 @@ void Motor_Init(void)
 
   /****0号电机初始化****/
   motor[4].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[4].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[4].enable = DISABLE;
   motor[4].begin = false;
   motor[4].mode = position; //速度模式
@@ -113,6 +118,7 @@ void Motor_Init(void)
 
   /****5号电机初始化****/
   motor[5].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[5].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[5].enable = DISABLE;
   motor[5].begin = false;
   motor[5].mode = position; //速度模式
@@ -125,6 +131,7 @@ void Motor_Init(void)
 
   /****6号电机初始化****/
   motor[6].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[6].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[6].enable = DISABLE;
   motor[6].begin = false;
   motor[6].mode = position; //速度模式
@@ -137,6 +144,7 @@ void Motor_Init(void)
 
   /****7号电机初始化****/
   motor[7].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
+  motor[7].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[7].enable = DISABLE;
   motor[7].begin = false;
   motor[7].mode = position; //速度模式
