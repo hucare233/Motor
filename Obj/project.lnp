@@ -23,6 +23,7 @@
 ".\obj\led8.o"
 ".\obj\pstwo.o"
 ".\obj\stm32f4xx_it.o"
+".\obj\music.o"
 ".\obj\dma.o"
 ".\obj\sys.o"
 ".\obj\visual_scope.o"

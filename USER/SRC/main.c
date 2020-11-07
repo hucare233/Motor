@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 20:07:45
+ * @LastEditTime: 2020-11-07 19:00:52
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -14,6 +14,7 @@ int main(void)
 	SystemInit();
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置系统中断优先级分组2
 	Beep_Init();
+	//Time_Control_Beep_Init();
 	Key_Ctrl();
 	//PS2_Init();
 	Led8_Configuration();
@@ -39,6 +40,7 @@ static void Task_Start(void *pdata)
 	pdata = pdata;
 	Beep_Show(2);
 	//play_Music_1();   //祝你生日快乐
+	//Play_Music(mzdhlmusic,78);
 	Led8DisData(0);
 	UsartLCDshow();
 	OS_CPU_SysTickInit(); //重要！！！不写没有任务调度

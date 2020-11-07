@@ -1,0 +1,17 @@
+.\obj\music.o: USER\SRC\music.c
+.\obj\music.o: .\USER\INC\music.h
+.\obj\music.o: .\USER\INC\delay.h
+.\obj\music.o: .\Libraries\CMSIS\stm32f4xx.h
+.\obj\music.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm4.h
+.\obj\music.o: E:\NEW_mdk\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\music.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h
+.\obj\music.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h
+.\obj\music.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h
+.\obj\music.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\mpu_armv7.h
+.\obj\music.o: .\Libraries\CMSIS\system_stm32f4xx.h
+.\obj\music.o: .\USER\INC\stm32f4xx_conf.h
+.\obj\music.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
+.\obj\music.o: .\Libraries\CMSIS\stm32f4xx.h
+.\obj\music.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h
+.\obj\music.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h
+.\obj\music.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h

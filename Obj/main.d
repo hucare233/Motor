@@ -55,6 +55,7 @@
 .\obj\main.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma.h
 .\obj\main.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h
 .\obj\main.o: .\USER\INC\pstwo.h
+.\obj\main.o: .\USER\INC\music.h
 .\obj\main.o: .\GeneralFunction\inc\visual_scope.h
 .\obj\main.o: .\USER\INC\usart1.h
 .\obj\main.o: .\GeneralFunction\inc\DataScope_DP.h

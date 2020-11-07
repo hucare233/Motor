@@ -19,6 +19,7 @@
 #include "vesc.h"
 #include "usart2.h"
 #include "pstwo.h"
+#include "music.h"
 #include "visual_scope.h"
 #include "DataScope_DP.h"
 /****UCOSII»ŒŒÒ…Ë÷√****/
