@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 20:06:39
+ * @LastEditTime: 2020-11-09 22:10:47
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -39,7 +39,7 @@ void TIM2_IRQHandler(void)
 		for (u8 i = 0; i < 4; i++)
 		{
 			/* 反馈超时判断 */
-			if (VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks&&(VESCmotor[i].argum.timeout == 1)))
+			if ((VESCmotor[i].argum.timeout = 1)&&VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks&&(VESCmotor[i].argum.timeout == 1)))
 				VESCmotor[i].argum.timeoutCnt++; //反馈超时判断
 			else
 				VESCmotor[i].argum.timeoutCnt = 0;
