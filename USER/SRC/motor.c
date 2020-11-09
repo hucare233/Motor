@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-09 16:51:05
+ * @LastEditTime: 2020-11-09 17:28:31
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -201,7 +201,7 @@ void speed_mode(s16 id)
 
 void position_mode(s16 id)
 {
-  motor[id].valueSet.pulse = motor[id].valueSet.angle * motor[id].intrinsic.GearRatio * motor[id].intrinsic.RATIO * motor[id].intrinsic.PULSE / 360.f;
+  motor[id].valueSet.pulse = motor[id].valueSet.angle  * motor[id].intrinsic.RATIO * motor[id].intrinsic.PULSE / 360.f;
   motor[id].PIDx.SetVal = motor[id].valueSet.pulse;
   if (!motor[id].begin)
     motor[id].PIDx.SetVal = motor[id].argum.lockPulse; //如果为锁电机状态，位置设定屏蔽，改为锁位置
