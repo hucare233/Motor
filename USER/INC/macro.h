@@ -25,7 +25,7 @@
 #define USE_ELMO
 #define USE_EPOS
 #define USE_DJ
-
+#define USE_VESC
 #define backPos 1000 //下压时降低速度的位置
 #elif defined ActionMotor
 #define USE_ELMO

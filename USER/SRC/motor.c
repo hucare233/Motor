@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-08 10:51:43
+ * @LastEditTime: 2020-11-09 16:51:05
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -57,7 +57,7 @@ void Motor_Init(void)
   motor[0].enable = DISABLE;
   motor[0].begin = false;
   motor[0].mode = position; //速度模式
-  motor[0].valueSet.angle = 1800;
+  motor[0].valueSet.angle = 0;
   motor[0].valueSet.speed = 100;
   motor[0].valueSet.current = 50;
   PID_Init(&motor[0].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
@@ -70,7 +70,7 @@ void Motor_Init(void)
   motor[1].enable = DISABLE;
   motor[1].begin = false;
   motor[1].mode = position; //速度模式
-  motor[1].valueSet.angle = 1800;
+  motor[1].valueSet.angle = 0;
   motor[1].valueSet.speed = 100;
   motor[1].valueSet.current = 50;
   PID_Init(&motor[1].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
@@ -83,7 +83,7 @@ void Motor_Init(void)
   motor[2].enable = DISABLE;
   motor[2].begin = false;
   motor[2].mode = position; //速度模式
-  motor[2].valueSet.angle = 1800;
+  motor[2].valueSet.angle = 0;
   motor[2].valueSet.speed = 100;
   motor[2].valueSet.current = 50;
   PID_Init(&motor[2].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
@@ -96,7 +96,7 @@ void Motor_Init(void)
   motor[3].enable = DISABLE;
   motor[3].begin = false;
   motor[3].mode = position; //速度模式
-  motor[3].valueSet.angle = 1800;
+  motor[3].valueSet.angle = 0;
   motor[3].valueSet.speed = 100;
   motor[3].valueSet.current = 50;
   PID_Init(&motor[3].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4

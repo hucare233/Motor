@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-07 08:22:11
+ * @LastEditTime: 2020-11-09 17:09:00
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -358,6 +358,7 @@ void CAN2_RX1_IRQHandler(void)
 		if ((rx_message.IDE == CAN_ID_EXT) && (rx_message.RTR == CAN_RTR_Data)) //VESC±¨ÎÄ
 		{
 			int32_t ind = 0;
+			VESCmotor[rx_message.ExtId & 0xff - 1].argum.timeout = 0;
 			if ((rx_message.ExtId >> 8) == CAN_PACKET_STATUS)
 			{
 				VESCmotor[rx_message.ExtId & 0xff - 1].valReal.speed = (s32)(buffer_32_to_float(rx_message.Data, 1e0, &ind) / VESCmotor[rx_message.ExtId & 0xff].instrinsic.POLE_PAIRS);
@@ -365,7 +366,6 @@ void CAN2_RX1_IRQHandler(void)
 				VESCmotor[rx_message.ExtId & 0xff - 1].valReal.duty = buffer_16_to_float(rx_message.Data, 1e3, &ind);
 			}
 		}
-		VESCmotor[rx_message.ExtId & 0xff - 1].argum.lastRxTim = OSTimeGet();
 #endif
 	}
 }

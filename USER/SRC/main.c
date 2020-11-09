@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-07 19:00:52
+ * @LastEditTime: 2020-11-09 16:43:19
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -58,10 +58,10 @@ static void Task_Start(void *pdata)
 	OSTaskCreate(Task_DataScope, (void *)0, (OS_STK *)&DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE - 1], DataSCOPE_TASK_PRIO);
 #endif
 	/***************电机使能放这里清除起始误差***********/
-	motor[0].enable = ENABLE;
-	motor[1].enable = ENABLE;
-	motor[2].enable = ENABLE;
-	motor[3].enable = ENABLE;
+	//motor[0].enable = ENABLE;
+	//motor[1].enable = ENABLE;
+	//motor[2].enable = ENABLE;
+	//motor[3].enable = ENABLE;
 	OSTaskSuspend(START_TASK_PRIO); //挂起起始任务.
 	OS_EXIT_CRITICAL();				//退出临界区(可以被中断打断)
 }

@@ -91,7 +91,7 @@ void TIM3_IRQHandler(void)
                         VESC_Set_Duty_Cycle(i + 1, VESCmotor[i].valSet.duty, 0);
                         break;
                     case RPM:
-                        VESC_Set_Speed(i + 1, VESCmotor[i].valSet.speed * VESCmotor[i].instrinsic.POLE_PAIRS, 0);
+                        VESC_Set_Speed(i+1, VESCmotor[i].valSet.speed * VESCmotor[i].instrinsic.POLE_PAIRS, 0);
                         break;
                     case brake:
                         VESC_Set_Brake_Current(i + 1, VESCmotor[i].limit.breakCurrent, 0);

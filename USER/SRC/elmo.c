@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 20:48:02
+ * @LastEditTime: 2020-11-08 11:07:07
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -58,7 +58,7 @@ void ELMO_Motor_Init(void)
 	}
 #ifdef SteeringMotor
 	/****0号电机初始化****/
-	ELMOmotor[0].intrinsic = Flat90;
+	ELMOmotor[0].intrinsic = U10;
 	ELMOmotor[0].enable = DISABLE;
 	ELMOmotor[0].mode = RPM;
 	ELMOmotor[0].valSet.angle = 300;
@@ -66,6 +66,30 @@ void ELMO_Motor_Init(void)
 	ELMOmotor[0].valSet.current = 100;
 	ELMOmotor[0].valSet.pulse = 0;
 
+	ELMOmotor[1].intrinsic = U10;
+	ELMOmotor[1].enable = DISABLE;
+	ELMOmotor[1].mode = RPM;
+	ELMOmotor[1].valSet.angle = 300;
+	ELMOmotor[1].valSet.speed = 100;
+	ELMOmotor[1].valSet.current = 100;
+	ELMOmotor[1].valSet.pulse = 0;
+	
+	ELMOmotor[2].intrinsic = U10;
+	ELMOmotor[2].enable = DISABLE;
+	ELMOmotor[2].mode = RPM;
+	ELMOmotor[2].valSet.angle = 300;
+	ELMOmotor[2].valSet.speed = 100;
+	ELMOmotor[2].valSet.current = 100;
+	ELMOmotor[2].valSet.pulse = 0;
+
+	ELMOmotor[3].intrinsic = U10;
+	ELMOmotor[3].enable = DISABLE;
+	ELMOmotor[3].mode = RPM;
+	ELMOmotor[3].valSet.angle = 300;
+	ELMOmotor[3].valSet.speed = 100;
+	ELMOmotor[3].valSet.current = 100;
+	ELMOmotor[3].valSet.pulse = 0;
+	
 #elif defined ActionMotor
 #ifdef PassRobot
 
