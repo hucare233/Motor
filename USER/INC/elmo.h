@@ -118,10 +118,10 @@ typedef struct
 extern ELMOflag ELMOFlag;
 extern ELMO_Motor ELMOmotor[5];
 extern s32 speed;
-extern u8 UM;
-extern s32 PA;
-extern s32 JV;
-extern s32 PX;
+extern u8 Um;
+extern s32 Pa;
+extern s32 Jv;
+extern s32 Px;
 void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag);
 void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag);
 void Elmo_Motor_BG(u32 ID, u8 InConGrpFlag);

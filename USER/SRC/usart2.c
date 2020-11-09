@@ -459,8 +459,8 @@ void USART2_IRQHandler(void)
         {
           if (ELMOmotor[1].mode == 2)
           {
-            JV = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_JV(2, JV, 1);
+            Jv = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_JV(2, Jv, 1);
           }
           else if (ELMOmotor[1].mode == 5)
           {
@@ -474,7 +474,7 @@ void USART2_IRQHandler(void)
           if (ELMOmotor[2].mode == 2)
           {
             JV = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_JV(3, JV, 1);
+            Elmo_Motor_JV(3, Jv, 1);
           }
           else if (ELMOmotor[2].mode == 5)
           {
@@ -488,7 +488,7 @@ void USART2_IRQHandler(void)
           if (ELMOmotor[3].mode == 2)
           {
             JV = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_JV(4, JV, 1);
+            Elmo_Motor_JV(4, Jv, 1);
           }
           else if (ELMOmotor[3].mode == 5)
           {
@@ -500,49 +500,49 @@ void USART2_IRQHandler(void)
         case 0x09:
         {
           PA = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PA(1, PA, 1);
+          Elmo_Motor_PA(1, Pa, 1);
         }
         break;
         case 0x0A:
         {
           PA = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PA(2, PA, 1);
+          Elmo_Motor_PA(2, Pa, 1);
         }
         break;
         case 0x0B:
         {
           PA = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PA(3, PA, 1);
+          Elmo_Motor_PA(3, Pa, 1);
         }
         break;
         case 0x0C:
         {
           PA = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PA(4, PA, 1);
+          Elmo_Motor_PA(4, Pa, 1);
         }
         break;
         case 0x0D:
         {
           PX = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PX(1, PX, 1);
+          Elmo_Motor_PX(1, Px, 1);
         }
         break;
         case 0x0E:
         {
           PX = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PX(2, PX, 1);
+          Elmo_Motor_PX(2, Px, 1);
         }
         break;
         case 0x0F:
         {
           PX = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PX(3, PX, 1);
+          Elmo_Motor_PX(3, Px, 1);
         }
         break;
         case 0x10:
         {
           PX = atof((char *)(&usart.RxBuffer_USART2[7]));
-          Elmo_Motor_PX(4, PX, 1);
+          Elmo_Motor_PX(4, Px, 1);
         }
         break;
         case 0x15:

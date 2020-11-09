@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-08 11:07:07
+ * @LastEditTime: 2020-11-09 22:31:54
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -15,11 +15,11 @@ ELMOArgum ELMOargum;
 ELMO_Motor ELMOmotor[5];
 ELMOflag ELMOFlag;
 s32 speed;
-u8 UM;
+u8 Um;
 u8 enable_or_disable;
-s32 PA;
-s32 JV;
-s32 PX;
+s32 Pa;
+s32 Jv;
+s32 Px;
 /**
  * @author: 叮咚蛋
  * @brief: 电机参数初始化
