@@ -4,7 +4,7 @@
  * @Author: ∂£ﬂÀµ∞
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ∂£ﬂÀµ∞
- * @LastEditTime: 2020-11-09 16:43:19
+ * @LastEditTime: 2020-11-10 08:33:47
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -25,6 +25,7 @@ int main(void)
 	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN≥ı ºªØ
 	CAN1_Configuration();
 	Can_SendqueueInit();  //can∂”¡–≥ı ºªØ
+	InitCANControlList(Can2_MesgSentList, CAN_2);
 	TIM2_Configuration(); //≥¨ ±ºÏ≤‚
 	TIM3_Init();
 	param_Init();
