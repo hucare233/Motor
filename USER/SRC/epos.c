@@ -18,7 +18,7 @@ bool Rel = 1;
 s32 PVMspeed;
 s32 PPMposition;
 s32 PPMspeed;
-s32 mode;
+s32 Mode;
 eposflag EPOSflag;
 EPOSParam FLat90;
 EPOSLimit EPOSlimit;
@@ -732,13 +732,13 @@ void EPOS_CONTROL(u8 id)
 	id = id;
 	if (EPOSflag.um)
 	{
-		EPOS_SetMode(1, mode, 1);
-		EPOS_SetMode(2, mode, 1);
-		EPOS_SetMode(3, mode, 1);
-		EPOS_SetMode(4, mode, 1);
+		EPOS_SetMode(1, Mode, 1);
+		EPOS_SetMode(2, Mode, 1);
+		EPOS_SetMode(3, Mode, 1);
+		EPOS_SetMode(4, Mode, 1);
 		EPOSflag.um = 0;
 	}
-	if (mode == 3) //速度模式
+	if (Mode == 3) //速度模式
 	{
 		if (EPOSflag.setpvmspeed)
 		{
@@ -773,7 +773,7 @@ void EPOS_CONTROL(u8 id)
 			EPOSflag.halt = 0;
 		}
 	}
-	else if (mode == 1) //位置模式
+	else if (Mode == 1) //位置模式
 	{
 		if (EPOSflag.setppmspeed)
 		{

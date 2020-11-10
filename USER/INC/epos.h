@@ -135,7 +135,7 @@ extern bool Rel;
 extern s32 PVMspeed;
 extern s32 PPMposition;
 extern s32 PPMspeed;
-extern s32 mode;
+extern s32 Mode;
 extern eposflag EPOSflag;
 extern EPOSParam FLat90;
 extern EPOSLimit EPOSlimit;

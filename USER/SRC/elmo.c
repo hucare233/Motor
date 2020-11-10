@@ -729,7 +729,7 @@ void elmo_control(u32 id)
 {
 	if (ELMOFlag.um)
 	{
-		Elmo_Motor_UM(id, UM, 1);
+		Elmo_Motor_UM(id, Um, 1);
 		ELMOFlag.um = 0;
 	}
 	Delay_ms(50);
@@ -747,12 +747,12 @@ void elmo_control(u32 id)
 	Delay_ms(50);
 	if (ELMOFlag.jv)
 	{
-		Elmo_Motor_JV(id, JV, 1);
+		Elmo_Motor_JV(id, Jv, 1);
 		ELMOFlag.jv = 0;
 	}
 	if (ELMOFlag.pa)
 	{
-		Elmo_Motor_PA(id, PA, 1);
+		Elmo_Motor_PA(id, Pa, 1);
 		ELMOFlag.pa = 0;
 	}
 	if (ELMOFlag.sp)
