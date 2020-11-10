@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-06 20:13:50
+ * @LastEditTime: 2020-11-10 16:14:08
  * @FilePath: \MotoPro\USER\SRC\epos.c
  */
 #include "epos.h"
@@ -132,6 +132,7 @@ void EPOS_Init(CAN_TypeDef *CANx)
  *                  10 ->  Cyclic Synchronous Torque Mode (CST)
  *          InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_SetMode(u8 ID, s32 mode, u8 InConGrpFlag)
 {
 
@@ -164,10 +165,10 @@ void EPOS_SetMode(u8 ID, s32 mode, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_StartMotor(u8 ID, u8 InConGrpFlag)
 {
 	//Ready to switch on
-
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
 		flag.Can2SendqueueFULL++;
@@ -214,11 +215,13 @@ void EPOS_StartMotor(u8 ID, u8 InConGrpFlag)
 	EPOSmotor[ID - 1].argum.timeout = 1;
 	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
 }
+
 /*
  * @descrription: PPM beigin
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_AGAINMotorPPM(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -258,11 +261,13 @@ void EPOS_AGAINMotorPPM(u8 ID, u8 InConGrpFlag)
 	EPOSmotor[ID - 1].argum.timeout = 1;
 	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
 }
+
 /*
  * @descrription: Diable power section
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_RelieveMotor(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -295,6 +300,7 @@ void EPOS_RelieveMotor(u8 ID, u8 InConGrpFlag)
  *         speed: target velocity
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_SetPVMspeed(u8 ID, s32 speed, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -323,6 +329,7 @@ void EPOS_SetPVMspeed(u8 ID, s32 speed, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_EnableOperation(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -354,6 +361,7 @@ void EPOS_EnableOperation(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_QuickStop(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -385,6 +393,7 @@ void EPOS_QuickStop(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Halt(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -410,11 +419,13 @@ void EPOS_Halt(u8 ID, u8 InConGrpFlag)
 	EPOSmotor[ID - 1].argum.timeout = 1;
 	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
 }
+
 /*
  * @descrription: Set PPM speed
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_SetPPMspeed(u8 ID, s32 speed, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -443,6 +454,7 @@ void EPOS_SetPPMspeed(u8 ID, s32 speed, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_SetPPMposition(u8 ID, s32 position, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -465,11 +477,13 @@ void EPOS_SetPPMposition(u8 ID, s32 position, u8 InConGrpFlag)
 	EPOSmotor[ID - 1].argum.timeout = 1;
 	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
 }
+
 /*
  * @descrription: ASK demand  position
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Askdemandpos(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -501,6 +515,7 @@ void EPOS_Askdemandpos(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Askdactualpos(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -532,6 +547,7 @@ void EPOS_Askdactualpos(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Askdemandspeed(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -563,6 +579,7 @@ void EPOS_Askdemandspeed(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Askactualspeed(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -594,6 +611,7 @@ void EPOS_Askactualspeed(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Askmode(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -625,6 +643,7 @@ void EPOS_Askmode(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Askenable_or_disable(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -656,6 +675,7 @@ void EPOS_Askenable_or_disable(u8 ID, u8 InConGrpFlag)
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_Asktorque(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -682,6 +702,12 @@ void EPOS_Asktorque(u8 ID, u8 InConGrpFlag)
 	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
 }
 
+/*
+ * @descrription: Read status word
+ * @param: ID:  node-ID
+ *         InConGrpFlag: put the CAN message in the control group
+ */
+
 void EPOS_ReadStatusword(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
@@ -705,11 +731,13 @@ void EPOS_ReadStatusword(u8 ID, u8 InConGrpFlag)
 	}
 	Can2_Sendqueue.Rear = Rear2;
 }
+
 /*
  * @descrription: boot up
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
+
 void EPOS_BootUP(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
