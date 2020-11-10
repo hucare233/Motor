@@ -12,7 +12,7 @@
 /****相关结构体定义****/
 Can_ProcedureTypeDef Can_Procedure;
 Can_SendtructTypeDef Can_Sendtruct;
-MesgControlGrpTypeDef Can1_MesgSentList[CAN1_NodeNumber], Can2_elmoMesgSentList[CAN2_NodeNumber], Can2_eposMesgSentList[CAN2_NodeNumber];
+MesgControlGrpTypeDef Can1_MesgSentList[CAN1_NodeNumber], Can2_MesgSentList[CAN2_NodeNumber],Can2_elmoMesgSentList[CAN2_NodeNumber], Can2_eposMesgSentList[CAN2_NodeNumber];
 Can_QueueTypeDef Can_Sentquene, Can1_Sendqueue, Can2_Sendqueue, VESC_Sendqueue;
 
 /****基本数据****/
@@ -49,7 +49,7 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 		flag.CanSendqueueEMPTY = 1;
 	else
 	{
-		if (can_queue->Can_DataSend[can_queue->Front].ID < 0x800)
+		if (can_queue->Can_DataSend[can_queue->Front].ID < 0x800)  //DJ ELMO EPOS报文
 		{
 			TxMessage.IDE = CAN_ID_STD;
 			TxMessage.StdId = can_queue->Can_DataSend[can_queue->Front].ID;
@@ -62,17 +62,13 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 				TxMessage.IDE = CAN_ID_EXT;
 				TxMessage.ExtId = can_queue->Can_DataSend[can_queue->Front].ID;
 			}
-			//			else if((can_queue->Can_DataSend[can_queue->Front].ID>0x600)&&(can_queue->Can_DataSend[can_queue->Front].ID<0x605))  //EPOS的报文格式
-			//			{
-			//			  TxMessage.IDE=CAN_ID_STD;
-			//			  TxMessage.StdId=can_queue->Can_DataSend[can_queue->Front].ID;
-			//			}
 		}
 
-		//		if(CAN1==CANx)
-		//			Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
-		//		else
-		//			Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
+				if(CAN1==CANx)
+					Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
+				else
+					Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
+
 		TxMessage.DLC = can_queue->Can_DataSend[can_queue->Front].DLC;
 		TxMessage.RTR = CAN_RTR_DATA;
 		memcpy(TxMessage.Data, (can_queue->Can_DataSend[can_queue->Front].Data), TxMessage.DLC * sizeof(uint8_t));

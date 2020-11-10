@@ -449,7 +449,7 @@ void Elmo_Motor_PV(u32 ID, u8 PV, u8 InConGrpFlag)
 
 /**
  * @author: 叮咚蛋
- * @brief: 设置PVT数组
+ * @brief: 设置PVT数组  TODO: QP数组的给值要好好研究
  */
 
 void Elmo_Motor_MP(u32 ID, u8 Sub, s32 data, u8 InConGrpFlag)
@@ -561,7 +561,7 @@ void Elmo_Motor_QV(u32 ID, u8 Sub, s32 data, u8 InConGrpFlag)
 
 /**
  * @author: 叮咚蛋
- * @brief: PT模式
+ * @brief: PT模式   //采样时间在MP[4]更改
  */
 
 void Elmo_Motor_PT(u32 ID, u8 PT, u8 InConGrpFlag)

@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 第一版
+ * @Author: 叮咚蛋
+ * @Date: 2020-11-06 19:26:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-10 08:22:57
+ * @FilePath: \MotoPro\USER\INC\queue.h
+ */
 #ifndef _QUEUE_H
 #define _QUEUE_H
 
@@ -56,7 +65,7 @@ typedef struct
 extern Can_ProcedureTypeDef Can_Procedure;
 extern Can_SendtructTypeDef Can_Sendtruct;
 extern Can_QueueTypeDef Can_Sentqueue, Can1_Sendqueue, Can2_Sendqueue, VESC_Sendqueue;
-extern MesgControlGrpTypeDef Can1_MesgSentList[CAN1_NodeNumber], Can2_elmoMesgSentList[CAN2_NodeNumber], Can2_eposMesgSentList[CAN2_NodeNumber];
+extern MesgControlGrpTypeDef Can1_MesgSentList[CAN1_NodeNumber],Can2_MesgSentList[CAN2_NodeNumber], Can2_elmoMesgSentList[CAN2_NodeNumber], Can2_eposMesgSentList[CAN2_NodeNumber];
 
 void Can_SendqueueInit(void);
 bool QueueEmpty(Can_QueueTypeDef *can_queue);

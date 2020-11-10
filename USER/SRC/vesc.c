@@ -8,7 +8,7 @@
  * @FilePath: \MotoPro\USER\SRC\vesc.c
  */
 #include "vesc.h"
-
+//FIXME:位置模式
 VESCParam SUNNYSKYinstrin;
 VESCLimit VESClimit;
 VESCArgum VESCargum;
