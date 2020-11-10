@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-09 17:28:31
+ * @LastEditTime: 2020-11-10 16:01:00
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -303,7 +303,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].status.stuck = 0; //没有堵转
         }
-        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 200)
+        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 100)
         {
           BEEP_ON; //一直响报警
           motor[id].valueSet.speed = 0;
@@ -333,7 +333,7 @@ u8 ifstuck(u16 id) //判断是否堵转
       }
       else
         motor[id].status.stuck = 0; //没有堵转
-      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 200)
+      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 100)
       {
         BEEP_ON;
         motor[id].valueSet.speed = 0;
