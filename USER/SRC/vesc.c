@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-09 17:06:07
+ * @LastEditTime: 2020-11-11 19:03:19
  * @FilePath: \MotoPro\USER\SRC\vesc.c
  */
 #include "vesc.h"
@@ -32,8 +32,9 @@ void VESCInit(void)
 	{
 		//电机限制保护
 
-	} {								   //间值参数设置
-		VESCargum.timeoutTicks = 2000; //2000ms
+	} 
+	{								   //间值参数设置
+		VESCargum.timeoutTicks = 1000; //100ms
 	}
 	/****0号电机初始化****/
 	VESCmotor[0].instrinsic = SUNNYSKYinstrin;

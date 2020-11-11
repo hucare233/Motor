@@ -14,8 +14,8 @@ void TIM2_Configuration(void)
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-	TIM_TimeBaseInitStructure.TIM_Period = 699999; //200ms
-	TIM_TimeBaseInitStructure.TIM_Prescaler = 11;
+	TIM_TimeBaseInitStructure.TIM_Period = 6999; //2ms
+	TIM_TimeBaseInitStructure.TIM_Prescaler =5;
 	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 
