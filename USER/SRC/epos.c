@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-11 19:00:34
+ * @LastEditTime: 2020-11-11 20:28:09
  * @FilePath: \MotoPro\USER\SRC\epos.c
  */
 #include "epos.h"
@@ -263,6 +263,38 @@ void EPOS_AGAINMotorPPM(u8 ID, u8 InConGrpFlag)
 }
 
 /*
+ * @descrription: Start Homing mode
+ * @param: ID:  node-ID
+ *         InConGrpFlag: put the CAN message in the control group
+ */
+
+void EPOS_BeginHHM(u8 ID, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x600 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 0x22;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 0x40;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0x60;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4] = 0x1F;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[5] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[6] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[7] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	EPOSmotor[ID - 1].argum.timeout = 1;
+	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/*
  * @descrription: Diable power section
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
@@ -511,12 +543,102 @@ void EPOS_Askdemandpos(u8 ID, u8 InConGrpFlag)
 }
 
 /*
- * @descrription: ASK actual  position
+ * @descrription: SET HHM offset move distance
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
  */
 
-void EPOS_Askdactualpos(u8 ID, u8 InConGrpFlag)
+void EPOS_Set_HHMoff(u8 ID, s32 position, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x600 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 0x22;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 0xB1;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0x30;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0x00;
+		EncodeS32Data(&position, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	EPOSmotor[ID - 1].argum.timeout = 1;
+	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/*
+ * @descrription: SET HHM Home position
+ * @param: ID:  node-ID
+ *         InConGrpFlag: put the CAN message in the control group
+ */
+
+void EPOS_Set_HHMpos(u8 ID, s32 position, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x600 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 0x22;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 0xB0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0x30;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0x00;
+		EncodeS32Data(&position, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	EPOSmotor[ID - 1].argum.timeout = 1;
+	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/*
+ * @descrription: SET HHM method
+ * @param: ID:  node-ID
+ *         InConGrpFlag: put the CAN message in the control group
+ */
+
+void EPOS_Set_HHMmethod(u8 ID, u8 method, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x600 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0x08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 0x22;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 0x98;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0x60;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4] = method;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[5] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[6] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[7] = 0x00;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	EPOSmotor[ID - 1].argum.timeout = 1;
+	EPOSmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/*
+ * @descrription: ASK actual position
+ * @param: ID:  node-ID
+ *         InConGrpFlag: put the CAN message in the control group
+ */
+
+void EPOS_Askactualpos(u8 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
 	{

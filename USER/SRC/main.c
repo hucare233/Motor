@@ -132,7 +132,7 @@ static void Task_EPOS(void *pdata)
 			EPOS_Askmode(i, 1);
 			EPOS_Askactualspeed(i, 1);
 			EPOS_Askdemandspeed(i, 1);
-			EPOS_Askdactualpos(i, 1);
+			EPOS_Askactualpos(i, 1);
 			EPOS_Askdemandpos(i, 1);
 			EPOS_Asktorque(i, 1);
 		}
