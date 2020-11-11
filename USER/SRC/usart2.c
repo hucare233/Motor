@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-10 08:54:35
+ * @LastEditTime: 2020-11-11 10:16:27
  * @FilePath: \MotoPro\USER\SRC\usart2.c
  */
 #include "usart2.h"
@@ -74,48 +74,56 @@ void USART2_IRQHandler(void)
     if (((USART2_RX_STA & 0x80) != 0)) //串口屏指令判断
     {
       if (usart.RxBuffer_USART2[0] == 0x12) //真实矩阵键盘
-			{
-				Beep_Show(1);
+      {
+        Beep_Show(1);
 
-				switch (usart.RxBuffer_USART2[1])
-				{
-				case 0x00:
-
-					break;
-				case 0x01:
-					break;
-				case 0x02:
-					break;
-				case 0x03:
-					break;
-				case 0x04:
-					break;
-				case 0x05:
-					break;
-				case 0x06:
-					break;
-				case 0x07:
-					break;
-				case 0x08:
-					break;
-				case 0x09:
-					break;
-				case 0x0A:
-					break;
-				case 0x0B:
-					break;
-				case 0x0C:
-					break;
-				case 0x0D:
-					break;
-				case 0x0E:
-					break;
-				case 0x0F:
-					break;
-				default:
-					break;
-				}
-			}
+        switch (usart.RxBuffer_USART2[1])
+        {
+        case 0x00:
+          ENABLE_ALL_DJMOTOR
+          break;
+        case 0x01:
+          DISABLE_ALL_DJMOTOR
+          break;
+        case 0x02:
+          BEGIN_ALL_DJMOTOR
+          break;
+        case 0x03:
+          STOP_ALL_DJMOTOR
+          break;
+        case 0x04:
+          ENABLE_ALL_ELMO
+          break;
+        case 0x05:
+          DISABLE_ALL_ELMO
+          break;
+        case 0x06:
+          BEGIN_ALL_ELMO
+          break;
+        case 0x07:
+          STOP_ALL_ELMO
+          break;
+        case 0x08:
+          break;
+        case 0x09:
+          break;
+        case 0x0A:
+          break;
+        case 0x0B:
+          break;
+        case 0x0C:
+          break;
+        case 0x0D:
+          break;
+        case 0x0E:
+          break;
+        case 0x0F:
+          play_Music_1(); //祝你生日快乐
+          break;
+        default:
+          break;
+        }
+      }
       if (usart.RxBuffer_USART2[1] == 0x01)
       {
         interface = usart.RxBuffer_USART2[3];

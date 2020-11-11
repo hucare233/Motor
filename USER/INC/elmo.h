@@ -35,6 +35,38 @@
 #define Elmo_Motor7_error 0x87
 #define Elmo_Motor8_error 0x88
 
+#define ENABLE_ALL_ELMO                    \
+  {                                        \
+    Elmo_Motor_Enable_Or_Disable(1, 1, 1); \
+    Elmo_Motor_Enable_Or_Disable(2, 1, 1); \
+    Elmo_Motor_Enable_Or_Disable(3, 1, 1); \
+    Elmo_Motor_Enable_Or_Disable(4, 1, 1); \
+  }
+
+#define DISABLE_ALL_ELMO                  \
+  {                                        \
+    Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
+    Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
+    Elmo_Motor_Enable_Or_Disable(3, 0, 1); \
+    Elmo_Motor_Enable_Or_Disable(4, 0, 1); \
+  }
+
+#define BEGIN_ALL_ELMO  \
+  {                      \
+    Elmo_Motor_BG(1, 1); \
+    Elmo_Motor_BG(2, 1); \
+    Elmo_Motor_BG(3, 1); \
+    Elmo_Motor_BG(4, 1); \
+  }
+
+#define STOP_ALL_ELMO  \
+  {                      \
+    Elmo_Motor_ST(1, 1); \
+    Elmo_Motor_ST(2, 1); \
+    Elmo_Motor_ST(3, 1); \
+    Elmo_Motor_ST(4, 1); \
+  }
+
 /****ELMO内参****/
 typedef struct
 {

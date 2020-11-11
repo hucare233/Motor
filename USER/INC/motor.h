@@ -9,6 +9,41 @@
 #include "led.h"
 #include "beep.h"
 #include "led8.h"
+
+#define ENABLE_ALL_DJMOTOR        \
+	{                           \
+		motor[0].enable=1;  \
+		motor[1].enable=1; \
+		motor[2].enable=1; \
+		motor[3].enable=1;\
+	}
+
+#define DISABLE_ALL_DJMOTOR        \
+	{                           \
+		motor[0].enable=0;  \
+		motor[1].enable=0; \
+		motor[2].enable=0; \
+		motor[3].enable=0; \
+	}
+
+#define BEGIN_ALL_DJMOTOR        \
+	{                           \
+		motor[0].begin=1;  \
+		motor[1].begin=1; \
+		motor[2].begin=1; \
+		motor[3].begin=1; \
+	}
+
+#define STOP_ALL_DJMOTOR        \
+	{                           \
+		motor[0].begin=0;  \
+		motor[1].begin=0; \
+		motor[2].begin=0; \
+		motor[3].begin=0; \
+	}
+
+
+
 /****电机模式****/
 enum MOTOR_MODE
 {
