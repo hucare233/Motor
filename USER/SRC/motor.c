@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-10 16:01:00
+ * @LastEditTime: 2020-11-13 10:42:16
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -109,7 +109,7 @@ void Motor_Init(void)
   motor[4].enable = DISABLE;
   motor[4].begin = false;
   motor[4].mode = position; //速度模式
-  motor[4].valueSet.angle = 1800;
+  motor[4].valueSet.angle = 0;
   motor[4].valueSet.speed = 100;
   motor[4].valueSet.current = 50;
   PID_Init(&motor[4].PIDx, 8, 0.2, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
@@ -122,7 +122,7 @@ void Motor_Init(void)
   motor[5].enable = DISABLE;
   motor[5].begin = false;
   motor[5].mode = position; //速度模式
-  motor[5].valueSet.angle = 1800;
+  motor[5].valueSet.angle = 0;
   motor[5].valueSet.speed = 100;
   motor[5].valueSet.current = 50;
   PID_Init(&motor[5].PIDx, 8, 0.2, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
@@ -135,7 +135,7 @@ void Motor_Init(void)
   motor[6].enable = DISABLE;
   motor[6].begin = false;
   motor[6].mode = position; //速度模式
-  motor[6].valueSet.angle = 1800;
+  motor[6].valueSet.angle = 0;
   motor[6].valueSet.speed = 100;
   motor[6].valueSet.current = 50;
   PID_Init(&motor[6].PIDx, 8, 0.2, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
@@ -148,7 +148,7 @@ void Motor_Init(void)
   motor[7].enable = DISABLE;
   motor[7].begin = false;
   motor[7].mode = position; //速度模式
-  motor[7].valueSet.angle = 1800;
+  motor[7].valueSet.angle = 0;
   motor[7].valueSet.speed = 100;
   motor[7].valueSet.current = 50;
   PID_Init(&motor[7].PIDx, 8, 0.2, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
@@ -423,4 +423,26 @@ void djcontrol(void)
     motor[3].valueSet.angle = angle;
     DJflag.angle = 0;
   }
+}
+
+void legcontrol(vs16 angle)
+{
+	if(angle==90)
+	{
+		motor[0].limit.posSPlimit=1000;
+		motor[1].limit.posSPlimit=1000;
+		motor[2].limit.posSPlimit=1000;
+		motor[3].limit.posSPlimit=1000;
+	}
+	else
+	{
+		motor[0].limit.posSPlimit=3800;
+		motor[1].limit.posSPlimit=3800;
+		motor[2].limit.posSPlimit=3800;
+		motor[3].limit.posSPlimit=3800;
+	}
+	 motor[0].valueSet.angle=-angle;
+	 motor[1].valueSet.angle=angle;
+ 	 motor[2].valueSet.angle=-angle;
+	 motor[3].valueSet.angle=angle;
 }

@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-09 16:54:29
+ * @LastEditTime: 2020-11-13 11:19:47
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 #include "can1.h"
@@ -351,6 +351,34 @@ void CAN1_RX0_IRQHandler(void)
 #endif
         answer_master(&rx_message);
       }
+      if ((rx_message.IDE == CAN_Id_Extended) && (rx_message.ExtId == 0X00010500))
+      {
+        if ((rx_message.Data[1] == 'K') && (rx_message.Data[2] == 'L'))
+        {
+          if (rx_message.Data[3] == 1) //车抬起
+          {
+            motor[4].valueSet.angle = 175.15;
+            motor[5].valueSet.angle = 175.15;
+            motor[6].valueSet.angle = 175.15;
+            motor[7].valueSet.angle = 175.15;
+          }
+          if (rx_message.Data[3] == 0) //车放下
+          {
+            motor[4].valueSet.angle = 85.15;
+            motor[5].valueSet.angle = 85.15;
+            motor[6].valueSet.angle = 85.15;
+            motor[7].valueSet.angle = 85.15;
+
+          }
+
+          DecodeS16Data(&motor[4].limit.posSPlimit, &rx_message.Data[4]);
+          DecodeS16Data(&motor[5].limit.posSPlimit, &rx_message.Data[4]);
+          DecodeS16Data(&motor[6].limit.posSPlimit, &rx_message.Data[4]);
+          DecodeS16Data(&motor[7].limit.posSPlimit, &rx_message.Data[4]);
+          //answer_master(&rx_message);
+        }
+      }
+
 #if ID_SELF == MOTOR_0_3 | ID_SELF == MOTOR_all
 #ifdef USE_ELMO
       if ((rx_message.StdId == Elmo_Motor1_RX) || (rx_message.StdId == Elmo_Motor2_RX) || (rx_message.StdId == Elmo_Motor3_RX) || (rx_message.StdId == Elmo_Motor4_RX))

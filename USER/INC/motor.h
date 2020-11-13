@@ -154,4 +154,5 @@ void pulse_caculate(void);
 u8 ifstuck(u16 id);
 void iftimeout(u16 id);
 void djcontrol(void);
+void legcontrol(vs16 angle);
 #endif
