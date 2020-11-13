@@ -96,6 +96,7 @@
 + PVT模式数组的设置`不可保存`，得在程序中手动添加
 + PVT数组 `QP[1]=0 QV[1]=0;`，MP[3]: 0-不循环 1-循环
 + RM=0在MO=0时发送，PV.PT=1在MO=1之后发送，在下一个BG执行
++ HMM模式method设置为`actual method` ，设置当前位置为零点，`offset position 和 homing position均给0`
 
 ## VESC相关事项
 
