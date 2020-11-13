@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-13 10:16:33
+ * @LastEditTime: 2020-11-13 10:21:52
  * @FilePath: \MotoPro\USER\SRC\epos.c
  */
 #include "epos.h"
@@ -604,6 +604,9 @@ void EPOS_Set_HHMpos(u8 ID, s32 position, u8 InConGrpFlag)
  * @descrription: SET HHM method
  * @param: ID:  node-ID
  *         InConGrpFlag: put the CAN message in the control group
+ * mode:    operation mode
+ *                  37  ->  Actual Position
+ *                  34  ->  Index Positive Speed
  */
 
 void EPOS_Set_HHMmethod(u8 ID, u8 method, u8 InConGrpFlag)
