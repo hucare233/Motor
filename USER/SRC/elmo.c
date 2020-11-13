@@ -732,7 +732,7 @@ void elmo_control(u32 id)
 		Elmo_Motor_UM(id, Um, 1);
 		ELMOFlag.um = 0;
 	}
-	Delay_ms(50);
+//	Delay_ms(50);
 	if (ELMOFlag.mo)
 	{
 		Elmo_Motor_Enable_Or_Disable(id, enable_or_disable, 1);
@@ -744,7 +744,7 @@ void elmo_control(u32 id)
 		Elmo_Motor_BG(id, 1);
 		ELMOFlag.bg = 0;
 	}
-	Delay_ms(50);
+	//Delay_ms(50);
 	if (ELMOFlag.jv)
 	{
 		Elmo_Motor_JV(id, Jv, 1);

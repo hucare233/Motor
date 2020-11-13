@@ -35,19 +35,19 @@ void LED_Configuration()
 void Led_Show(void)
 {
 	LED_RED_ON;
-	Delay_ms(200);
+	OSTimeDly(200);
 	LED_YELLOW_ON;
-	Delay_ms(200);
+	OSTimeDly(200);
 	LED_BLUE_ON;
-	Delay_ms(200);
+	OSTimeDly(200);
 	LED_GREEN_ON;
-	Delay_ms(200);
+	OSTimeDly(200);
 	LED_RED_OFF;
-	Delay_ms(200);
+	OSTimeDly(200);
 	LED_YELLOW_OFF;
-	Delay_ms(200);
+	OSTimeDly(200);
 	LED_BLUE_OFF;
-	Delay_ms(200);
+	OSTimeDly(200);
 	LED_GREEN_OFF;
-	Delay_ms(200);
+	OSTimeDly(200);
 }

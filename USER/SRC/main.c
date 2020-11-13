@@ -59,10 +59,14 @@ static void Task_Start(void *pdata)
 	OSTaskCreate(Task_DataScope, (void *)0, (OS_STK *)&DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE - 1], DataSCOPE_TASK_PRIO);
 #endif
 	/***************电机使能放这里清除起始误差***********/
-	//motor[0].enable = ENABLE;
-	//motor[1].enable = ENABLE;
-	//motor[2].enable = ENABLE;
-	//motor[3].enable = ENABLE;
+	motor[4].enable = ENABLE;
+	motor[5].enable = ENABLE;
+	motor[6].enable = ENABLE;
+	motor[7].enable = ENABLE;
+	motor[4].begin = ENABLE;
+	motor[5].begin = ENABLE;
+	motor[6].begin = ENABLE;
+	motor[7].begin = ENABLE;
 	OSTaskSuspend(START_TASK_PRIO); //挂起起始任务.
 	OS_EXIT_CRITICAL();				//退出临界区(可以被中断打断)
 }
@@ -126,16 +130,16 @@ static void Task_EPOS(void *pdata)
 		//			   EPOS_EnableOperation(3,1);
 		//			   EPOS_EnableOperation(4,1);
 		//			 }
-		for (u8 i = 1; i < 5; i++)
-		{
-			EPOS_Askenable_or_disable(i, 1);
-			EPOS_Askmode(i, 1);
-			EPOS_Askactualspeed(i, 1);
-			EPOS_Askdemandspeed(i, 1);
-			EPOS_Askactualpos(i, 1);
-			EPOS_Askdemandpos(i, 1);
-			EPOS_Asktorque(i, 1);
-		}
+//		for (u8 i = 1; i < 5; i++)
+//		{
+//			EPOS_Askenable_or_disable(i, 1);
+//			EPOS_Askmode(i, 1);
+//			EPOS_Askactualspeed(i, 1);
+//			EPOS_Askdemandspeed(i, 1);
+//			EPOS_Askactualpos(i, 1);
+//			EPOS_Askdemandpos(i, 1);
+//			EPOS_Asktorque(i, 1);
+//		}
 		OSTimeDly(1000);
 	}
 }

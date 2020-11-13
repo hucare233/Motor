@@ -82,11 +82,11 @@ typedef struct
 /****电机外参****/
 typedef struct
 {
-    vs16 angle;     //轴前角度
+    vs32 angle;     //轴前角度
     vs16 current;   //电流
     vs16 speed;     //速度 (rpm)
     vs32 pulse;     //累计脉冲
-    vs16 pulseRead; //反馈脉冲
+    vs32 pulseRead; //反馈脉冲
     vs16 tempeture; //当前温度
 } MotorValue;
 

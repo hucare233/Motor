@@ -85,9 +85,18 @@ void CAN1_Configuration(void)
   CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0x303 << 5;
   CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN_FilterFIFO0;
   CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
-  CAN_FilterInit(&CAN_FilterInitStructure);
+	CAN_FilterInit(&CAN_FilterInitStructure);
 #endif
-
+ 	CAN_FilterInitStructure.CAN_FilterNumber = 5;
+	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;
+	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;
+	CAN_FilterInitStructure.CAN_FilterIdHigh = ((((uint32_t)0x00010500 << 8) << 3) & 0xffff0000) >> 16;
+	CAN_FilterInitStructure.CAN_FilterIdLow = (((uint32_t)0x00010500 << 8) << 3) & 0xffff;
+	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = (0xffffff00 << 3) >> 16;
+	CAN_FilterInitStructure.CAN_FilterMaskIdLow = (0xffffff00 << 3) & 0xffff;
+	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN_FilterFIFO0;
+	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
+	CAN_FilterInit(&CAN_FilterInitStructure);
 #if ID_SELF == MOTOR_0_3
 #ifdef USE_ELMO
   CAN_FilterInitStructure.CAN_FilterNumber = 1;
@@ -251,19 +260,10 @@ void CAN1_RX0_IRQHandler(void)
 			CAN_Procedure.status = (BIT0|BIT1);//流程号关闭，则默认具有正确流程号
 		#endif
 		*/
-#ifdef SteeringMotor //转向电机报文处理
     if ((rx_message.IDE == CAN_Id_Standard) && (rx_message.RTR == CAN_RTR_Data))
     {
-#ifdef PassRobot
-#if ID_SELF == MOTOR_1_2
-      if ((rx_message.StdId == 0x306) || (rx_message.StdId == 0x307))
-#elif ID_SELF == MOTOR_0_3
-      if ((rx_message.StdId == 0x305) || (rx_message.StdId == 0x308))
-#elif ID_SELF == MOTOR_all
-      if ((rx_message.StdId == 0x305) || (rx_message.StdId == 0x306) || (rx_message.StdId == 0x307))
-#elif ID_SELF == MOROE_4_and_2
       if ((rx_message.StdId == 0x305) || (rx_message.StdId == 0x306) || (rx_message.StdId == 0x307) || (rx_message.StdId == 0x308)) //任务要求
-#endif
+
       {
         u8 SteeringID = rx_message.StdId - 0x305;
         if (rx_message.Data[0] == 'C' && rx_message.Data[1] == 'W' && rx_message.Data[2] == 'H' && rx_message.Data[3] == 'U') //自检
@@ -286,56 +286,32 @@ void CAN1_RX0_IRQHandler(void)
         {
           motor[SteeringID].mode = position; //位置模式
           motor[SteeringID].begin = true;    //不锁位置，立即运行
-          motor[SteeringID].enable = true;   //电机使能
-          answer_master(&rx_message);
+         motor[SteeringID].enable = true;   //电机使能
+         answer_master(&rx_message);
         }
         else if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && rx_message.Data[2] == 0) //电机失能
         {
           motor[SteeringID].enable = false;
           motor[SteeringID].begin = false;
-          answer_master(&rx_message);
+         answer_master(&rx_message);
         }
         else if (rx_message.Data[0] == 'S' && rx_message.Data[1] == 'T') //急停
         {
-          motor[SteeringID].begin = false; //锁当前位置
-          answer_master(&rx_message);
-        }
+         motor[SteeringID].begin = false; //锁当前位置
+answer_master(&rx_message);
+      }
         else if (rx_message.Data[0] == 'B' && rx_message.Data[1] == 'B' && rx_message.Data[2] == 'G')
         {
-          feedbackAngle(rx_message.StdId);
+         feedbackAngle(rx_message.StdId);
         }
       }
-      if (rx_message.StdId == 0x320) //全发
+       if (rx_message.StdId == 0x320) //全发
       {
         DecodeS16Data(&s16TempData[0], &rx_message.Data[0]);
         DecodeS16Data(&s16TempData[1], &rx_message.Data[2]);
         DecodeS16Data(&s16TempData[2], &rx_message.Data[4]);
         DecodeS16Data(&s16TempData[3], &rx_message.Data[6]);
-#if ID_SELF == MOTOR_1_2
-        motor[1].valueSet.angle = s16TempData[1] / 30.f * motor[1].intrinsic.GearRatio;
-        motor[1].begin = true;
-        motor[1].mode = position;
-        motor[2].valueSet.angle = s16TempData[2] / 30.f * motor[2].intrinsic.GearRatio;
-        motor[2].begin = true;
-        motor[2].mode = position;
-#elif ID_SELF == MOTOR_0_3
-        motor[0].valueSet.angle = s16TempData[0] / 30.f * motor[0].intrinsic.GearRatio;
-        motor[0].begin = true;
-        motor[0].mode = position;
-        motor[3].valueSet.angle = s16TempData[3] / 30.f * motor[3].intrinsic.GearRatio;
-        motor[3].begin = true;
-        motor[3].mode = position;
-#elif ID_SELF == MOTOR_all
-        motor[0].valueSet.angle = s16TempData[0] / 30.f * motor[0].intrinsic.GearRatio;
-        motor[0].begin = true;
-        motor[0].mode = position;
-        motor[1].valueSet.angle = s16TempData[1] / 30.f * motor[1].intrinsic.GearRatio;
-        motor[1].begin = true;
-        motor[1].mode = position;
-        motor[2].valueSet.angle = s16TempData[2] / 30.f * motor[2].intrinsic.GearRatio;
-        motor[2].begin = true;
-        motor[2].mode = position;
-#elif ID_SELF == MOROE_4_and_2
+				
         motor[0].valueSet.angle = s16TempData[0] / 30.f * motor[0].intrinsic.GearRatio;
         motor[0].begin = true;
         motor[0].mode = position;
@@ -348,58 +324,52 @@ void CAN1_RX0_IRQHandler(void)
         motor[3].valueSet.angle = s16TempData[2] / 30.f * motor[3].intrinsic.GearRatio;
         motor[3].begin = true;
         motor[3].mode = position;
-#endif
         answer_master(&rx_message);
       }
-      if ((rx_message.IDE == CAN_Id_Extended) && (rx_message.ExtId == 0X00010500))
-      {
-        if ((rx_message.Data[1] == 'K') && (rx_message.Data[2] == 'L'))
-        {
-          if (rx_message.Data[3] == 1) //车抬起
-          {
-            motor[4].valueSet.angle = 175.15;
-            motor[5].valueSet.angle = 175.15;
-            motor[6].valueSet.angle = 175.15;
-            motor[7].valueSet.angle = 175.15;
-          }
-          if (rx_message.Data[3] == 0) //车放下
-          {
-            motor[4].valueSet.angle = 85.15;
-            motor[5].valueSet.angle = 85.15;
-            motor[6].valueSet.angle = 85.15;
-            motor[7].valueSet.angle = 85.15;
+//     else if ((rx_message.IDE == CAN_Id_Extended) && (rx_message.ExtId == 0X00010500))
+//      {
+//        if ((rx_message.Data[1] == 'K') && (rx_message.Data[2] == 'L'))
+//        {
+//          if (rx_message.Data[3] == 1) //车抬起
+//          {
+//            motor[4].valueSet.angle = 175;
+//            motor[5].valueSet.angle = -175;
+//            motor[6].valueSet.angle = 175;
+//            motor[7].valueSet.angle = -175;
+//          }
+//          if (rx_message.Data[3] == 0) //车放下
+//          {
+//            motor[4].valueSet.angle = 85;
+//            motor[5].valueSet.angle = -85;
+//            motor[6].valueSet.angle = 85;
+//            motor[7].valueSet.angle = -85;
 
-          }
+//          }
 
-          DecodeS16Data(&motor[4].limit.posSPlimit, &rx_message.Data[4]);
-          DecodeS16Data(&motor[5].limit.posSPlimit, &rx_message.Data[4]);
-          DecodeS16Data(&motor[6].limit.posSPlimit, &rx_message.Data[4]);
-          DecodeS16Data(&motor[7].limit.posSPlimit, &rx_message.Data[4]);
-          //answer_master(&rx_message);
-        }
-      }
-
-#if ID_SELF == MOTOR_0_3 | ID_SELF == MOTOR_all
-#ifdef USE_ELMO
-      if ((rx_message.StdId == Elmo_Motor1_RX) || (rx_message.StdId == Elmo_Motor2_RX) || (rx_message.StdId == Elmo_Motor3_RX) || (rx_message.StdId == Elmo_Motor4_RX))
-      {
-        if ((rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && (rx_message.Data[3] & BIT6) != 1))
-        {
-          u8 ElmoID = rx_message.StdId - 0x281;
-          ELMOmotor[ElmoID].enable = 1;
-        }
-      }
+//          DecodeS16Data(&motor[4].limit.posSPlimit, &rx_message.Data[4]);
+//          DecodeS16Data(&motor[5].limit.posSPlimit, &rx_message.Data[4]);
+//          DecodeS16Data(&motor[6].limit.posSPlimit, &rx_message.Data[4]);
+//          DecodeS16Data(&motor[7].limit.posSPlimit, &rx_message.Data[4]);
+//          //answer_master(&rx_message);
+//        }
+//      }
+#ifdef  USE_ELMO
+//      if ((rx_message.StdId == Elmo_Motor1_RX) || (rx_message.StdId == Elmo_Motor2_RX) || (rx_message.StdId == Elmo_Motor3_RX) || (rx_message.StdId == Elmo_Motor4_RX))
+//      {
+//        if ((rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && (rx_message.Data[3] & BIT6) != 1))
+//        {
+//          u8 ElmoID = rx_message.StdId - 0x281;
+//          ELMOmotor[ElmoID].enable = 1;
+//        }
+//      }
 #elif defined USE_EPOS
       if ((rx_message.StdId == Elmo_Motor1_RX) || (rx_message.StdId == Elmo_Motor2_RX) || (rx_message.StdId == Elmo_Motor3_RX) || (rx_message.StdId == Elmo_Motor4_RX))
       {
       }
 #endif
-#endif
-#elif defined TryRobot
 
-#endif
-    }
-#elif defined ActionMotor //执行电机报文处理
+  }
+#if defined ActionMotor //执行电机报文处理
     if ((rx_message.IDE == CAN_Id_Extended) && (rx_message.RTR == CAN_RTR_Data))
     {
       if (rx_message.Data[0] == 0x00) //广播帧
@@ -409,13 +379,7 @@ void CAN1_RX0_IRQHandler(void)
       }
       if (rx_message.Data[0] == 0x03)
       {
-#ifdef PassRobot
-
-#elif defined TryRobot
-
+}
 #endif
       }
-    }
-#endif
-  }
 }

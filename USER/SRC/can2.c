@@ -205,7 +205,7 @@ void CAN2_RX0_IRQHandler(void)
 		motor[id].valueReal.pulseRead = (RxMessage.Data[0] << 8) | (RxMessage.Data[1]);
 		motor[id].valueReal.current = (RxMessage.Data[4] << 8) | (RxMessage.Data[5]);
 		motor[id].valueReal.tempeture = RxMessage.Data[6];
-		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
+		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.PULSE;
 		if (!motor[id].status.clearFlag) //上电第一次进中断清除位置计算误差。
 		{
 			motor[id].status.clearFlag=true;
