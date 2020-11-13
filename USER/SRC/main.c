@@ -25,7 +25,7 @@ int main(void)
 	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
 	CAN1_Configuration();
 	Can_SendqueueInit();  //can队列初始化
-	InitCANControlList(Can2_MesgSentList, CAN_2);
+	//InitCANControlList(Can2_MesgSentList, CAN_2);
 	TIM2_Configuration(); //超时检测
 	TIM3_Init();
 	param_Init();

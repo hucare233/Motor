@@ -64,10 +64,10 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 			}
 		}
 
-				if(CAN1==CANx)
-					Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
-				else
-					Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
+//				if(CAN1==CANx)
+//					Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
+//				else
+//					Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
 
 		TxMessage.DLC = can_queue->Can_DataSend[can_queue->Front].DLC;
 		TxMessage.RTR = CAN_RTR_DATA;

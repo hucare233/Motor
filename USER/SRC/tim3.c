@@ -108,7 +108,7 @@ void TIM3_IRQHandler(void)
         }
 #endif
         Can_DeQueue(CAN2, &Can2_Sendqueue); //ELMO EPOS
-      //  Can_DeQueue(CAN1, &Can1_Sendqueue); //主控
+        Can_DeQueue(CAN1, &Can1_Sendqueue); //主控
         Can_DeQueue(CAN2, &VESC_Sendqueue); //VESC
 
         TIM_ClearITPendingBit(TIM3, TIM_IT_Update); //清除中断标志位
