@@ -10,7 +10,7 @@
 #include "beep.h"
 #include "led8.h"
 
-#define ENABLE_ALL_DJMOTOR        \
+#define ENABLE_ALL_DJMOTOR_1_4        \
 	{                           \
 		motor[0].enable=1;  \
 		motor[1].enable=1; \
@@ -18,7 +18,7 @@
 		motor[3].enable=1;\
 	}
 
-#define DISABLE_ALL_DJMOTOR        \
+#define DISABLE_ALL_DJMOTOR_1_4        \
 	{                           \
 		motor[0].enable=0;  \
 		motor[1].enable=0; \
@@ -26,7 +26,7 @@
 		motor[3].enable=0; \
 	}
 
-#define BEGIN_ALL_DJMOTOR        \
+#define BEGIN_ALL_DJMOTOR_1_4        \
 	{                           \
 		motor[0].begin=1;  \
 		motor[1].begin=1; \
@@ -34,7 +34,7 @@
 		motor[3].begin=1; \
 	}
 
-#define STOP_ALL_DJMOTOR        \
+#define STOP_ALL_DJMOTOR_1_4        \
 	{                           \
 		motor[0].begin=0;  \
 		motor[1].begin=0; \
@@ -42,7 +42,37 @@
 		motor[3].begin=0; \
 	}
 
+#define ENABLE_ALL_DJMOTOR_5_8        \
+	{                           \
+		motor[4].enable=1;  \
+		motor[5].enable=1; \
+		motor[6].enable=1; \
+		motor[7].enable=1;\
+	}
 
+#define DISABLE_ALL_DJMOTOR_5_8        \
+	{                           \
+		motor[4].enable=0;  \
+		motor[5].enable=0; \
+		motor[6].enable=0; \
+		motor[7].enable=0; \
+	}
+
+#define BEGIN_ALL_DJMOTOR_5_8        \
+	{                           \
+		motor[4].begin=1;  \
+		motor[5].begin=1; \
+		motor[6].begin=1; \
+		motor[7].begin=1; \
+	}
+
+#define STOP_ALL_DJMOTOR_5_8        \
+	{                           \
+		motor[4].begin=0;  \
+		motor[5].begin=0; \
+		motor[6].begin=0; \
+		motor[7].begin=0; \
+	}
 
 /****电机模式****/
 enum MOTOR_MODE

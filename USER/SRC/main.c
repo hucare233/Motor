@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-13 10:48:36
+ * @LastEditTime: 2020-11-14 08:27:44
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -24,7 +24,7 @@ int main(void)
 	LED_Configuration();
 	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
 	CAN1_Configuration();
-	Can_SendqueueInit();  //can队列初始化
+	Can_SendqueueInit(); //can队列初始化
 	//InitCANControlList(Can2_MesgSentList, CAN_2);
 	TIM2_Configuration(); //超时检测
 	TIM3_Init();
@@ -59,10 +59,8 @@ static void Task_Start(void *pdata)
 	OSTaskCreate(Task_DataScope, (void *)0, (OS_STK *)&DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE - 1], DataSCOPE_TASK_PRIO);
 #endif
 	/***************电机使能放这里清除起始误差***********/
-	motor[4].enable = ENABLE;
-	motor[5].enable = ENABLE;
-	motor[6].enable = ENABLE;
-	motor[7].enable = ENABLE;
+	ENABLE_ALL_DJMOTOR_5_8
+	BEGIN_ALL_DJMOTOR_5_8
 	motor[4].begin = ENABLE;
 	motor[5].begin = ENABLE;
 	motor[6].begin = ENABLE;
@@ -130,16 +128,16 @@ static void Task_EPOS(void *pdata)
 		//			   EPOS_EnableOperation(3,1);
 		//			   EPOS_EnableOperation(4,1);
 		//			 }
-//		for (u8 i = 1; i < 5; i++)
-//		{
-//			EPOS_Askenable_or_disable(i, 1);
-//			EPOS_Askmode(i, 1);
-//			EPOS_Askactualspeed(i, 1);
-//			EPOS_Askdemandspeed(i, 1);
-//			EPOS_Askactualpos(i, 1);
-//			EPOS_Askdemandpos(i, 1);
-//			EPOS_Asktorque(i, 1);
-//		}
+		//		for (u8 i = 1; i < 5; i++)
+		//		{
+		//			EPOS_Askenable_or_disable(i, 1);
+		//			EPOS_Askmode(i, 1);
+		//			EPOS_Askactualspeed(i, 1);
+		//			EPOS_Askdemandspeed(i, 1);
+		//			EPOS_Askactualpos(i, 1);
+		//			EPOS_Askdemandpos(i, 1);
+		//			EPOS_Asktorque(i, 1);
+		//		}
 		OSTimeDly(1000);
 	}
 }

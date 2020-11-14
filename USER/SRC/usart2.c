@@ -80,36 +80,40 @@ void USART2_IRQHandler(void)
         switch (usart.RxBuffer_USART2[1])
         {
         case 0x00:
-          ENABLE_ALL_DJMOTOR
+          ENABLE_ALL_DJMOTOR_1_4
           break;
         case 0x01:
-          DISABLE_ALL_DJMOTOR
+          DISABLE_ALL_DJMOTOR_1_4
           break;
         case 0x02:
-          BEGIN_ALL_DJMOTOR
+          BEGIN_ALL_DJMOTOR_1_4
           break;
         case 0x03:
-          STOP_ALL_DJMOTOR
+          STOP_ALL_DJMOTOR_1_4
           break;
         case 0x04:
-          ENABLE_ALL_ELMO
+          ENABLE_ALL_DJMOTOR_5_8
           break;
         case 0x05:
-          DISABLE_ALL_ELMO
+          DISABLE_ALL_DJMOTOR_5_8
           break;
         case 0x06:
-          BEGIN_ALL_ELMO
+          BEGIN_ALL_DJMOTOR_5_8
           break;
         case 0x07:
-          STOP_ALL_ELMO
+          STOP_ALL_DJMOTOR_5_8
           break;
         case 0x08:
+					ENABLE_ALL_ELMO
           break;
         case 0x09:
+					DISABLE_ALL_ELMO
           break;
         case 0x0A:
+					BEGIN_ALL_ELMO
           break;
         case 0x0B:
+					STOP_ALL_ELMO
           break;
         case 0x0C:
           break;

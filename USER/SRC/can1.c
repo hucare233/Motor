@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 20:07:30
+ * @LastEditTime: 2020-11-13 22:04:29
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 #include "can1.h"
@@ -390,17 +390,17 @@ void CAN1_RX0_IRQHandler(void)
         {
           if (rx_message.Data[3] == 1) //车抬起
           {
-            motor[4].valueSet.angle = 175*motor[4].intrinsic.GearRatio;
-            motor[5].valueSet.angle = -175*motor[5].intrinsic.GearRatio;
-            motor[6].valueSet.angle = 175*motor[6].intrinsic.GearRatio;
-            motor[7].valueSet.angle = -175*motor[7].intrinsic.GearRatio;
+            motor[4].valueSet.angle = 170*motor[4].intrinsic.GearRatio;
+            motor[5].valueSet.angle = -170*motor[5].intrinsic.GearRatio;
+            motor[6].valueSet.angle = 170*motor[6].intrinsic.GearRatio;
+            motor[7].valueSet.angle = -170*motor[7].intrinsic.GearRatio;
           }
           if (rx_message.Data[3] == 0) //车放下
           {
-            motor[4].valueSet.angle = 85*motor[4].intrinsic.GearRatio;
-            motor[5].valueSet.angle = -85*motor[5].intrinsic.GearRatio;
-            motor[6].valueSet.angle = 85*motor[6].intrinsic.GearRatio;
-            motor[7].valueSet.angle = -85*motor[7].intrinsic.GearRatio;
+            motor[4].valueSet.angle = 95*motor[4].intrinsic.GearRatio;
+            motor[5].valueSet.angle = -95*motor[5].intrinsic.GearRatio;
+            motor[6].valueSet.angle = 95*motor[6].intrinsic.GearRatio;
+            motor[7].valueSet.angle = -95*motor[7].intrinsic.GearRatio;
           }
           DecodeS16Data(&motor[4].limit.posSPlimit, &rx_message.Data[4]);
           DecodeS16Data(&motor[5].limit.posSPlimit, &rx_message.Data[4]);
