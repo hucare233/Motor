@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-09 17:09:00
+ * @LastEditTime: 2020-11-14 16:20:09
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -41,7 +41,7 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE); //使能PORTB时钟
 
 	//CAN
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1 | RCC_APB1Periph_CAN2, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN2, ENABLE);
 	//CAN
 	CAN_DeInit(CAN2);
 
@@ -184,7 +184,7 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 
 	CAN_ITConfig(CAN2, CAN_IT_FMP1, ENABLE);
 	CAN_ITConfig(CAN2, CAN_IT_FMP0, ENABLE);
-	return 0;
+
 }
 
 //中断服务函数
@@ -205,10 +205,10 @@ void CAN2_RX0_IRQHandler(void)
 		motor[id].valueReal.pulseRead = (RxMessage.Data[0] << 8) | (RxMessage.Data[1]);
 		motor[id].valueReal.current = (RxMessage.Data[4] << 8) | (RxMessage.Data[5]);
 		motor[id].valueReal.tempeture = RxMessage.Data[6];
-		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.PULSE;
+		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
 		if (!motor[id].status.clearFlag) //上电第一次进中断清除位置计算误差。
 		{
-			motor[id].status.clearFlag=true;
+			motor[id].status.clearFlag = true;
 			motor[id].argum.distance = 0;
 		}
 	}
@@ -326,10 +326,7 @@ void CAN2_RX1_IRQHandler(void)
 				Elmo_Feedback_Deel(&Can2_elmoMesgSentList[id]);
 			if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && (rx_message.Data[3] & BIT6) != 1)
 			{
-				if (rx_message.Data[4] == 1)
 					ELMOmotor[id].enable = rx_message.Data[4];
-				else
-					ELMOmotor[id].enable = 0;
 			}
 			if (rx_message.Data[0] == 'V' && rx_message.Data[1] == 'X' && (rx_message.Data[3] & BIT6) != 1)
 			{
@@ -350,8 +347,9 @@ void CAN2_RX1_IRQHandler(void)
 		}
 		if (((rx_message.StdId >= 0x81) && (rx_message.StdId <= 0x88)) && (rx_message.RTR == CAN_RTR_Data)) //ELMO错误报文
 		{
-			u8 id = rx_message.StdId - 0x81;
+			u8 id = rx_message.StdId   - 0x81;
 			insertError(Eerror.head, ELMOERROR | ((id + 1) << 4) | EMERGENCY);
+			Motor_Emer_Code = (0x1 << 28) | (rx_message.StdId << 16) | (rx_message.Data[0] << 8) | rx_message.Data[1];
 		}
 #endif
 #ifdef USE_VESC

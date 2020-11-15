@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-09 22:31:54
+ * @LastEditTime: 2020-11-14 16:19:54
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -20,6 +20,7 @@ u8 enable_or_disable;
 s32 Pa;
 s32 Jv;
 s32 Px;
+s32 Motor_Emer_Code = (0x0 << 28) | (0<< 16) | (0 << 8) | 0;
 /**
  * @author: 叮咚蛋
  * @brief: 电机参数初始化
@@ -595,7 +596,7 @@ void Elmo_Motor_PT(u32 ID, u8 PT, u8 InConGrpFlag)
  * @brief: 查询实际转速
  */
 
-void Elmo_Motor_ASKjv(u32 ID, u8 InConGrpFlag)
+void Elmo_Motor_ASKvx(u32 ID, u8 InConGrpFlag)
 {
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
@@ -606,8 +607,35 @@ void Elmo_Motor_ASKjv(u32 ID, u8 InConGrpFlag)
 	{
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X04;
-		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'J';
-		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'V';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'V';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'X';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 查询电流
+ */
+
+void Elmo_Motor_ASKiq(u32 ID, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X04;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'I';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'Q';
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
@@ -689,6 +717,33 @@ void Elmo_Motor_ASKsp(u32 ID, u8 InConGrpFlag)
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X04;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'S';
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'P';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 查询使能
+ */
+
+void Elmo_Motor_ASKmo(u32 ID, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X04;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'M';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'O';
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;

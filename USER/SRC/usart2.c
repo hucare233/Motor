@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-11 10:16:27
+ * @LastEditTime: 2020-11-14 18:00:50
  * @FilePath: \MotoPro\USER\SRC\usart2.c
  */
 #include "usart2.h"
@@ -116,8 +116,20 @@ void USART2_IRQHandler(void)
 					STOP_ALL_ELMO
           break;
         case 0x0C:
+				{
+				  motor[0].valueSet.angle=45;
+					motor[1].valueSet.angle=-45;
+					motor[2].valueSet.angle=45;
+					motor[3].valueSet.angle=-45;
+				}
           break;
         case 0x0D:
+				{
+				  motor[0].valueSet.angle=0;
+					motor[1].valueSet.angle=0;
+					motor[2].valueSet.angle=0;
+					motor[3].valueSet.angle=0;
+				}
           break;
         case 0x0E:
           break;
@@ -626,7 +638,7 @@ void USART2_IRQHandler(void)
         break;
         case 0x16:
         {
-          Elmo_Motor_BG(1, 1);
+					Elmo_Motor_BG(1, 1);
         }
         break;
         case 0x14:
@@ -1120,9 +1132,9 @@ void UsartLCDshow(void)
     usart.TxBuffer_USART2[i++] = 0xff;
   }
   break;
-  /*case 8://elmo界面
+  case 8://elmo界面
 		{
-		 usart.TxBuffer_USART2[i++]=0xee;
+		usart.TxBuffer_USART2[i++]=0xee;
     usart.TxBuffer_USART2[i++]=0xb1;	
     usart.TxBuffer_USART2[i++]=0x12;	
     usart.TxBuffer_USART2[i++]=0x00;	
@@ -1263,13 +1275,20 @@ void UsartLCDshow(void)
     usart.TxBuffer_USART2[i++]=ELMOmotor[3].enable;
     
     }
-    
+    usart.TxBuffer_USART2[i++]=0x00;
+    usart.TxBuffer_USART2[i++]=0x1E;
+    usart.TxBuffer_USART2[i++]=0x00;
+    sprintf(str_temp,"%#X\n",Motor_Emer_Code);
+    usart.TxBuffer_USART2[i++]=strlen(str_temp);
+    strcpy((char*)(&usart.TxBuffer_USART2[i]),str_temp);
+    i += strlen(str_temp);    
+		
     usart.TxBuffer_USART2[i++]=0xff;
     usart.TxBuffer_USART2[i++]=0xfc;
     usart.TxBuffer_USART2[i++]=0xff;
     usart.TxBuffer_USART2[i++]=0xff;
 		
-		}break;*/
+		}break;
   default:;
   }
   USART2_Send(i);

@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-13 11:43:22
+ * @LastEditTime: 2020-11-14 16:15:07
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -109,10 +109,10 @@ void Motor_Init(void)
   motor[4].enable = DISABLE;
   motor[4].begin = false;
   motor[4].mode = position; //速度模式
-  motor[4].valueSet.angle = 95*motor[4].intrinsic.GearRatio;
+  motor[4].valueSet.angle = 95;
   motor[4].valueSet.speed = 100;
   motor[4].valueSet.current = 50;
-  PID_Init(&motor[4].PIDx, 9, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
+  PID_Init(&motor[4].PIDx, 8, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
   PID_Init(&motor[4].PIDs, 8, 0.3, 0, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[4].limit = Motorlimit;
 
@@ -122,10 +122,10 @@ void Motor_Init(void)
   motor[5].enable = DISABLE;
   motor[5].begin = false;
   motor[5].mode = position; //速度模式
-  motor[5].valueSet.angle = -95*motor[5].intrinsic.GearRatio;
+  motor[5].valueSet.angle = -95;
   motor[5].valueSet.speed = 100;
   motor[5].valueSet.current = 50;
-  PID_Init(&motor[5].PIDx, 9, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
+  PID_Init(&motor[5].PIDx, 8, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
   PID_Init(&motor[5].PIDs, 8, 0.3, 0, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[5].limit = Motorlimit;
 
@@ -135,10 +135,10 @@ void Motor_Init(void)
   motor[6].enable = DISABLE;
   motor[6].begin = false;
   motor[6].mode = position; //速度模式
-  motor[6].valueSet.angle = 95*motor[6].intrinsic.GearRatio;
+  motor[6].valueSet.angle = 95;
   motor[6].valueSet.speed = 100;
   motor[6].valueSet.current = 50;
-  PID_Init(&motor[6].PIDx, 9, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
+  PID_Init(&motor[6].PIDx, 8, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
   PID_Init(&motor[6].PIDs, 8, 0.3, 0, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[6].limit = Motorlimit;
 
@@ -148,10 +148,10 @@ void Motor_Init(void)
   motor[7].enable = DISABLE;
   motor[7].begin = false;
   motor[7].mode = position; //速度模式
-  motor[7].valueSet.angle = -95*motor[7].intrinsic.GearRatio;
+  motor[7].valueSet.angle = -95;
   motor[7].valueSet.speed = 100;
   motor[7].valueSet.current = 50;
-  PID_Init(&motor[7].PIDx, 9, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
+  PID_Init(&motor[7].PIDx, 8, 0.3, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
   PID_Init(&motor[7].PIDs, 8, 0.3, 0, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[7].limit = Motorlimit;
   for (int i = 0; i < 8; i++)
@@ -166,6 +166,10 @@ void Motor_Init(void)
     DJflag.enable = 0;
     DJflag.speed = 0;
     DJflag.um = 0;
+  }
+  for (int i = 0; i < 4; i++)
+  {
+    motor[i].limit.posSPlimit=19500;
   }
 }
 
@@ -201,7 +205,7 @@ void speed_mode(s16 id)
 
 void position_mode(s16 id)
 {
-  motor[id].valueSet.pulse = motor[id].valueSet.angle  * motor[id].intrinsic.RATIO * motor[id].intrinsic.PULSE / 360.f;
+  motor[id].valueSet.pulse = motor[id].valueSet.angle* motor[id].intrinsic.GearRatio* motor[id].intrinsic.RATIO* motor[id].intrinsic.PULSE / 360.f;
   motor[id].PIDx.SetVal = motor[id].valueSet.pulse;
   if (!motor[id].begin)
     motor[id].PIDx.SetVal = motor[id].argum.lockPulse; //如果为锁电机状态，位置设定屏蔽，改为锁位置
@@ -359,13 +363,13 @@ void iftimeout(u16 id) //超时检测
     {
       if (OSTimeGet() - last_update_time[id] >= 200)
       {
-        timeout_counts++;
+        motor[id].argum.timeoutCnt++;
       }
       else
       {
-        timeout_counts = 0;
+        motor[id].argum.timeoutCnt = 0;
       }
-      if (motor[id].status.timeout == 0 && timeout_counts > 50)
+      if (motor[id].status.timeout == 0 && motor[id].argum.timeoutCnt > 50)
       {
         Beep_Show(2);
         Led8DisData(1);

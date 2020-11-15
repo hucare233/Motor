@@ -15,15 +15,15 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置系统中断优先级分组2
 	Beep_Init();
 	//Time_Control_Beep_Init();
-	Key_Ctrl();
+	//Key_Ctrl();
 	//PS2_Init();
 	Led8_Configuration();
 	USART2_Configuration();
 	USART1_Configuration();
 	Key_Configuration();
 	LED_Configuration();
-	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
 	CAN1_Configuration();
+	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
 	Can_SendqueueInit(); //can队列初始化
 	//InitCANControlList(Can2_MesgSentList, CAN_2);
 	TIM2_Configuration(); //超时检测
@@ -61,10 +61,6 @@ static void Task_Start(void *pdata)
 	/***************电机使能放这里清除起始误差***********/
 	ENABLE_ALL_DJMOTOR_5_8
 	BEGIN_ALL_DJMOTOR_5_8
-	motor[4].begin = ENABLE;
-	motor[5].begin = ENABLE;
-	motor[6].begin = ENABLE;
-	motor[7].begin = ENABLE;
 	OSTaskSuspend(START_TASK_PRIO); //挂起起始任务.
 	OS_EXIT_CRITICAL();				//退出临界区(可以被中断打断)
 }
@@ -103,6 +99,13 @@ static void Task_Elmo(void *pdata) //elmo任务
 	while (1)
 	{
 		elmo_control(1);
+					for (u8 i = 1; i < 5; i++)
+				{
+					Elmo_Motor_ASKmo(i,1);
+				  Elmo_Motor_ASKvx(i,1);
+					Elmo_Motor_ASKpx(i,1);
+					Elmo_Motor_ASKiq(i,1);
+				}
 		OSTimeDly(1200);
 	}
 }
