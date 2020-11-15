@@ -117,21 +117,27 @@ void USART2_IRQHandler(void)
           break;
         case 0x0C:
 				{
+					motor[0].valueSet.angle=0;
+					motor[1].valueSet.angle=0;
+					motor[2].valueSet.angle=0;
+					motor[3].valueSet.angle=0;
+				}
+          break;
+        case 0x0D:
+				{
 				  motor[0].valueSet.angle=45;
 					motor[1].valueSet.angle=-45;
 					motor[2].valueSet.angle=45;
 					motor[3].valueSet.angle=-45;
 				}
           break;
-        case 0x0D:
-				{
-				  motor[0].valueSet.angle=0;
-					motor[1].valueSet.angle=0;
-					motor[2].valueSet.angle=0;
-					motor[3].valueSet.angle=0;
-				}
-          break;
         case 0x0E:
+				{		
+					motor[0].valueSet.angle=90;
+					motor[1].valueSet.angle=-90;
+					motor[2].valueSet.angle=90;
+					motor[3].valueSet.angle=-90;
+				}
           break;
         case 0x0F:
           play_Music_1(); //祝你生日快乐
