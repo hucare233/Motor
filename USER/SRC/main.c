@@ -4,7 +4,7 @@
  * @Author: ∂£ﬂÀµ∞
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ∂£ﬂÀµ∞
- * @LastEditTime: 2020-11-14 08:27:44
+ * @LastEditTime: 2020-11-15 18:31:52
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -90,8 +90,8 @@ static void Task_Motor(void *pdata)
 	//motor[5].enable=1;
 	//motor[6].enable=1;
 	//motor[7].enable=1;
-	//ENABLE_ALL_DJMOTOR_5_8
-	//BEGIN_ALL_DJMOTOR_5_8
+	ENABLE_ALL_DJMOTOR_5_8
+	BEGIN_ALL_DJMOTOR_5_8
 	while (1)
 	{
 		djcontrol();
@@ -107,8 +107,11 @@ static void Task_Elmo(void *pdata) //elmo»ŒŒÒ
 		for (u8 i = 1; i < 5; i++)
 		{
 			Elmo_Motor_ASKmo(i, 1);
+			OSTimeDly(50);
 			Elmo_Motor_ASKvx(i, 1);
+			OSTimeDly(50);
 			Elmo_Motor_ASKpx(i, 1);
+			OSTimeDly(50);
 			Elmo_Motor_ASKiq(i, 1);
 		}
 		OSTimeDly(1200);
