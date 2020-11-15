@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-14 16:20:09
+ * @LastEditTime: 2020-11-15 12:15:53
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -33,50 +33,50 @@ bool clear_flag[8] = {0};
 u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 {
 
-	GPIO_InitTypeDef GPIO_InitStructure;
-	CAN_InitTypeDef CAN_InitStructure;
-	CAN_FilterInitTypeDef CAN_FilterInitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
-	//使能相关时钟
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE); //使能PORTB时钟
+	CAN_InitTypeDef CAN_InitStructure;
+	GPIO_InitTypeDef GPIO_InitStructure;
+	CAN_FilterInitTypeDef CAN_FilterInitStructure;
 
-	//CAN
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN2, ENABLE);
-	//CAN
-	CAN_DeInit(CAN2);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 
-	//初始化GPIO
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource5, GPIO_AF_CAN2);
-
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource6, GPIO_AF_CAN2);
+
+	/* Configure CAN pin: RX  TX*/
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
+	/* CAN RX interrupt */
 	NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX0_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2; // 主优先级为1
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;		  // 次优先级为0
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-
-	NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX1_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
-	//CAN单元设置
-	CAN_InitStructure.CAN_TTCM = DISABLE;  //非时间触发通信模式
-	CAN_InitStructure.CAN_ABOM = DISABLE;  //软件自动离线管理
-	CAN_InitStructure.CAN_AWUM = DISABLE;  //睡眠模式通过软件唤醒(清除CAN->MCR的SLEEP位)
-	CAN_InitStructure.CAN_NART = DISABLE;  //禁止报文自动传送
-	CAN_InitStructure.CAN_RFLM = DISABLE;  //报文不锁定,新的覆盖旧的
-	CAN_InitStructure.CAN_TXFP = DISABLE;  //优先级由报文标识符决定
-	CAN_InitStructure.CAN_Mode = mode;	   //模式设置
-	CAN_InitStructure.CAN_SJW = tsjw;	   //重新同步跳跃宽度(Tsjw)为tsjw+1个时间单位 CAN_SJW_1tq~CAN_SJW_4tq
-	CAN_InitStructure.CAN_BS1 = tbs1;	   //Tbs1范围CAN_BS1_1tq ~CAN_BS1_16tq
-	CAN_InitStructure.CAN_BS2 = tbs2;	   //Tbs2范围CAN_BS2_1tq ~	CAN_BS2_8tq
-	CAN_InitStructure.CAN_Prescaler = brp; //分频系数(Fdiv)为brp+1
-	CAN_Init(CAN2, &CAN_InitStructure);	   // 初始化CAN2
+
+	CAN_DeInit(CAN2);
+	CAN_StructInit(&CAN_InitStructure);
+
+	/* CAN cell init */
+	CAN_InitStructure.CAN_TTCM = DISABLE;		  //非时间触发通道模式
+	CAN_InitStructure.CAN_ABOM = DISABLE;		  //软件对CAN_MCR寄存器的INRQ位置1，随后清0，一旦监测到128次连续11位的隐性位，就退出离线状态
+	CAN_InitStructure.CAN_AWUM = DISABLE;		  //睡眠模式由软件唤醒
+	CAN_InitStructure.CAN_NART = DISABLE;		  //禁止报文自动发送，即只发送一次，无论结果如何
+	CAN_InitStructure.CAN_RFLM = DISABLE;		  //报文不锁定，新的覆盖旧的
+	CAN_InitStructure.CAN_TXFP = DISABLE;		  //发送FIFO的优先级由标识符决定
+	CAN_InitStructure.CAN_Mode = mode; //CAN硬件工作在正常模式
+
+	/* Seting BaudRate */
+	CAN_InitStructure.CAN_SJW = tsjw; //重新同步跳跃宽度为一个时间单位
+	CAN_InitStructure.CAN_BS1 = tbs1; //时间段1占用8个时间单位
+	CAN_InitStructure.CAN_BS2 = tbs2; //时间段2占用7个时间单位
+	CAN_InitStructure.CAN_Prescaler = 3;	 //分频系数（Fdiv）
+	CAN_Init(CAN2, &CAN_InitStructure);		 //初始化CAN1
+
+	/* 波特率计算公式: BaudRate = APB1时钟频率/Fdiv/（SJW+BS1+BS2） */
+	/* 42MHz/3/(1+9+4)=1Mhz */
 
 	//配置过滤器
 	//DJ
@@ -184,7 +184,6 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 
 	CAN_ITConfig(CAN2, CAN_IT_FMP1, ENABLE);
 	CAN_ITConfig(CAN2, CAN_IT_FMP0, ENABLE);
-
 }
 
 //中断服务函数
@@ -326,7 +325,7 @@ void CAN2_RX1_IRQHandler(void)
 				Elmo_Feedback_Deel(&Can2_elmoMesgSentList[id]);
 			if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && (rx_message.Data[3] & BIT6) != 1)
 			{
-					ELMOmotor[id].enable = rx_message.Data[4];
+				ELMOmotor[id].enable = rx_message.Data[4];
 			}
 			if (rx_message.Data[0] == 'V' && rx_message.Data[1] == 'X' && (rx_message.Data[3] & BIT6) != 1)
 			{
@@ -347,7 +346,7 @@ void CAN2_RX1_IRQHandler(void)
 		}
 		if (((rx_message.StdId >= 0x81) && (rx_message.StdId <= 0x88)) && (rx_message.RTR == CAN_RTR_Data)) //ELMO错误报文
 		{
-			u8 id = rx_message.StdId   - 0x81;
+			u8 id = rx_message.StdId - 0x81;
 			insertError(Eerror.head, ELMOERROR | ((id + 1) << 4) | EMERGENCY);
 			Motor_Emer_Code = (0x1 << 28) | (rx_message.StdId << 16) | (rx_message.Data[0] << 8) | rx_message.Data[1];
 		}

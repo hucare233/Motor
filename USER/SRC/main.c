@@ -12,7 +12,10 @@ int main(void)
 {
 	Delay_ms(2000);
 	SystemInit();
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置系统中断优先级分组2
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);							   //设置系统中断优先级分组2
+	CAN1_Configuration();
+	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
+	Can_SendqueueInit();													   //can队列初始化
 	Beep_Init();
 	//Time_Control_Beep_Init();
 	//Key_Ctrl();
@@ -22,9 +25,6 @@ int main(void)
 	USART1_Configuration();
 	Key_Configuration();
 	LED_Configuration();
-	CAN1_Configuration();
-	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
-	Can_SendqueueInit(); //can队列初始化
 	//InitCANControlList(Can2_MesgSentList, CAN_2);
 	TIM2_Configuration(); //超时检测
 	TIM3_Init();
@@ -58,9 +58,6 @@ static void Task_Start(void *pdata)
 #if USE_DataScope
 	OSTaskCreate(Task_DataScope, (void *)0, (OS_STK *)&DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE - 1], DataSCOPE_TASK_PRIO);
 #endif
-	/***************电机使能放这里清除起始误差***********/
-	ENABLE_ALL_DJMOTOR_5_8
-	BEGIN_ALL_DJMOTOR_5_8
 	OSTaskSuspend(START_TASK_PRIO); //挂起起始任务.
 	OS_EXIT_CRITICAL();				//退出临界区(可以被中断打断)
 }
@@ -87,6 +84,14 @@ static void Task_Led8(void *pdata) //流水灯，数码管任务
 
 static void Task_Motor(void *pdata)
 {
+	OSTimeDly(1000);
+	/***************电机使能放这里清除起始误差***********/
+	//motor[4].enable=1;
+	//motor[5].enable=1;
+	//motor[6].enable=1;
+	//motor[7].enable=1;
+	//ENABLE_ALL_DJMOTOR_5_8
+	//BEGIN_ALL_DJMOTOR_5_8
 	while (1)
 	{
 		djcontrol();
@@ -99,13 +104,13 @@ static void Task_Elmo(void *pdata) //elmo任务
 	while (1)
 	{
 		elmo_control(1);
-					for (u8 i = 1; i < 5; i++)
-				{
-					Elmo_Motor_ASKmo(i,1);
-				  Elmo_Motor_ASKvx(i,1);
-					Elmo_Motor_ASKpx(i,1);
-					Elmo_Motor_ASKiq(i,1);
-				}
+		for (u8 i = 1; i < 5; i++)
+		{
+			Elmo_Motor_ASKmo(i, 1);
+			Elmo_Motor_ASKvx(i, 1);
+			Elmo_Motor_ASKpx(i, 1);
+			Elmo_Motor_ASKiq(i, 1);
+		}
 		OSTimeDly(1200);
 	}
 }

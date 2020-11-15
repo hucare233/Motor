@@ -31,8 +31,8 @@ void Motor_Init(void)
     M2006instrin.PULSE = 8192;
     M3508instrin.RATIO = 19;
     M2006instrin.RATIO = 36;
-    M3508instrin.CURRENT_LIMIT = 14745;
-    M2006instrin.CURRENT_LIMIT = 9000;
+    M3508instrin.CURRENT_LIMIT = 14745;  //14745
+    M2006instrin.CURRENT_LIMIT = 9000;   //1000
     M3508instrin.GearRatio = 2.94f; //全局变量
     M2006instrin.GearRatio = 6.117f; //外参齿数比
   }
@@ -45,7 +45,7 @@ void Motor_Init(void)
     Motorlimit.zeroSP = 1000;
     Motorlimit.zeroCurrent = 2000;
     Motorlimit.stuckmotion = 1;
-    Motorlimit.timeoutmotion = 1;
+    Motorlimit.timeoutmotion = 0;
   }
   {                                 //电机其他参数设置
     Motorargum.timeoutTicks = 2000; //2000ms
@@ -361,7 +361,7 @@ void iftimeout(u16 id) //超时检测
   {
     if (Motorlimit.timeoutmotion)
     {
-      if (OSTimeGet() - last_update_time[id] >= 200)
+      if (OSTimeGet() - last_update_time[id] >= 1500)
       {
         motor[id].argum.timeoutCnt++;
       }
