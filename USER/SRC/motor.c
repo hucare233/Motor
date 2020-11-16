@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-14 16:15:07
+ * @LastEditTime: 2020-11-16 16:50:17
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -307,10 +307,10 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].status.stuck = 0; //没有堵转
         }
-        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 100)
+        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 90)
         {
           BEEP_ON; //一直响报警
-          motor[id].valueSet.speed = 0;
+          motor[id].enable= 0;
           return 1;
         }
         else
@@ -320,16 +320,15 @@ u8 ifstuck(u16 id) //判断是否堵转
   }
   else if (motor[id].mode == position) //位置模式
   {
-    if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 10)
+    if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 50)
     {
-      if (ABS(motor[id].PIDs.CurVal) < 100) //电机速度小于阈值
+      if (ABS(motor[id].PIDs.CurVal) < 200) //电机速度小于阈值
       {
         DJ_Stuck++;
       }
       else
       {
         DJ_Stuck = 0;
-        return 1;
       }
       if (DJ_Stuck > 300) //计数超过300
       {
@@ -337,10 +336,10 @@ u8 ifstuck(u16 id) //判断是否堵转
       }
       else
         motor[id].status.stuck = 0; //没有堵转
-      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 100)
+      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 90)
       {
         BEEP_ON;
-        motor[id].valueSet.speed = 0;
+        motor[id].enable = 0;
         return 1;
       }
       else

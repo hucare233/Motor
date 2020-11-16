@@ -68,11 +68,12 @@ void TIM3_IRQHandler(void)
                 else
                     position_mode(id);
             }
+						currentInput(id);
         }
-        peakcurrent(); //DJ电流限制
+//        peakcurrent(); //DJ电流限制
 
-        SetM3508_1(motor[0].valueSet.current, motor[1].valueSet.current, motor[2].valueSet.current, motor[3].valueSet.current);
-        SetM3508_2(motor[4].valueSet.current, motor[5].valueSet.current, motor[6].valueSet.current, motor[7].valueSet.current);
+//        SetM3508_1(motor[0].valueSet.current, motor[1].valueSet.current, motor[2].valueSet.current, motor[3].valueSet.current);
+//        SetM3508_2(motor[4].valueSet.current, motor[5].valueSet.current, motor[6].valueSet.current, motor[7].valueSet.current);
 #endif
 #ifdef USE_VESC
         for (int i = 0; i < 8; i++)
