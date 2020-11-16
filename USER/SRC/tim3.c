@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 20:07:17
+ * @LastEditTime: 2020-11-16 16:51:52
  * @FilePath: \MotoPro\USER\SRC\tim3.c
  */
 #include "tim3.h"
@@ -68,12 +68,12 @@ void TIM3_IRQHandler(void)
                 else
                     position_mode(id);
             }
-						currentInput(id);
+            //currentInput(id);
         }
-//        peakcurrent(); //DJ电流限制
+        peakcurrent(); //DJ电流限制
 
-//        SetM3508_1(motor[0].valueSet.current, motor[1].valueSet.current, motor[2].valueSet.current, motor[3].valueSet.current);
-//        SetM3508_2(motor[4].valueSet.current, motor[5].valueSet.current, motor[6].valueSet.current, motor[7].valueSet.current);
+        SetM3508_1(motor[0].valueSet.current, motor[1].valueSet.current, motor[2].valueSet.current, motor[3].valueSet.current);
+        SetM3508_2(motor[4].valueSet.current, motor[5].valueSet.current, motor[6].valueSet.current, motor[7].valueSet.current);
 #endif
 #ifdef USE_VESC
         for (int i = 0; i < 8; i++)
@@ -92,7 +92,7 @@ void TIM3_IRQHandler(void)
                         VESC_Set_Duty_Cycle(i + 1, VESCmotor[i].valSet.duty, 0);
                         break;
                     case RPM:
-                        VESC_Set_Speed(i+1, VESCmotor[i].valSet.speed * VESCmotor[i].instrinsic.POLE_PAIRS, 0);
+                        VESC_Set_Speed(i + 1, VESCmotor[i].valSet.speed * VESCmotor[i].instrinsic.POLE_PAIRS, 0);
                         break;
                     case brake:
                         VESC_Set_Brake_Current(i + 1, VESCmotor[i].limit.breakCurrent, 0);
