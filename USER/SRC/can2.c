@@ -184,6 +184,25 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 
 	CAN_ITConfig(CAN2, CAN_IT_FMP1, ENABLE);
 	CAN_ITConfig(CAN2, CAN_IT_FMP0, ENABLE);
+	
+	return 0;
+}
+
+static CanTxMsg DJ_tx_message;
+/****DJ电机电流输入****/
+void currentInput(u8 id)
+{
+    PEAK(motor[id].valueSet.current,motor[id].intrinsic.CURRENT_LIMIT);
+    if(!motor[id].enable) motor[id].valueSet.current=0;
+    if (id < 4) DJ_tx_message.StdId = 0x200;
+    else DJ_tx_message.StdId = 0x1FF;
+    DJ_tx_message.RTR = CAN_RTR_Data;
+    DJ_tx_message.IDE = CAN_Id_Standard;
+    DJ_tx_message.DLC = 8;
+	u8 temp=2*(id&0x0B);
+	EncodeS16Data(&motor[id].valueSet.current,&DJ_tx_message.Data[temp]);
+	ChangeData(&DJ_tx_message.Data[temp],&DJ_tx_message.Data[temp+1]);
+	if((id==3)||(id==7)) CAN_Transmit(CAN2, &DJ_tx_message);
 }
 
 //中断服务函数

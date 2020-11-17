@@ -291,7 +291,7 @@ u8 ifstuck(u16 id) //判断是否堵转
     {
       if (motor[id].valueReal.speed != 0)
       {
-        if (ABS(motor[id].PIDs.CurVal) < 100) //电机速度小于阈值
+        if (ABS(motor[id].valueReal.speed) < 100) //电机速度小于阈值
         {
           DJ_Stuck++;
         }
@@ -299,7 +299,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           DJ_Stuck = 0;
         }
-        if (DJ_Stuck > 300) //计数超过300
+        if (DJ_Stuck > 200) //计数超过200
         {
           motor[id].status.stuck = 1; //堵转了
         }
@@ -307,7 +307,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].status.stuck = 0; //没有堵转
         }
-        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 90)
+        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 65)
         {
           BEEP_ON; //一直响报警
           motor[id].enable= 0;
@@ -322,7 +322,7 @@ u8 ifstuck(u16 id) //判断是否堵转
   {
     if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 50)
     {
-      if (ABS(motor[id].PIDs.CurVal) < 200) //电机速度小于阈值
+      if (ABS(motor[id].PIDs.CurVal) < 100&&(motor[id].status.arrived==false)) //电机速度小于阈值并且没到达位置
       {
         DJ_Stuck++;
       }
@@ -330,13 +330,13 @@ u8 ifstuck(u16 id) //判断是否堵转
       {
         DJ_Stuck = 0;
       }
-      if (DJ_Stuck > 300) //计数超过300
+      if (DJ_Stuck > 200) //计数超过200
       {
         motor[id].status.stuck = 1; //堵转了
       }
       else
         motor[id].status.stuck = 0; //没有堵转
-      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 90)
+      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 65)
       {
         BEEP_ON;
         motor[id].enable = 0;

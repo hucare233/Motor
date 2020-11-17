@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-14 16:42:12
+ * @LastEditTime: 2020-11-16 18:34:06
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 #include "can1.h"
@@ -133,7 +133,7 @@ void feedbackAngle(u16 motorID)
     Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[1] = 'B';
     Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[2] = 'G';
     u8 id = motorID - 0x305;
-    s16TempData[id] = motor[id].valueReal.angle * 30.f / motor[id].intrinsic.GearRatio;
+    s16TempData[id] = motor[id].valueReal.angle * 30.f;
     EncodeS16Data(&s16TempData[id], &Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[3]);
   }
   Can1_Sendqueue.Rear = Rear1;
@@ -287,7 +287,7 @@ void CAN1_RX0_IRQHandler(void)
         motor[2].valueSet.angle = s16TempData[2] / 30.f;
         motor[2].begin = true;
         motor[2].mode = position;
-        motor[3].valueSet.angle = s16TempData[2] / 30.f;
+        motor[3].valueSet.angle = s16TempData[3] / 30.f;
         motor[3].begin = true;
         motor[3].mode = position;
 #endif
