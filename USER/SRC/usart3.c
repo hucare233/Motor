@@ -82,7 +82,7 @@ void USART3_Init()
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 
 	NVIC_Init(&NVIC_InitStructure);
-	
+
 	DMA_ITConfig(DMA1_Stream3, DMA_IT_TC, ENABLE); //关闭了DMA传输完成中断，导致数据无法传输。10/14/2018
 
 	USART_DMACmd(USART3, USART_DMAReq_Tx, ENABLE);

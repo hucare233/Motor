@@ -20,7 +20,7 @@ u8 enable_or_disable;
 s32 Pa;
 s32 Jv;
 s32 Px;
-s32 Motor_Emer_Code = (0x0 << 28) | (0<< 16) | (0 << 8) | 0;
+s32 Motor_Emer_Code = (0x0 << 28) | (0 << 16) | (0 << 8) | 0;
 /**
  * @author: 叮咚蛋
  * @brief: 电机参数初始化
@@ -74,7 +74,7 @@ void ELMO_Motor_Init(void)
 	ELMOmotor[1].valSet.speed = 100;
 	ELMOmotor[1].valSet.current = 100;
 	ELMOmotor[1].valSet.pulse = 0;
-	
+
 	ELMOmotor[2].intrinsic = U10;
 	ELMOmotor[2].enable = DISABLE;
 	ELMOmotor[2].mode = RPM;
@@ -90,7 +90,7 @@ void ELMO_Motor_Init(void)
 	ELMOmotor[3].valSet.speed = 100;
 	ELMOmotor[3].valSet.current = 100;
 	ELMOmotor[3].valSet.pulse = 0;
-	
+
 #elif defined ActionMotor
 #ifdef PassRobot
 
@@ -787,7 +787,7 @@ void elmo_control(u32 id)
 		Elmo_Motor_UM(id, Um, 1);
 		ELMOFlag.um = 0;
 	}
-//	Delay_ms(50);
+	//	Delay_ms(50);
 	if (ELMOFlag.mo)
 	{
 		Elmo_Motor_Enable_Or_Disable(id, enable_or_disable, 1);

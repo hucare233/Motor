@@ -15,7 +15,7 @@ void TIM2_Configuration(void)
 	NVIC_InitTypeDef NVIC_InitStructure;
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 	TIM_TimeBaseInitStructure.TIM_Period = 6999; //2ms
-	TIM_TimeBaseInitStructure.TIM_Prescaler =5;
+	TIM_TimeBaseInitStructure.TIM_Prescaler = 5;
 	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 
@@ -39,7 +39,7 @@ void TIM2_IRQHandler(void)
 		for (u8 i = 0; i < 4; i++)
 		{
 			/* 反馈超时判断 */
-			if ((VESCmotor[i].argum.timeout == 1)&&VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks&&(VESCmotor[i].argum.timeout == 1)))
+			if ((VESCmotor[i].argum.timeout == 1) && VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks && (VESCmotor[i].argum.timeout == 1)))
 				VESCmotor[i].argum.timeoutCnt++; //反馈超时判断
 			else
 				VESCmotor[i].argum.timeoutCnt = 0;

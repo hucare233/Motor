@@ -17,6 +17,7 @@ u32 timeout_ticks = 2000; //200ms
 s16 timeout_counts = 0;	  //超时计数
 u32 last_update_time[8] = {0};
 u32 now_update_time[8] = {0};
+u32 err_update_time[8] = {0};
 bool clear_flag[8] = {0};
 //CAN初始化
 //tsjw:重新同步跳跃时间单元.范围:CAN_SJW_1tq~ CAN_SJW_4tq
@@ -52,6 +53,12 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 	/* CAN RX interrupt */
 	NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX0_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX1_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
@@ -60,20 +67,20 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 	CAN_StructInit(&CAN_InitStructure);
 
 	/* CAN cell init */
-	CAN_InitStructure.CAN_TTCM = DISABLE;		  //非时间触发通道模式
-	CAN_InitStructure.CAN_ABOM = DISABLE;		  //软件对CAN_MCR寄存器的INRQ位置1，随后清0，一旦监测到128次连续11位的隐性位，就退出离线状态
-	CAN_InitStructure.CAN_AWUM = DISABLE;		  //睡眠模式由软件唤醒
-	CAN_InitStructure.CAN_NART = DISABLE;		  //禁止报文自动发送，即只发送一次，无论结果如何
-	CAN_InitStructure.CAN_RFLM = DISABLE;		  //报文不锁定，新的覆盖旧的
-	CAN_InitStructure.CAN_TXFP = DISABLE;		  //发送FIFO的优先级由标识符决定
-	CAN_InitStructure.CAN_Mode = mode; //CAN硬件工作在正常模式
+	CAN_InitStructure.CAN_TTCM = DISABLE; //非时间触发通道模式
+	CAN_InitStructure.CAN_ABOM = DISABLE; //软件对CAN_MCR寄存器的INRQ位置1，随后清0，一旦监测到128次连续11位的隐性位，就退出离线状态
+	CAN_InitStructure.CAN_AWUM = DISABLE; //睡眠模式由软件唤醒
+	CAN_InitStructure.CAN_NART = DISABLE; //禁止报文自动发送，即只发送一次，无论结果如何
+	CAN_InitStructure.CAN_RFLM = DISABLE; //报文不锁定，新的覆盖旧的
+	CAN_InitStructure.CAN_TXFP = DISABLE; //发送FIFO的优先级由标识符决定
+	CAN_InitStructure.CAN_Mode = mode;	  //CAN硬件工作在正常模式
 
 	/* Seting BaudRate */
-	CAN_InitStructure.CAN_SJW = tsjw; //重新同步跳跃宽度为一个时间单位
-	CAN_InitStructure.CAN_BS1 = tbs1; //时间段1占用8个时间单位
-	CAN_InitStructure.CAN_BS2 = tbs2; //时间段2占用7个时间单位
-	CAN_InitStructure.CAN_Prescaler = 3;	 //分频系数（Fdiv）
-	CAN_Init(CAN2, &CAN_InitStructure);		 //初始化CAN1
+	CAN_InitStructure.CAN_SJW = tsjw;	 //重新同步跳跃宽度为一个时间单位
+	CAN_InitStructure.CAN_BS1 = tbs1;	 //时间段1占用8个时间单位
+	CAN_InitStructure.CAN_BS2 = tbs2;	 //时间段2占用7个时间单位
+	CAN_InitStructure.CAN_Prescaler = 3; //分频系数（Fdiv）
+	CAN_Init(CAN2, &CAN_InitStructure);	 //初始化CAN1
 
 	/* 波特率计算公式: BaudRate = APB1时钟频率/Fdiv/（SJW+BS1+BS2） */
 	/* 42MHz/3/(1+9+4)=1Mhz */
@@ -184,7 +191,7 @@ u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode)
 
 	CAN_ITConfig(CAN2, CAN_IT_FMP1, ENABLE);
 	CAN_ITConfig(CAN2, CAN_IT_FMP0, ENABLE);
-	
+
 	return 0;
 }
 
@@ -192,17 +199,21 @@ static CanTxMsg DJ_tx_message;
 /****DJ电机电流输入****/
 void currentInput(u8 id)
 {
-    PEAK(motor[id].valueSet.current,motor[id].intrinsic.CURRENT_LIMIT);
-    if(!motor[id].enable) motor[id].valueSet.current=0;
-    if (id < 4) DJ_tx_message.StdId = 0x200;
-    else DJ_tx_message.StdId = 0x1FF;
-    DJ_tx_message.RTR = CAN_RTR_Data;
-    DJ_tx_message.IDE = CAN_Id_Standard;
-    DJ_tx_message.DLC = 8;
-	u8 temp=2*(id&0x0B);
-	EncodeS16Data(&motor[id].valueSet.current,&DJ_tx_message.Data[temp]);
-	ChangeData(&DJ_tx_message.Data[temp],&DJ_tx_message.Data[temp+1]);
-	if((id==3)||(id==7)) CAN_Transmit(CAN2, &DJ_tx_message);
+	PEAK(motor[id].valueSet.current, motor[id].intrinsic.CURRENT_LIMIT);
+	if (!motor[id].enable)
+		motor[id].valueSet.current = 0;
+	if (id < 4)
+		DJ_tx_message.StdId = 0x200;
+	else
+		DJ_tx_message.StdId = 0x1FF;
+	DJ_tx_message.RTR = CAN_RTR_Data;
+	DJ_tx_message.IDE = CAN_Id_Standard;
+	DJ_tx_message.DLC = 8;
+	u8 temp = 2 * (id & 0x0B);
+	EncodeS16Data(&motor[id].valueSet.current, &DJ_tx_message.Data[temp]);
+	ChangeData(&DJ_tx_message.Data[temp], &DJ_tx_message.Data[temp + 1]);
+	if ((id == 3) || (id == 7))
+		CAN_Transmit(CAN2, &DJ_tx_message);
 }
 
 //中断服务函数
@@ -219,11 +230,11 @@ void CAN2_RX0_IRQHandler(void)
 		u8 id = RxMessage.StdId - 0x201;
 		last_update_time[id] = now_update_time[id];
 		now_update_time[id] = OSTimeGet();
+		err_update_time[id] = now_update_time[id] - last_update_time[id];
 		motor[id].valueReal.speed = (RxMessage.Data[2] << 8) | (RxMessage.Data[3]);
 		motor[id].valueReal.pulseRead = (RxMessage.Data[0] << 8) | (RxMessage.Data[1]);
 		motor[id].valueReal.current = (RxMessage.Data[4] << 8) | (RxMessage.Data[5]);
 		motor[id].valueReal.tempeture = RxMessage.Data[6];
-		motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
 		if (!motor[id].status.clearFlag) //上电第一次进中断清除位置计算误差。
 		{
 			motor[id].status.clearFlag = true;

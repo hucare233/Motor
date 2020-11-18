@@ -59,7 +59,7 @@ void SetM3508_2(short ID5, short ID6, short ID7, short ID8) //发送5-8电机
 	tx_message.DLC = 0x08;		   //8位
 	can_id = 0x1FF;
 	tx_message.StdId = can_id;
-	if (!ifstuck(4)&&(motor[4].enable==1))
+	if (!ifstuck(4) && (motor[4].enable == 1))
 	{
 		tx_message.Data[0] = (ID5 >> 8);
 		tx_message.Data[1] = ID5; //ID 1
@@ -69,7 +69,7 @@ void SetM3508_2(short ID5, short ID6, short ID7, short ID8) //发送5-8电机
 		tx_message.Data[0] = 0;
 		tx_message.Data[1] = 0;
 	}
-	if (!ifstuck(5)&&(motor[5].enable==1))
+	if (!ifstuck(5) && (motor[5].enable == 1))
 	{
 		tx_message.Data[2] = (ID6 >> 8);
 		tx_message.Data[3] = ID6; //ID 1
@@ -79,7 +79,7 @@ void SetM3508_2(short ID5, short ID6, short ID7, short ID8) //发送5-8电机
 		tx_message.Data[2] = 0;
 		tx_message.Data[3] = 0;
 	}
-	if (!ifstuck(6)&&(motor[6].enable==1))
+	if (!ifstuck(6) && (motor[6].enable == 1))
 	{
 		tx_message.Data[4] = (ID7 >> 8);
 		tx_message.Data[5] = ID7; //ID 1
@@ -89,7 +89,7 @@ void SetM3508_2(short ID5, short ID6, short ID7, short ID8) //发送5-8电机
 		tx_message.Data[4] = 0;
 		tx_message.Data[5] = 0;
 	}
-	if (!ifstuck(7)&&(motor[7].enable==1))
+	if (!ifstuck(7) && (motor[7].enable == 1))
 	{
 		tx_message.Data[6] = (ID8 >> 8);
 		tx_message.Data[7] = ID8; //ID 1
@@ -117,40 +117,40 @@ void SetM3508_1(short ID1, short ID2, short ID3, short ID4) //发送1-4电机
 	tx_message.DLC = 0x08;		   //8位
 	can_id = 0x200;
 	tx_message.StdId = can_id;
-	if (!ifstuck(0)&&(motor[0].enable==1))
+	if (!ifstuck(0) && (motor[0].enable == 1))
 	{
-		tx_message.Data[0] = (ID1 >> 8);
-		tx_message.Data[1] = ID1; //ID 1
+		tx_message.Data[0] = (ID1 & 0xFF00) >> 8;
+		tx_message.Data[1] = ID1 & 0xFF; //ID 1
 	}
 	else
 	{
 		tx_message.Data[0] = 0;
 		tx_message.Data[1] = 0;
 	}
-	if (!ifstuck(1)&&(motor[1].enable==1))
+	if (!ifstuck(1) && (motor[1].enable == 1))
 	{
-		tx_message.Data[2] = (ID2 >> 8);
-		tx_message.Data[3] = ID2; //ID 1
+		tx_message.Data[2] = (ID2 & 0xFF00) >> 8;
+		tx_message.Data[3] = ID2 & 0xFF; //ID 1
 	}
 	else
 	{
 		tx_message.Data[2] = 0;
 		tx_message.Data[3] = 0;
 	}
-	if (!ifstuck(2)&&(motor[2].enable==1))
+	if (!ifstuck(2) && (motor[2].enable == 1))
 	{
-		tx_message.Data[4] = (ID3 >> 8);
-		tx_message.Data[5] = ID3; //ID 1
+		tx_message.Data[4] = (ID3 & 0xFF00) >> 8;
+		tx_message.Data[5] = ID3 & 0xFF; //ID 1
 	}
 	else
 	{
 		tx_message.Data[4] = 0;
 		tx_message.Data[5] = 0;
 	}
-	if (!ifstuck(3)&&(motor[3].enable==1))
+	if (!ifstuck(3) && (motor[3].enable == 1))
 	{
-		tx_message.Data[6] = (ID4 >> 8);
-		tx_message.Data[7] = ID4; //ID 1
+		tx_message.Data[6] = (ID4 & 0xFF00) >> 8;
+		tx_message.Data[7] = ID4 & 0xFF; //ID 1
 	}
 	else
 	{

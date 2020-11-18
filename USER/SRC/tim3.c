@@ -30,8 +30,8 @@ void TIM3_Init(void)
     TIM_Cmd(TIM3, ENABLE);                     //使能定时器3
 
     NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;           //定时器3中断
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; //抢占优先级1
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;        //子优先级2
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; //抢占优先级1
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;        //子优先级0
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }
@@ -40,6 +40,7 @@ void TIM3_IRQHandler(void)
 {
     if (TIM_GetITStatus(TIM3, TIM_IT_Update) == SET) //溢出中断
     {
+        TIM_ClearITPendingBit(TIM3, TIM_IT_Update); //清除中断标志位
 #ifdef USE_DJ
         pulse_caculate();
         for (int id = 0; id < 8; id++)
@@ -111,7 +112,5 @@ void TIM3_IRQHandler(void)
         Can_DeQueue(CAN2, &Can2_Sendqueue); //ELMO EPOS
         Can_DeQueue(CAN1, &Can1_Sendqueue); //主控
         Can_DeQueue(CAN2, &VESC_Sendqueue); //VESC
-
-        TIM_ClearITPendingBit(TIM3, TIM_IT_Update); //清除中断标志位
     }
 }

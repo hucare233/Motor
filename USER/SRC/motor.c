@@ -31,16 +31,16 @@ void Motor_Init(void)
     M2006instrin.PULSE = 8192;
     M3508instrin.RATIO = 19;
     M2006instrin.RATIO = 36;
-    M3508instrin.CURRENT_LIMIT = 14745;  //14745
-    M2006instrin.CURRENT_LIMIT = 9000;   //1000
-    M3508instrin.GearRatio = 2.94f; //全局变量
-    M2006instrin.GearRatio = 6.117f; //外参齿数比
+    M3508instrin.CURRENT_LIMIT = 14745; //14745
+    M2006instrin.CURRENT_LIMIT = 9000;  //1000
+    M3508instrin.GearRatio = 2.94f;     //全局变量
+    M2006instrin.GearRatio = 6.117f;    //外参齿数比
   }
   { //电机限制保护设置
     Motorlimit.isPosLimitON = false;
     Motorlimit.maxAngle = 1800; //轮毂最多选择±0.5圈多一丢丢
     Motorlimit.isPosSPLimitOn = true;
-    Motorlimit.posSPlimit = 1000;
+    Motorlimit.posSPlimit = 19000;
     Motorlimit.isRealseWhenStuck = true;
     Motorlimit.zeroSP = 1000;
     Motorlimit.zeroCurrent = 2000;
@@ -53,7 +53,7 @@ void Motor_Init(void)
   }
   /****0号电机初始化****/
   motor[0].intrinsic = M2006instrin; //| M2006instrin  M3508instrin
- // motor[0].intrinsic.GearRatio=0.67f;  //可在这单独改
+                                     // motor[0].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[0].enable = DISABLE;
   motor[0].begin = false;
   motor[0].mode = position; //速度模式
@@ -61,12 +61,12 @@ void Motor_Init(void)
   motor[0].valueSet.speed = 100;
   motor[0].valueSet.current = 50;
   PID_Init(&motor[0].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
-  PID_Init(&motor[0].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
+  PID_Init(&motor[0].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);    //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[0].limit = Motorlimit;
 
   /****1号电机初始化****/
   motor[1].intrinsic = M2006instrin; //| M2006instrin  M3508instrin
- // motor[1].intrinsic.GearRatio=0.67f;  //可在这单独改
+                                     // motor[1].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[1].enable = DISABLE;
   motor[1].begin = false;
   motor[1].mode = position; //速度模式
@@ -74,7 +74,7 @@ void Motor_Init(void)
   motor[1].valueSet.speed = 100;
   motor[1].valueSet.current = 50;
   PID_Init(&motor[1].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
-  PID_Init(&motor[1].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
+  PID_Init(&motor[1].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);    //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[1].limit = Motorlimit;
 
   /****2号电机初始化****/
@@ -87,7 +87,7 @@ void Motor_Init(void)
   motor[2].valueSet.speed = 100;
   motor[2].valueSet.current = 50;
   PID_Init(&motor[2].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
-  PID_Init(&motor[2].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
+  PID_Init(&motor[2].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);    //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[2].limit = Motorlimit;
 
   /****3号电机初始化****/
@@ -100,12 +100,12 @@ void Motor_Init(void)
   motor[3].valueSet.speed = 100;
   motor[3].valueSet.current = 50;
   PID_Init(&motor[3].PIDx, 3.5, 0.12, 0, 0.4, motor[0].valueSet.pulse); //3508 8 0.2 0 0.4    2006   3.5 0.12 0 0.4
-  PID_Init(&motor[3].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);   //3508  8 0.3  0 1     2006   5 0.3 0.2 1
+  PID_Init(&motor[3].PIDs, 5, 0.3, 0.2, 1, motor[0].valueSet.speed);    //3508  8 0.3  0 1     2006   5 0.3 0.2 1
   motor[3].limit = Motorlimit;
 
   /****0号电机初始化****/
   motor[4].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
- // motor[4].intrinsic.GearRatio=0.67f;  //可在这单独改
+                                     // motor[4].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[4].enable = DISABLE;
   motor[4].begin = false;
   motor[4].mode = position; //速度模式
@@ -131,7 +131,7 @@ void Motor_Init(void)
 
   /****6号电机初始化****/
   motor[6].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
- // motor[6].intrinsic.GearRatio=0.67f;  //可在这单独改
+                                     // motor[6].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[6].enable = DISABLE;
   motor[6].begin = false;
   motor[6].mode = position; //速度模式
@@ -144,7 +144,7 @@ void Motor_Init(void)
 
   /****7号电机初始化****/
   motor[7].intrinsic = M3508instrin; //| M2006instrin  M3508instrin
- // motor[7].intrinsic.GearRatio=0.67f;  //可在这单独改
+                                     // motor[7].intrinsic.GearRatio=0.67f;  //可在这单独改
   motor[7].enable = DISABLE;
   motor[7].begin = false;
   motor[7].mode = position; //速度模式
@@ -169,7 +169,7 @@ void Motor_Init(void)
   }
   for (int i = 0; i < 4; i++)
   {
-    motor[i].limit.posSPlimit=19500;
+    motor[i].limit.posSPlimit = 19500;
   }
 }
 
@@ -205,12 +205,12 @@ void speed_mode(s16 id)
 
 void position_mode(s16 id)
 {
-  motor[id].valueSet.pulse = motor[id].valueSet.angle* motor[id].intrinsic.GearRatio* motor[id].intrinsic.RATIO* motor[id].intrinsic.PULSE / 360.f;
+  motor[id].valueSet.pulse = motor[id].valueSet.angle * motor[id].intrinsic.GearRatio * motor[id].intrinsic.RATIO * motor[id].intrinsic.PULSE / 360.f;
   motor[id].PIDx.SetVal = motor[id].valueSet.pulse;
   if (!motor[id].begin)
     motor[id].PIDx.SetVal = motor[id].argum.lockPulse; //如果为锁电机状态，位置设定屏蔽，改为锁位置
-  if (motor[id].limit.isPosLimitON)
-    PEAK(motor[id].PIDx.SetVal, motor[id].argum.maxPulse);
+                                                       //  if (motor[id].limit.isPosLimitON)
+                                                       //    PEAK(motor[id].PIDx.SetVal, motor[id].argum.maxPulse);
   motor[id].PIDx.CurVal = motor[id].valueReal.pulse;
   PID_Operation(&motor[id].PIDx);
   motor[id].PIDs.SetVal = motor[id].PIDx.uKS_Coe * motor[id].PIDx.Udlt;
@@ -262,10 +262,12 @@ void pulse_caculate(void)
   {
     motor[id].argum.distance = motor[id].valueReal.pulseRead - motor[id].valuePrv.pulseRead;
     motor[id].valuePrv = motor[id].valueReal;
-    if (ABS(motor[id].argum.distance) > 4000)
+    if (ABS(motor[id].argum.distance) > 4085)
       motor[id].argum.distance -= SIG(motor[id].argum.distance) * motor[id].intrinsic.PULSE;
     motor[id].valueReal.pulse += motor[id].argum.distance;                              //累计脉冲计算
     motor[id].argum.difPulseSet = motor[id].valueSet.pulse - motor[id].valueReal.pulse; //更新误差
+    motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
+
     if (motor[id].begin)
       motor[id].argum.lockPulse = motor[id].valueReal.pulse;
     /* 判断是否需要重置零点 */
@@ -310,7 +312,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 65)
         {
           BEEP_ON; //一直响报警
-          motor[id].enable= 0;
+          motor[id].enable = 0;
           return 1;
         }
         else
@@ -322,7 +324,7 @@ u8 ifstuck(u16 id) //判断是否堵转
   {
     if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 50)
     {
-      if (ABS(motor[id].PIDs.CurVal) < 100&&(motor[id].status.arrived==false)) //电机速度小于阈值并且没到达位置
+      if (ABS(motor[id].PIDs.CurVal) < 100 && (motor[id].status.arrived == false)) //电机速度小于阈值并且没到达位置
       {
         DJ_Stuck++;
       }
@@ -430,22 +432,22 @@ void djcontrol(void)
 
 void legcontrol(vs16 angle)
 {
-	if(angle==90)
-	{
-		motor[0].limit.posSPlimit=1000;
-		motor[1].limit.posSPlimit=1000;
-		motor[2].limit.posSPlimit=1000;
-		motor[3].limit.posSPlimit=1000;
-	}
-	else
-	{
-		motor[0].limit.posSPlimit=3800;
-		motor[1].limit.posSPlimit=3800;
-		motor[2].limit.posSPlimit=3800;
-		motor[3].limit.posSPlimit=3800;
-	}
-	 motor[0].valueSet.angle=-angle;
-	 motor[1].valueSet.angle=angle;
- 	 motor[2].valueSet.angle=-angle;
-	 motor[3].valueSet.angle=angle;
+  if (angle == 90)
+  {
+    motor[0].limit.posSPlimit = 1000;
+    motor[1].limit.posSPlimit = 1000;
+    motor[2].limit.posSPlimit = 1000;
+    motor[3].limit.posSPlimit = 1000;
+  }
+  else
+  {
+    motor[0].limit.posSPlimit = 3800;
+    motor[1].limit.posSPlimit = 3800;
+    motor[2].limit.posSPlimit = 3800;
+    motor[3].limit.posSPlimit = 3800;
+  }
+  motor[0].valueSet.angle = -angle;
+  motor[1].valueSet.angle = angle;
+  motor[2].valueSet.angle = -angle;
+  motor[3].valueSet.angle = angle;
 }

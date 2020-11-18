@@ -12,7 +12,7 @@ int main(void)
 {
 	Delay_ms(2000);
 	SystemInit();
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);							   //设置系统中断优先级分组2
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置系统中断优先级分组2
 	CAN1_Configuration();
 	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
 	Can_SendqueueInit();													   //can队列初始化
