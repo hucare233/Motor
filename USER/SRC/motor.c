@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-19 15:44:06
+ * @LastEditTime: 2020-11-19 15:47:43
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -45,7 +45,7 @@ void Motor_Init(void)
     Motorlimit.zeroSP = 1000;
     Motorlimit.zeroCurrent = 2000;
     Motorlimit.stuckmotion = 1;
-    Motorlimit.timeoutmotion = 0;
+    Motorlimit.timeoutmotion = 1;
   }
   {                                 //电机其他参数设置
     Motorargum.timeoutTicks = 2000; //2000ms
