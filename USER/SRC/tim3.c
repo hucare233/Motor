@@ -30,7 +30,7 @@ void TIM3_Init(void)
     TIM_Cmd(TIM3, ENABLE);                     //使能定时器3
 
     NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;           //定时器3中断
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; //抢占优先级1
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; //抢占优先级1
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;        //子优先级0
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);

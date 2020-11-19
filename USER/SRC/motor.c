@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-16 16:50:17
+ * @LastEditTime: 2020-11-19 15:44:06
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -40,7 +40,7 @@ void Motor_Init(void)
     Motorlimit.isPosLimitON = false;
     Motorlimit.maxAngle = 1800; //轮毂最多选择±0.5圈多一丢丢
     Motorlimit.isPosSPLimitOn = true;
-    Motorlimit.posSPlimit = 19000;
+    Motorlimit.posSPlimit = 1000;
     Motorlimit.isRealseWhenStuck = true;
     Motorlimit.zeroSP = 1000;
     Motorlimit.zeroCurrent = 2000;
@@ -262,7 +262,7 @@ void pulse_caculate(void)
   {
     motor[id].argum.distance = motor[id].valueReal.pulseRead - motor[id].valuePrv.pulseRead;
     motor[id].valuePrv = motor[id].valueReal;
-    if (ABS(motor[id].argum.distance) > 4085)
+    if (ABS(motor[id].argum.distance) > 4100)  //last edit : 4085 ;
       motor[id].argum.distance -= SIG(motor[id].argum.distance) * motor[id].intrinsic.PULSE;
     motor[id].valueReal.pulse += motor[id].argum.distance;                              //累计脉冲计算
     motor[id].argum.difPulseSet = motor[id].valueSet.pulse - motor[id].valueReal.pulse; //更新误差

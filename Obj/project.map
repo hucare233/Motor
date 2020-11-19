@@ -913,8 +913,8 @@ Image Symbol Table
     .text                                    0x080001ac   Section        0  param.o(.text)
     .text                                    0x080002e4   Section        0  tim2.o(.text)
     .text                                    0x0800054c   Section        0  tim3.o(.text)
-    .text                                    0x08000690   Section        0  can1.o(.text)
-    answer_master                            0x08000803   Thumb Code   112  can1.o(.text)
+    .text                                    0x08000694   Section        0  can1.o(.text)
+    answer_master                            0x08000807   Thumb Code   112  can1.o(.text)
     .text                                    0x08000cec   Section        0  can2_1.o(.text)
     Elmo_Feedback_Deel                       0x080012c3   Thumb Code    34  can2_1.o(.text)
     Epos_Feedback_Deel                       0x080012e5   Thumb Code    34  can2_1.o(.text)
@@ -1133,11 +1133,11 @@ Image Symbol Table
     insertError                              0x08000283   Thumb Code    80  param.o(.text)
     TIM2_Configuration                       0x080002e5   Thumb Code    90  tim2.o(.text)
     TIM2_IRQHandler                          0x0800033f   Thumb Code   518  tim2.o(.text)
-    TIM3_Init                                0x0800054d   Thumb Code    88  tim3.o(.text)
-    TIM3_IRQHandler                          0x080005a5   Thumb Code   208  tim3.o(.text)
-    CAN1_Configuration                       0x08000691   Thumb Code   370  can1.o(.text)
-    feedbackAngle                            0x08000873   Thumb Code   202  can1.o(.text)
-    CAN1_RX0_IRQHandler                      0x0800093d   Thumb Code   930  can1.o(.text)
+    TIM3_Init                                0x0800054d   Thumb Code    90  tim3.o(.text)
+    TIM3_IRQHandler                          0x080005a7   Thumb Code   208  tim3.o(.text)
+    CAN1_Configuration                       0x08000695   Thumb Code   370  can1.o(.text)
+    feedbackAngle                            0x08000877   Thumb Code   202  can1.o(.text)
+    CAN1_RX0_IRQHandler                      0x08000941   Thumb Code   926  can1.o(.text)
     CAN2_Mode_Init                           0x08000ced   Thumb Code   812  can2_1.o(.text)
     currentInput                             0x08001019   Thumb Code   296  can2_1.o(.text)
     CAN2_RX0_IRQHandler                      0x08001141   Thumb Code   282  can2_1.o(.text)
@@ -1867,8 +1867,8 @@ Memory Map of the image
     0x0800019c   0x0800019c   0x00000010   Code   RO         1037    .emb_text           sys.o
     0x080001ac   0x080001ac   0x00000138   Code   RO            4    .text               param.o
     0x080002e4   0x080002e4   0x00000268   Code   RO          163    .text               tim2.o
-    0x0800054c   0x0800054c   0x00000144   Code   RO          288    .text               tim3.o
-    0x08000690   0x08000690   0x0000065c   Code   RO          325    .text               can1.o
+    0x0800054c   0x0800054c   0x00000148   Code   RO          288    .text               tim3.o
+    0x08000694   0x08000694   0x00000658   Code   RO          325    .text               can1.o
     0x08000cec   0x08000cec   0x00000d80   Code   RO          355    .text               can2_1.o
     0x08001a6c   0x08001a6c   0x00000298   Code   RO          387    .text               main.o
     0x08001d04   0x08001d04   0x00000120   Code   RO          451    .text               usart1.o
@@ -2006,7 +2006,7 @@ Image component sizes
 
        328         78         44          0          0       1289   beep.o
        250          0          0          0          0       2727   buffer.o
-      1628         44          0         16          0       2573   can1.o
+      1624         42          0         16          0       2573   can1.o
       3456         94          0          0        116       4936   can2_1.o
        344         28          0          0         42       2122   datascope_dp.o
         68          0          0          0          0       1006   delay.o
@@ -2042,7 +2042,7 @@ Image component sizes
       1128         46          0          0          0       4192   sys.o
        528         46          0         20          0       1827   system_stm32f4xx.o
        616          8          0          0          0     247230   tim2.o
-       324         28          0          0          0        832   tim3.o
+       328         30          0          0          0        832   tim3.o
        288         30          0          0          0      19715   usart1.o
      11052        430          0          2         32      41080   usart2.o
        456         26          0          0          0       1572   usart3.o

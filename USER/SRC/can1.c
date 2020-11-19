@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-16 18:34:06
+ * @LastEditTime: 2020-11-18 18:59:27
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 #include "can1.h"
@@ -226,7 +226,7 @@ void CAN1_RX0_IRQHandler(void)
         else if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && rx_message.Data[2] == 1) //电机使能
         {
           motor[SteeringID].mode = position; //位置模式
-          motor[SteeringID].begin = false;   //锁位置，立即运行
+          motor[SteeringID].begin = true;   //锁位置，立即运行
           motor[SteeringID].enable = true;   //电机使能
           answer_master(&rx_message);
         }
