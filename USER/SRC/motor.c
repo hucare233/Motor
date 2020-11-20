@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-19 15:47:43
+ * @LastEditTime: 2020-11-19 21:25:57
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -45,7 +45,7 @@ void Motor_Init(void)
     Motorlimit.zeroSP = 1000;
     Motorlimit.zeroCurrent = 2000;
     Motorlimit.stuckmotion = 1;
-    Motorlimit.timeoutmotion = 1;
+    Motorlimit.timeoutmotion = 0;
   }
   {                                 //电机其他参数设置
     Motorargum.timeoutTicks = 2000; //2000ms
@@ -169,7 +169,8 @@ void Motor_Init(void)
   }
   for (int i = 0; i < 4; i++)
   {
-    motor[i].limit.posSPlimit = 19500;
+    motor[i].limit.posSPlimit = 18000
+		;
   }
 }
 
@@ -262,7 +263,7 @@ void pulse_caculate(void)
   {
     motor[id].argum.distance = motor[id].valueReal.pulseRead - motor[id].valuePrv.pulseRead;
     motor[id].valuePrv = motor[id].valueReal;
-    if (ABS(motor[id].argum.distance) > 4100)  //last edit : 4085 ;
+    if (ABS(motor[id].argum.distance) > 4150)  //last edit : 4085 ;
       motor[id].argum.distance -= SIG(motor[id].argum.distance) * motor[id].intrinsic.PULSE;
     motor[id].valueReal.pulse += motor[id].argum.distance;                              //累计脉冲计算
     motor[id].argum.difPulseSet = motor[id].valueSet.pulse - motor[id].valueReal.pulse; //更新误差

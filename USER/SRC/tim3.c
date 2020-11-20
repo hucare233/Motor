@@ -42,7 +42,7 @@ void TIM3_IRQHandler(void)
     {
         TIM_ClearITPendingBit(TIM3, TIM_IT_Update); //清除中断标志位
 #ifdef USE_DJ
-        pulse_caculate();
+        //pulse_caculate();
         for (int id = 0; id < 8; id++)
         {
             if (motor[id].enable)

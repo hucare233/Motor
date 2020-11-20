@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-15 12:15:53
+ * @LastEditTime: 2020-11-19 16:08:47
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -235,6 +235,7 @@ void CAN2_RX0_IRQHandler(void)
 		motor[id].valueReal.pulseRead = (RxMessage.Data[0] << 8) | (RxMessage.Data[1]);
 		motor[id].valueReal.current = (RxMessage.Data[4] << 8) | (RxMessage.Data[5]);
 		motor[id].valueReal.tempeture = RxMessage.Data[6];
+		pulse_caculate();
 		if (!motor[id].status.clearFlag) //上电第一次进中断清除位置计算误差。
 		{
 			motor[id].status.clearFlag = true;
@@ -378,7 +379,7 @@ void CAN2_RX1_IRQHandler(void)
 		{
 			u8 id = rx_message.StdId - 0x81;
 			insertError(Eerror.head, ELMOERROR | ((id + 1) << 4) | EMERGENCY);
-			Motor_Emer_Code = (0x1 << 28) | (rx_message.StdId << 16) | (rx_message.Data[0] << 8) | rx_message.Data[1];
+			Motor_Emer_Code = (0x1 << 24) | (rx_message.StdId << 16) | (rx_message.Data[0] << 8) | rx_message.Data[1];
 		}
 #endif
 #ifdef USE_VESC

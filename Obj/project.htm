@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Obj\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Obj\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Nov 19 15:47:48 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Nov 19 22:32:06 2020
 <BR><P>
 <H3>Maximum Stack Usage =        240 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -204,8 +204,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a4]"></a>ChangeData</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, param.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;currentInput
+<P><STRONG><a name="[a3]"></a>ChangeData</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, param.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;currentInput
 </UL>
 
 <P><STRONG><a name="[78]"></a>deleteError</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, param.o(.text), UNUSED)
@@ -223,7 +223,7 @@ Global Symbols
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX1_IRQHandler
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
 </UL>
 
 <P><STRONG><a name="[7c]"></a>TIM2_Configuration</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, tim2.o(.text))
@@ -264,40 +264,39 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 208 bytes, Stack size 8 bytes, tim3.o(.text))
+<P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 204 bytes, Stack size 8 bytes, tim3.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = TIM3_IRQHandler &rArr; Can_DeQueue &rArr; insertError &rArr; malloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;zero_mode
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;speed_mode
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pulse_caculate
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;position_mode
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peakcurrent
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_2
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_1
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;zero_mode
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;speed_mode
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;position_mode
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peakcurrent
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_2
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_1
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[92]"></a>CAN1_Configuration</STRONG> (Thumb, 370 bytes, Stack size 48 bytes, can1.o(.text))
+<P><STRONG><a name="[91]"></a>CAN1_Configuration</STRONG> (Thumb, 370 bytes, Stack size 48 bytes, can1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = CAN1_Configuration &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_StructInit
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ITConfig
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_FilterInit
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_StructInit
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ITConfig
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_FilterInit
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a1]"></a>feedbackAngle</STRONG> (Thumb, 202 bytes, Stack size 8 bytes, can1.o(.text))
+<P><STRONG><a name="[a0]"></a>feedbackAngle</STRONG> (Thumb, 202 bytes, Stack size 8 bytes, can1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = feedbackAngle
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_RX0_IRQHandler
@@ -306,69 +305,70 @@ Global Symbols
 <P><STRONG><a name="[1e]"></a>CAN1_RX0_IRQHandler</STRONG> (Thumb, 926 bytes, Stack size 32 bytes, can1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = CAN1_RX0_IRQHandler &rArr; CAN_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearFlag
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;feedbackAngle
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;answer_master
+<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearFlag
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;feedbackAngle
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;answer_master
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[a2]"></a>CAN2_Mode_Init</STRONG> (Thumb, 812 bytes, Stack size 64 bytes, can2_1.o(.text))
+<P><STRONG><a name="[a1]"></a>CAN2_Mode_Init</STRONG> (Thumb, 812 bytes, Stack size 64 bytes, can2_1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = CAN2_Mode_Init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_StructInit
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ITConfig
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_FilterInit
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_StructInit
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ITConfig
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_FilterInit
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a3]"></a>currentInput</STRONG> (Thumb, 296 bytes, Stack size 16 bytes, can2_1.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChangeData
+<P><STRONG><a name="[a2]"></a>currentInput</STRONG> (Thumb, 296 bytes, Stack size 16 bytes, can2_1.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChangeData
 </UL>
 
-<P><STRONG><a name="[4a]"></a>CAN2_RX0_IRQHandler</STRONG> (Thumb, 282 bytes, Stack size 32 bytes, can2_1.o(.text))
+<P><STRONG><a name="[4a]"></a>CAN2_RX0_IRQHandler</STRONG> (Thumb, 288 bytes, Stack size 32 bytes, can2_1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = CAN2_RX0_IRQHandler &rArr; OSTimeGet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearFlag
+<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pulse_caculate
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearFlag
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeGet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
 <P><STRONG><a name="[a6]"></a>CAN2_Send_Msg</STRONG> (Thumb, 104 bytes, Stack size 40 bytes, can2_1.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_TransmitStatus
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 
-<P><STRONG><a name="[4b]"></a>CAN2_RX1_IRQHandler</STRONG> (Thumb, 1814 bytes, Stack size 32 bytes, can2_1.o(.text))
+<P><STRONG><a name="[4b]"></a>CAN2_RX1_IRQHandler</STRONG> (Thumb, 1812 bytes, Stack size 32 bytes, can2_1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = CAN2_RX1_IRQHandler &rArr; insertError &rArr; malloc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Epos_Feedback_Deel
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Elmo_Feedback_Deel
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearFlag
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearFlag
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;insertError
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
 <P><STRONG><a name="[aa]"></a>CAN2_Receive_Msg</STRONG> (Thumb, 60 bytes, Stack size 32 bytes, can2_1.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_MessagePending
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
 </UL>
 
 <P><STRONG><a name="[5c]"></a>main</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, main.o(.text))
@@ -387,8 +387,8 @@ Global Symbols
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Configuration
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_SendqueueInit
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Beep_Init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_ms
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Configuration
@@ -413,7 +413,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_SetCurrDataCounter
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task_DataScope
 </UL>
@@ -503,9 +503,9 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_ITConfig
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_ClearITPendingBit
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_ClearFlag
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
@@ -522,7 +522,7 @@ Global Symbols
 <P><STRONG><a name="[f8]"></a>USART3_sendData</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, usart3.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_SetCurrDataCounter
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 
 <P><STRONG><a name="[31]"></a>USART3_IRQHandler</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, usart3.o(.text))
@@ -540,30 +540,30 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[fc]"></a>PID_Operation</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, pid.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;zero_mode
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;speed_mode
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;position_mode
+<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;zero_mode
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;speed_mode
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;position_mode
 </UL>
 
-<P><STRONG><a name="[90]"></a>SetM3508_2</STRONG> (Thumb, 218 bytes, Stack size 48 bytes, pid.o(.text))
+<P><STRONG><a name="[8f]"></a>SetM3508_2</STRONG> (Thumb, 218 bytes, Stack size 48 bytes, pid.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = SetM3508_2 &rArr; ifstuck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ifstuck
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8f]"></a>SetM3508_1</STRONG> (Thumb, 216 bytes, Stack size 48 bytes, pid.o(.text))
+<P><STRONG><a name="[8e]"></a>SetM3508_1</STRONG> (Thumb, 216 bytes, Stack size 48 bytes, pid.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = SetM3508_1 &rArr; ifstuck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ifstuck
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8e]"></a>peakcurrent</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, pid.o(.text))
+<P><STRONG><a name="[8d]"></a>peakcurrent</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, pid.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
 
@@ -577,10 +577,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[fd]"></a>setZero</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, motor.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pulse_caculate
+<BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pulse_caculate
 </UL>
 
-<P><STRONG><a name="[8b]"></a>speed_mode</STRONG> (Thumb, 182 bytes, Stack size 8 bytes, motor.o(.text))
+<P><STRONG><a name="[8a]"></a>speed_mode</STRONG> (Thumb, 182 bytes, Stack size 8 bytes, motor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = speed_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Operation
@@ -588,7 +588,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8c]"></a>position_mode</STRONG> (Thumb, 736 bytes, Stack size 8 bytes, motor.o(.text))
+<P><STRONG><a name="[8b]"></a>position_mode</STRONG> (Thumb, 736 bytes, Stack size 8 bytes, motor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = position_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Operation
@@ -596,7 +596,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8d]"></a>zero_mode</STRONG> (Thumb, 354 bytes, Stack size 8 bytes, motor.o(.text))
+<P><STRONG><a name="[8c]"></a>zero_mode</STRONG> (Thumb, 354 bytes, Stack size 8 bytes, motor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = zero_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Operation
@@ -604,19 +604,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8a]"></a>pulse_caculate</STRONG> (Thumb, 726 bytes, Stack size 8 bytes, motor.o(.text))
+<P><STRONG><a name="[a5]"></a>pulse_caculate</STRONG> (Thumb, 726 bytes, Stack size 8 bytes, motor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = pulse_caculate
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setZero
 </UL>
-<BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX0_IRQHandler
 </UL>
 
 <P><STRONG><a name="[f9]"></a>ifstuck</STRONG> (Thumb, 610 bytes, Stack size 8 bytes, motor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ifstuck
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_2
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_1
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_2
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_1
 </UL>
 
 <P><STRONG><a name="[87]"></a>iftimeout</STRONG> (Thumb, 242 bytes, Stack size 8 bytes, motor.o(.text))
@@ -648,7 +648,7 @@ Global Symbols
 <P><STRONG><a name="[72]"></a>ELMO_Init</STRONG> (Thumb, 72 bytes, Stack size 32 bytes, elmo.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = ELMO_Init &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;param_Init
 </UL>
@@ -675,7 +675,7 @@ Global Symbols
 <P><STRONG><a name="[d8]"></a>Elmo_Motor_Enable_Or_Disable</STRONG> (Thumb, 82 bytes, Stack size 40 bytes, elmo.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Elmo_Motor_Enable_Or_Disable &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;elmo_control
@@ -896,7 +896,7 @@ Global Symbols
 <P><STRONG><a name="[74]"></a>EPOS_Init</STRONG> (Thumb, 72 bytes, Stack size 32 bytes, epos.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = EPOS_Init &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;param_Init
 </UL>
@@ -1060,7 +1060,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[11c]"></a>QueueEmpty</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, queue.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
+<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
 </UL>
 
 <P><STRONG><a name="[1c3]"></a>QueueFull</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, queue.o(.text), UNUSED)
@@ -1069,13 +1069,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[91]"></a>Can_DeQueue</STRONG> (Thumb, 314 bytes, Stack size 32 bytes, queue.o(.text))
+<P><STRONG><a name="[90]"></a>Can_DeQueue</STRONG> (Thumb, 314 bytes, Stack size 32 bytes, queue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = Can_DeQueue &rArr; insertError &rArr; malloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;insertError
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;QueueEmpty
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
@@ -1083,8 +1083,8 @@ Global Symbols
 <P><STRONG><a name="[c1]"></a>Beep_Init</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, beep.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Beep_Init &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1171,7 +1171,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Key_Configuration &rArr; GPIO_Set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Set
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1204,8 +1204,8 @@ Global Symbols
 <P><STRONG><a name="[c6]"></a>LED_Configuration</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, led.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = LED_Configuration &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1222,8 +1222,8 @@ Global Symbols
 <P><STRONG><a name="[c2]"></a>Led8_Configuration</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, led8.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Led8_Configuration &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
@@ -1354,8 +1354,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_Init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Configuration
 </UL>
@@ -1366,32 +1366,32 @@ Global Symbols
 
 <P><STRONG><a name="[1cc]"></a>SysTick_CLKSourceConfig</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, misc.o(.text), UNUSED)
 
-<P><STRONG><a name="[96]"></a>CAN_DeInit</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[95]"></a>CAN_DeInit</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = CAN_DeInit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
-<P><STRONG><a name="[98]"></a>CAN_Init</STRONG> (Thumb, 276 bytes, Stack size 12 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[97]"></a>CAN_Init</STRONG> (Thumb, 276 bytes, Stack size 12 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = CAN_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
-<P><STRONG><a name="[99]"></a>CAN_FilterInit</STRONG> (Thumb, 258 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[98]"></a>CAN_FilterInit</STRONG> (Thumb, 258 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = CAN_FilterInit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
-<P><STRONG><a name="[97]"></a>CAN_StructInit</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<P><STRONG><a name="[96]"></a>CAN_StructInit</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
 <P><STRONG><a name="[1cd]"></a>CAN_SlaveStartBank</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text), UNUSED)
@@ -1400,15 +1400,15 @@ Global Symbols
 
 <P><STRONG><a name="[1cf]"></a>CAN_TTComModeCmd</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text), UNUSED)
 
-<P><STRONG><a name="[a5]"></a>CAN_Transmit</STRONG> (Thumb, 304 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[a4]"></a>CAN_Transmit</STRONG> (Thumb, 304 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = CAN_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Elmo_Motor_Enable_Or_Disable
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Send_Msg
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;currentInput
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_2
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_1
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;currentInput
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_2
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetM3508_1
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EPOS_Init
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ELMO_Init
 </UL>
@@ -1419,7 +1419,7 @@ Global Symbols
 
 <P><STRONG><a name="[1d0]"></a>CAN_CancelTransmit</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text), UNUSED)
 
-<P><STRONG><a name="[a0]"></a>CAN_Receive</STRONG> (Thumb, 240 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[9f]"></a>CAN_Receive</STRONG> (Thumb, 240 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = CAN_Receive
 </UL>
 <BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Receive_Msg
@@ -1446,20 +1446,20 @@ Global Symbols
 
 <P><STRONG><a name="[1d7]"></a>CAN_GetLSBTransmitErrorCounter</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text), UNUSED)
 
-<P><STRONG><a name="[9a]"></a>CAN_ITConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<P><STRONG><a name="[99]"></a>CAN_ITConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
 <P><STRONG><a name="[1d8]"></a>CAN_GetFlagStatus</STRONG> (Thumb, 120 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text), UNUSED)
 
-<P><STRONG><a name="[9f]"></a>CAN_ClearFlag</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[9e]"></a>CAN_ClearFlag</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX1_IRQHandler
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX0_IRQHandler
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_RX0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[9d]"></a>CAN_GetITStatus</STRONG> (Thumb, 310 bytes, Stack size 16 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[9c]"></a>CAN_GetITStatus</STRONG> (Thumb, 310 bytes, Stack size 16 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = CAN_GetITStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckITStatus
@@ -1468,7 +1468,7 @@ Global Symbols
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_RX0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[9e]"></a>CAN_ClearITPendingBit</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[9d]"></a>CAN_ClearITPendingBit</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX1_IRQHandler
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX0_IRQHandler
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_RX0_IRQHandler
@@ -1550,15 +1550,15 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphResetCmd
 </UL>
 
-<P><STRONG><a name="[95]"></a>GPIO_Init</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
+<P><STRONG><a name="[94]"></a>GPIO_Init</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_Init
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led8_Configuration
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Configuration
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Beep_Init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
 <P><STRONG><a name="[1e4]"></a>GPIO_StructInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
@@ -1594,12 +1594,12 @@ Global Symbols
 
 <P><STRONG><a name="[1ea]"></a>GPIO_ToggleBits</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
 
-<P><STRONG><a name="[94]"></a>GPIO_PinAFConfig</STRONG> (Thumb, 70 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
+<P><STRONG><a name="[93]"></a>GPIO_PinAFConfig</STRONG> (Thumb, 70 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_PinAFConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_Init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
 <P><STRONG><a name="[1eb]"></a>RCC_DeInit</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
@@ -1661,14 +1661,14 @@ Global Symbols
 
 <P><STRONG><a name="[200]"></a>RCC_I2SCLKConfig</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
-<P><STRONG><a name="[93]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
+<P><STRONG><a name="[92]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_Init
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led8_Configuration
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Configuration
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Configuration
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Beep_Init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 </UL>
 
 <P><STRONG><a name="[201]"></a>RCC_AHB2PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
@@ -1677,8 +1677,8 @@ Global Symbols
 
 <P><STRONG><a name="[7d]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_Init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Mode_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Configuration
 </UL>
@@ -1694,7 +1694,7 @@ Global Symbols
 <P><STRONG><a name="[205]"></a>RCC_AHB3PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
 <P><STRONG><a name="[130]"></a>RCC_APB1PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
+<BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_DeInit
 </UL>
@@ -3054,11 +3054,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task_Start
 </UL>
 
-<P><STRONG><a name="[9c]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
+<P><STRONG><a name="[9b]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_sendData
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Send
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;answer_master
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;answer_master
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Can_DeQueue
 </UL>
 
 <P><STRONG><a name="[fb]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
@@ -3286,10 +3286,10 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[9b]"></a>answer_master</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, can1.o(.text))
+<P><STRONG><a name="[9a]"></a>answer_master</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, can1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = answer_master
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_RX0_IRQHandler
 </UL>
@@ -3396,7 +3396,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[131]"></a>CheckITStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
 </UL>
 
 <P><STRONG><a name="[13f]"></a>TI4_Config</STRONG> (Thumb, 80 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)

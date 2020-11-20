@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-15 18:31:52
+ * @LastEditTime: 2020-11-19 20:57:27
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -68,7 +68,7 @@ static void Task_Lcd(void *pdata)
 	while (1)
 	{
 		UsartLCDshow();
-		OSTimeDly(3000);
+		OSTimeDly(1000);
 	}
 }
 
