@@ -13,7 +13,7 @@
 //#define ActionMotor
 
 #define USE_SCOPE 0		//是否调用示波器
-#define USE_DataScope 1 //新示波器
+#define USE_DataScope 0 //新示波器
 /* selet progrom functional unit
  * VER						流程号是否开启
  * USE_VECS					是否使用VESC
