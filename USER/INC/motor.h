@@ -174,6 +174,7 @@ extern u32 angle;
 extern u32 Speed;
 extern bool ifbegin;
 extern Djflag DJflag;
+extern char Motor_error[32];
 
 extern DJmotor motor[8];
 void Motor_Init(void);

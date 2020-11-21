@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-19 21:25:57
+ * @LastEditTime: 2020-11-21 08:33:59
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -18,6 +18,7 @@ bool enable_or_dis;
 u32 angle;
 u32 Speed;
 bool ifbegin;
+char Motor_error[32]="(。_。)";
 
 /**
  * @author: 叮咚蛋
@@ -314,6 +315,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           BEEP_ON; //一直响报警
           motor[id].enable = 0;
+          sprintf(Motor_error,"%d号电机堵转",id);
           return 1;
         }
         else
@@ -343,6 +345,7 @@ u8 ifstuck(u16 id) //判断是否堵转
       {
         BEEP_ON;
         motor[id].enable = 0;
+        sprintf(Motor_error,"%d号电机堵转",id);
         return 1;
       }
       else
@@ -376,6 +379,7 @@ void iftimeout(u16 id) //超时检测
         Beep_Show(2);
         Led8DisData(1);
         motor[id].status.timeout = 1; //超时标志位设1
+        sprintf(Motor_error,"%d号电机超时",id);
         Delay_ms(200);
       }
       else

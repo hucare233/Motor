@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-19 16:08:47
+ * @LastEditTime: 2020-11-21 08:50:13
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -235,6 +235,7 @@ void CAN2_RX0_IRQHandler(void)
 		motor[id].valueReal.pulseRead = (RxMessage.Data[0] << 8) | (RxMessage.Data[1]);
 		motor[id].valueReal.current = (RxMessage.Data[4] << 8) | (RxMessage.Data[5]);
 		motor[id].valueReal.tempeture = RxMessage.Data[6];
+		//TODO:将计算放在中断，减小位置丢失
 		pulse_caculate();
 		if (!motor[id].status.clearFlag) //上电第一次进中断清除位置计算误差。
 		{

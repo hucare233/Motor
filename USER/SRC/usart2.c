@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-14 18:00:50
+ * @LastEditTime: 2020-11-21 08:35:36
  * @FilePath: \MotoPro\USER\SRC\usart2.c
  */
 #include "usart2.h"
@@ -917,10 +917,11 @@ void UsartLCDshow(void)
       usart.TxBuffer_USART2[i++] = 0x01;
       usart.TxBuffer_USART2[i++] = motor[3].begin;
     }
+
     usart.TxBuffer_USART2[i++] = 0x00;
     usart.TxBuffer_USART2[i++] = 0x10;
     usart.TxBuffer_USART2[i++] = 0x00;
-    sprintf(str_temp, "%x", Eerror.head->next->code);
+    sprintf(str_temp, "%s", Motor_error);
     usart.TxBuffer_USART2[i++] = strlen(str_temp);
     strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
     i += strlen(str_temp);
@@ -1127,7 +1128,7 @@ void UsartLCDshow(void)
     usart.TxBuffer_USART2[i++] = 0x00;
     usart.TxBuffer_USART2[i++] = 0x10;
     usart.TxBuffer_USART2[i++] = 0x00;
-    sprintf(str_temp, "%x", Eerror.head->next->code);
+    sprintf(str_temp, "%s", Motor_error);
     usart.TxBuffer_USART2[i++] = strlen(str_temp);
     strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
     i += strlen(str_temp);
@@ -1274,6 +1275,7 @@ void UsartLCDshow(void)
       usart.TxBuffer_USART2[i++] = 0x01;
       usart.TxBuffer_USART2[i++] = ELMOmotor[3].enable;
     }
+
     usart.TxBuffer_USART2[i++] = 0x00;
     usart.TxBuffer_USART2[i++] = 0x1E;
     usart.TxBuffer_USART2[i++] = 0x00;
