@@ -336,7 +336,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--locale=english</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F40X_HD</Define>
               <Undefine></Undefine>
               <IncludePath>.\GeneralFunction\inc;.\Libraries\CMSIS;.\Libraries\Startup;.\Libraries\STM32F4xx_StdPeriph_Driver\inc;.\uCOSII\CONFIG;.\uCOSII\CORE;.\uCOSII\PORT;.\USER\INC</IncludePath>

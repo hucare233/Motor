@@ -1,10 +1,9 @@
 .\obj\vesc.o: USER\SRC\vesc.c
 .\obj\vesc.o: .\USER\INC\vesc.h
-.\obj\vesc.o: E:\NEW_mdk\ARM\ARMCC\Bin\..\include\stdint.h
-.\obj\vesc.o: .\USER\INC\param.h
-.\obj\vesc.o: .\USER\INC\motor.h
+.\obj\vesc.o: .\GeneralFunction\inc\sys.h
 .\obj\vesc.o: .\Libraries\CMSIS\stm32f4xx.h
 .\obj\vesc.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm4.h
+.\obj\vesc.o: E:\NEW_mdk\ARM\ARMCC\Bin\..\include\stdint.h
 .\obj\vesc.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h
 .\obj\vesc.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h
 .\obj\vesc.o: E:\NEW_mdk\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h
@@ -13,11 +12,12 @@
 .\obj\vesc.o: .\USER\INC\stm32f4xx_conf.h
 .\obj\vesc.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\obj\vesc.o: .\Libraries\CMSIS\stm32f4xx.h
+.\obj\vesc.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h
+.\obj\vesc.o: .\USER\INC\param.h
+.\obj\vesc.o: .\USER\INC\motor.h
 .\obj\vesc.o: .\USER\INC\pid.h
 .\obj\vesc.o: E:\NEW_mdk\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\vesc.o: .\USER\INC\can2.h
-.\obj\vesc.o: .\GeneralFunction\inc\sys.h
-.\obj\vesc.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h
 .\obj\vesc.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\obj\vesc.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h
 .\obj\vesc.o: .\USER\INC\motor.h

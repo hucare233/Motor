@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 第一版
+ * @Author: 叮咚蛋
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-21 22:48:12
+ * @FilePath: \MotoPro\USER\INC\can2.h
+ */
 #ifndef __CAN2_H
 #define __CAN2_H
 #include "sys.h"
@@ -11,8 +20,8 @@
 u8 CAN2_Mode_Init(u8 tsjw, u8 tbs2, u8 tbs1, u16 brp, u8 mode); //CAN初始化
 u8 CAN2_Send_Msg(u8 *msg, u8 len);                              //发送数据
 u8 CAN2_Receive_Msg(u8 *buf);   
+void valveCtrl(bool status);
 void currentInput(u8 id);//接收数据
-void valveCtrl( bool status);
 extern u32 last_update_time[8];
 extern u32 now_update_time[8];
 extern s16 timeout_counts;

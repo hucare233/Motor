@@ -13,13 +13,13 @@
 .\obj\tim3.o: .\Libraries\CMSIS\stm32f4xx.h
 .\obj\tim3.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h
 .\obj\tim3.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h
+.\obj\tim3.o: E:\NEW_mdk\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\tim3.o: .\USER\INC\pid.h
 .\obj\tim3.o: .\USER\INC\can2.h
 .\obj\tim3.o: .\GeneralFunction\inc\sys.h
 .\obj\tim3.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h
 .\obj\tim3.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\obj\tim3.o: .\USER\INC\motor.h
-.\obj\tim3.o: E:\NEW_mdk\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\tim3.o: .\USER\INC\can2.h
 .\obj\tim3.o: .\USER\INC\macro.h
 .\obj\tim3.o: .\USER\INC\led.h

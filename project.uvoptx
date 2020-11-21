@@ -152,18 +152,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>32</LineNumber>
+          <LineNumber>303</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134258608</Address>
+          <Address>134223126</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\USER\SRC\stm32f4xx_it.c</Filename>
+          <Filename>.\USER\SRC\can2.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\project\USER/SRC/stm32f4xx_it.c\32</Expression>
+          <Expression>\\project\USER/SRC/can2.c\303</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -216,26 +216,6 @@
           <count>9</count>
           <WinNumber>1</WinNumber>
           <ItemText>EPOSflag,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>10</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>VESCmotor,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>11</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>rx_message</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>s16TempData,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>13</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>err_update_time,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -512,7 +492,7 @@
 
   <Group>
     <GroupName>BSPLIB</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
