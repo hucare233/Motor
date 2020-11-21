@@ -38,7 +38,7 @@ void VESCInit(void)
 	}
 	/****0号电机初始化****/
 	VESCmotor[0].instrinsic = SUNNYSKYinstrin;
-	VESCmotor[0].enable = true;
+	VESCmotor[0].enable = false;
 	VESCmotor[0].begin = false;
 	VESCmotor[0].mode = RPM;
 	VESCmotor[0].valSet.current = 10;
@@ -225,3 +225,4 @@ void VESC_CONTROL(u8 id)
 		VESCFlag.enhandle = 0;
 	}
 }
+

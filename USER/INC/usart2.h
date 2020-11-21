@@ -6,6 +6,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "param.h"
+#include "can2.h"
 #include "stm32f4xx_usart.h"
 void USART2_Configuration(void);
 void UsartLCDshow(void);

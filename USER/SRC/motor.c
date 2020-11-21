@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-21 08:33:59
+ * @LastEditTime: 2020-11-21 10:50:58
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -18,7 +18,7 @@ bool enable_or_dis;
 u32 angle;
 u32 Speed;
 bool ifbegin;
-char Motor_error[32]="(。_。)";
+char Motor_error[32]="(*_ *)";
 
 /**
  * @author: 叮咚蛋
@@ -315,7 +315,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           BEEP_ON; //一直响报警
           motor[id].enable = 0;
-          sprintf(Motor_error,"%d号电机堵转",id);
+          sprintf(Motor_error,"%d-Motor stuck",id);
           return 1;
         }
         else
@@ -345,7 +345,7 @@ u8 ifstuck(u16 id) //判断是否堵转
       {
         BEEP_ON;
         motor[id].enable = 0;
-        sprintf(Motor_error,"%d号电机堵转",id);
+        sprintf(Motor_error,"%%d-Motor stuck",id);
         return 1;
       }
       else
@@ -374,18 +374,19 @@ void iftimeout(u16 id) //超时检测
       {
         motor[id].argum.timeoutCnt = 0;
       }
-      if (motor[id].status.timeout == 0 && motor[id].argum.timeoutCnt > 50)
+      if (motor[id].argum.timeoutCnt > 50)
       {
         Beep_Show(2);
         Led8DisData(1);
         motor[id].status.timeout = 1; //超时标志位设1
-        sprintf(Motor_error,"%d号电机超时",id);
+        sprintf(Motor_error,"%d-Motor timeout",id);
         Delay_ms(200);
       }
       else
       {
         motor[id].status.timeout = 0;
         Led8DisData(0);
+        sprintf(Motor_error,"%s","(=_ =)");
       }
     }
   }

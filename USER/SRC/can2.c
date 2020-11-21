@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-21 08:50:13
+ * @LastEditTime: 2020-11-21 09:09:53
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -336,6 +336,7 @@ void CAN2_RX1_IRQHandler(void)
 			if (rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x77 && rx_message.Data[2] == 0x60) //实际扭矩电流
 			{
 				DecodeS32Data(&EPOSmotor[id].valReal.torque, &rx_message.Data[4]);
+				//TODO:136是F90扭矩常数
 				EPOSmotor[id].valReal.current = EPOSmotor[id].valReal.torque / 136.0f;
 			}
 		}
@@ -409,4 +410,27 @@ u8 CAN2_Receive_Msg(u8 *buf)
 	for (i = 0; i < RxMessage.DLC; i++)
 		buf[i] = RxMessage.Data[i];
 	return RxMessage.DLC;
+}
+
+/****电磁阀控制****/
+void valveCtrl( bool status)
+{
+	CanTxMsg tx_message;
+	tx_message.ExtId = 0x00010400;
+	tx_message.RTR = CAN_RTR_Data;
+	tx_message.IDE = CAN_Id_Extended;
+	tx_message.DLC = 4;
+	tx_message.Data[0] = 0x04;
+	if(status)
+	{
+		tx_message.Data[1] = 'S'+0x40;
+	tx_message.Data[2] = 'N';
+	}
+	else
+		{
+		tx_message.Data[1] = 'E'+0x40;
+	tx_message.Data[2] = 'F';
+	}
+	tx_message.Data[3] = 1;
+	CAN_Transmit(CAN2,&tx_message);
 }

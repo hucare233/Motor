@@ -67,14 +67,19 @@ __align(8) OS_STK VESC_TASK_STK[VESC_STK_SIZE];
 static void Task_VESC(void *pdata);
 
 //ÐéÄâÊ¾²¨Æ÷
-#define SCOPE_TASK_PRIO 14
+#define SCOPE_TASK_PRIO 17
 #define SCOPE_STK_SIZE 128
 __align(8) OS_STK SCOPE_TASK_STK[SCOPE_STK_SIZE];
 static void Task_Scope(void *pdata);
 
-#define DataSCOPE_TASK_PRIO 14
+#define DataSCOPE_TASK_PRIO 18
 #define DataSCOPE_STK_SIZE 128
 __align(8) OS_STK DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE];
 static void Task_DataScope(void *pdata);
+
+#define VESCSEND_TASK_PRIO 31
+#define VESCSEND_STK_SIZE 128
+__align(8) OS_STK VESCSEND_TASK_STK[VESCSEND_STK_SIZE];
+static void Task_VESCSEND(void *pdata);
 
 #endif

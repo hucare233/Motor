@@ -1,13 +1,13 @@
 #ifndef __VESC_H
 #define __VESC_H
 
+#include "sys.h"
 #include "stdint.h"
 #include "param.h"
 #include "queue.h"
 #include "canctrllist.h"
 #include "buffer.h"
 #include "motor.h"
-
 /****VESC内参****/
 typedef struct
 {
@@ -110,4 +110,5 @@ void VESC_Set_Current(u8 controller_ID, float current, u8 InConGrpFlag);
 void VESC_Set_Brake_Current(u8 controller_ID, float brake_current, u8 InConGrpFlag);
 void VESC_Set_Handbrake_Current(u8 controller_ID, float handbrake_current, u8 InConGrpFlag);
 void VESC_CONTROL(u8 id);
+
 #endif

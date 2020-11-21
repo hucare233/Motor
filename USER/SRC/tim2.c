@@ -39,7 +39,7 @@ void TIM2_IRQHandler(void)
 		for (u8 i = 0; i < 4; i++)
 		{
 			/* 反馈超时判断 */
-			if ((VESCmotor[i].argum.timeout == 1) && VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks && (VESCmotor[i].argum.timeout == 1)))
+			if ((VESCmotor[i].argum.timeout == 1) && VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks ))
 				VESCmotor[i].argum.timeoutCnt++; //反馈超时判断
 			else
 				VESCmotor[i].argum.timeoutCnt = 0;
@@ -49,6 +49,7 @@ void TIM2_IRQHandler(void)
 				Beep_Show(2);
 				insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
 				Led8DisData(2);
+				OSTimeDly(200);
 			}
 			else
 			{
