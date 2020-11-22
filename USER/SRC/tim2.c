@@ -86,7 +86,14 @@ void TIM2_IRQHandler(void)
 #endif
 #ifdef USE_DJ
 		for (u8 i = 0; i < 8; i++)
-			iftimeout(i); //DJ超时检测
+			{
+				iftimeout(i); //DJ超时检测
+			}
+			if((motor[0].status.timeout==0)&&(motor[1].status.timeout==0)&&
+				(motor[2].status.timeout==0)&&(motor[3].status.timeout==0)&&
+			(motor[4].status.timeout==0)&&(motor[5].status.timeout==0)&&
+			(motor[6].status.timeout==0)&&(motor[7].status.timeout==0))
+			sprintf(Motor_error, "%s", "(*_ *)");
 #endif
 #ifdef USE_EPOS
 		for (u8 i = 0; i < 4; i++) //EPOS超时判断

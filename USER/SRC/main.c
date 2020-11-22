@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-19 20:57:27
+ * @LastEditTime: 2020-11-22 08:36:58
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -49,15 +49,19 @@ static void Task_Start(void *pdata)
 	OSTaskCreate(Task_Led8, (void *)0, (OS_STK *)&LED8_TASK_STK[LED8_STK_SIZE - 1], LED8_TASK_PRIO);
 	OSTaskCreate(Task_Elmo, (void *)0, (OS_STK *)&ELMO_TASK_STK[ELMO_STK_SIZE - 1], ELMO_TASK_PRIO);
 	OSTaskCreate(Task_EPOS, (void *)0, (OS_STK *)&EPOS_TASK_STK[EPOS_STK_SIZE - 1], EPOS_TASK_PRIO);
-	OSTaskCreate(Task_VESC, (void *)0, (OS_STK *)&VESC_TASK_STK[VESC_STK_SIZE - 1], VESC_TASK_PRIO);
 	OSTaskCreate(Task_Motor, (void *)0, (OS_STK *)&MOTOR_TASK_STK[MOTOR_STK_SIZE - 1], MOTOR_TASK_PRIO);
+#ifdef USE_VESC
+		OSTaskCreate(Task_VESC, (void *)0, (OS_STK *)&VESC_TASK_STK[VESC_STK_SIZE - 1], VESC_TASK_PRIO);
 	OSTaskCreate(Task_VESCSEND, (void *)0, (OS_STK *)&VESCSEND_TASK_STK[VESCSEND_STK_SIZE - 1], VESCSEND_TASK_PRIO);
+#endif
 #if USE_SCOPE
 	OSTaskCreate(Task_Scope, (void *)0, (OS_STK *)&SCOPE_TASK_STK[SCOPE_STK_SIZE - 1], SCOPE_TASK_PRIO);
 #endif
 #if USE_DataScope
 	OSTaskCreate(Task_DataScope, (void *)0, (OS_STK *)&DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE - 1], DataSCOPE_TASK_PRIO);
 #endif
+	ENABLE_ALL_DJMOTOR_5_8
+	BEGIN_ALL_DJMOTOR_5_8
 	OSTaskSuspend(START_TASK_PRIO); //挂起起始任务.
 	OS_EXIT_CRITICAL();				//退出临界区(可以被中断打断)
 }
@@ -90,8 +94,7 @@ static void Task_Motor(void *pdata)
 	//motor[5].enable=1;
 	//motor[6].enable=1;
 	//motor[7].enable=1;
-	ENABLE_ALL_DJMOTOR_5_8
-	BEGIN_ALL_DJMOTOR_5_8
+
 	while (1)
 	{
 		djcontrol();
@@ -152,7 +155,7 @@ static void Task_EPOS(void *pdata)
 		OSTimeDly(1000);
 	}
 }
-
+#ifdef USE_VESC
 static void Task_VESC(void *pdata)
 {
 	while (1)
@@ -162,6 +165,7 @@ static void Task_VESC(void *pdata)
 		OSTimeDly(1000);
 	}
 }
+#endif
 #if USE_SCOPE
 //示波器任务
 static void Task_Scope(void *pdata)
@@ -202,8 +206,8 @@ static void Task_DataScope(void *pdata)
 	}
 }
 #endif
-
-static void Task_VESCSEND(void *pdata)
+#ifdef USE_VESC
+static void Task_VESCSEND(void *pdata)//TODO:出队放这里防止报文丢失
 {
 	while (1)
 	{
@@ -211,3 +215,4 @@ static void Task_VESCSEND(void *pdata)
 		OSTimeDly(2);
 	}
 }
+#endif

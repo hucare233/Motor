@@ -84,7 +84,7 @@
         motor[5].argum.timeoutCnt = 0; \
         motor[6].argum.timeoutCnt = 0; \
         motor[7].argum.timeoutCnt = 0; \
-        sprintf(Motor_error,"%s","(。_。)");\
+        sprintf(Motor_error,"%s","(-- _*)");\
     }
 /****电机模式****/
 enum MOTOR_MODE
@@ -186,7 +186,7 @@ extern u32 angle;
 extern u32 Speed;
 extern bool ifbegin;
 extern Djflag DJflag;
-extern char Motor_error[32];
+extern char Motor_error[15];
 
 extern DJmotor motor[8];
 void Motor_Init(void);

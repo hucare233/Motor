@@ -22,7 +22,7 @@ void TIM3_Init(void)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE); ///使能TIM3时钟
 
     TIM_TimeBaseInitStructure.TIM_Period = 11999;                   //自动重装载值11999
-    TIM_TimeBaseInitStructure.TIM_Prescaler = 15;                    //定时器分频
+    TIM_TimeBaseInitStructure.TIM_Prescaler = 7;                    //定时器分频
     TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up; //向上计数模式
     TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 
@@ -99,7 +99,7 @@ void TIM3_IRQHandler(void)
                         break;
                     case brake:
                         VESC_Set_Brake_Current(i + 1, VESCmotor[i].limit.breakCurrent, 0);
-                        break;
+                        break;                              
                     default:
                         break;
                     }
