@@ -237,9 +237,9 @@ void USART2_IRQHandler(void)
 //          else
 //            valveCtrl(0);
 					  
-					  valveCtrl(1);
-            OSTimeDly(200);
-            valveCtrl(0);
+					  valveCtrl(0);
+            Delay_ms(100);
+            valveCtrl(1);
         }
         break;
         case 0x14:

@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-22 10:30:07
+ * @LastEditTime: 2020-11-22 14:30:55
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -18,7 +18,7 @@ bool enable_or_dis;
 u32 angle;
 u32 Speed;
 bool ifbegin;
-char Motor_error[15]="(*_ *)";
+char Motor_error[15] = "(*_ *)";
 
 /**
  * @author: 叮咚蛋
@@ -34,7 +34,7 @@ void Motor_Init(void)
     M2006instrin.RATIO = 36;
     M3508instrin.CURRENT_LIMIT = 14745; //14745
     M2006instrin.CURRENT_LIMIT = 9000;  //1000
-    M3508instrin.GearRatio = 1.0f;     //全局变量
+    M3508instrin.GearRatio = 1.0f;      //全局变量
     M2006instrin.GearRatio = 6.117f;    //外参齿数比
   }
   { //电机限制保护设置
@@ -46,7 +46,7 @@ void Motor_Init(void)
     Motorlimit.zeroSP = 1000;
     Motorlimit.zeroCurrent = 2000;
     Motorlimit.stuckmotion = 1;
-    Motorlimit.timeoutmotion = 1;
+    Motorlimit.timeoutmotion = 0;
   }
   {                                 //电机其他参数设置
     Motorargum.timeoutTicks = 2000; //2000ms
@@ -170,8 +170,7 @@ void Motor_Init(void)
   }
   for (int i = 0; i < 4; i++)
   {
-    motor[i].limit.posSPlimit = 18000
-		;
+    motor[i].limit.posSPlimit = 19500;
   }
 }
 
@@ -264,7 +263,7 @@ void pulse_caculate(void)
   {
     motor[id].argum.distance = motor[id].valueReal.pulseRead - motor[id].valuePrv.pulseRead;
     motor[id].valuePrv = motor[id].valueReal;
-    if (ABS(motor[id].argum.distance) > 4150)  //last edit : 4085 ;
+    if (ABS(motor[id].argum.distance) > 4150) //last edit : 4085 ;
       motor[id].argum.distance -= SIG(motor[id].argum.distance) * motor[id].intrinsic.PULSE;
     motor[id].valueReal.pulse += motor[id].argum.distance;                              //累计脉冲计算
     motor[id].argum.difPulseSet = motor[id].valueSet.pulse - motor[id].valueReal.pulse; //更新误差
@@ -315,7 +314,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           BEEP_ON; //一直响报警
           motor[id].enable = 0;
-          sprintf(Motor_error,"%d-Motor stuck",id);
+          sprintf(Motor_error, "%d-Motor stuck", id);
           return 1;
         }
         else
@@ -345,7 +344,7 @@ u8 ifstuck(u16 id) //判断是否堵转
       {
         BEEP_ON;
         motor[id].enable = 0;
-        sprintf(Motor_error,"%d-Motor stuck",id);
+        sprintf(Motor_error, "%d-Motor stuck", id);
         return 1;
       }
       else
@@ -376,10 +375,10 @@ void iftimeout(u16 id) //超时检测
       }
       if (motor[id].argum.timeoutCnt > 50)
       {
-        //Beep_Show(2);
+        Beep_Show(2);
         Led8DisData(1);
         motor[id].status.timeout = 1; //超时标志位设1
-        sprintf(Motor_error,"%d-Motor timeout",id);
+        sprintf(Motor_error, "%d-Motor timeout", id);
       }
       else
       {

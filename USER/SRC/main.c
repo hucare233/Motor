@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-22 08:36:58
+ * @LastEditTime: 2020-11-22 19:15:02
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -51,7 +51,7 @@ static void Task_Start(void *pdata)
 	OSTaskCreate(Task_EPOS, (void *)0, (OS_STK *)&EPOS_TASK_STK[EPOS_STK_SIZE - 1], EPOS_TASK_PRIO);
 	OSTaskCreate(Task_Motor, (void *)0, (OS_STK *)&MOTOR_TASK_STK[MOTOR_STK_SIZE - 1], MOTOR_TASK_PRIO);
 #ifdef USE_VESC
-		OSTaskCreate(Task_VESC, (void *)0, (OS_STK *)&VESC_TASK_STK[VESC_STK_SIZE - 1], VESC_TASK_PRIO);
+	OSTaskCreate(Task_VESC, (void *)0, (OS_STK *)&VESC_TASK_STK[VESC_STK_SIZE - 1], VESC_TASK_PRIO);
 	OSTaskCreate(Task_VESCSEND, (void *)0, (OS_STK *)&VESCSEND_TASK_STK[VESCSEND_STK_SIZE - 1], VESCSEND_TASK_PRIO);
 #endif
 #if USE_SCOPE
@@ -88,7 +88,6 @@ static void Task_Led8(void *pdata) //流水灯，数码管任务
 
 static void Task_Motor(void *pdata)
 {
-	OSTimeDly(1000);
 	/***************电机使能放这里清除起始误差***********/
 	//motor[4].enable=1;
 	//motor[5].enable=1;
@@ -109,13 +108,13 @@ static void Task_Elmo(void *pdata) //elmo任务
 		elmo_control(1);
 		for (u8 i = 1; i < 5; i++)
 		{
-//			Elmo_Motor_ASKmo(i, 1);
-//			OSTimeDly(50);
-//			Elmo_Motor_ASKvx(i, 1);
-//			OSTimeDly(50);
-//			Elmo_Motor_ASKpx(i, 1);
-//			OSTimeDly(50);
-//			Elmo_Motor_ASKiq(i, 1);
+			//			Elmo_Motor_ASKmo(i, 1);
+			//			OSTimeDly(50);
+			//			Elmo_Motor_ASKvx(i, 1);
+			//			OSTimeDly(50);
+			//			Elmo_Motor_ASKpx(i, 1);
+			//			OSTimeDly(50);
+			//			Elmo_Motor_ASKiq(i, 1);
 		}
 		OSTimeDly(1200);
 	}
@@ -161,7 +160,7 @@ static void Task_VESC(void *pdata)
 	while (1)
 	{
 		VESC_CONTROL(1);
-//		Can_DeQueue(CAN2, &VESC_Sendqueue); //VESC
+		//		Can_DeQueue(CAN2, &VESC_Sendqueue); //VESC
 		OSTimeDly(1000);
 	}
 }
@@ -207,11 +206,11 @@ static void Task_DataScope(void *pdata)
 }
 #endif
 #ifdef USE_VESC
-static void Task_VESCSEND(void *pdata)//TODO:出队放这里防止报文丢失
+static void Task_VESCSEND(void *pdata) //TODO:出队放这里防止报文丢失
 {
 	while (1)
 	{
-		Can_DeQueue(CAN2, &VESC_Sendqueue); //VESC	
+		Can_DeQueue(CAN2, &VESC_Sendqueue); //VESC
 		OSTimeDly(2);
 	}
 }

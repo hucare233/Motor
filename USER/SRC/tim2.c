@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-15 19:38:59
+ * @LastEditTime: 2020-11-22 14:42:41
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -35,11 +35,12 @@ void TIM2_IRQHandler(void)
 {
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET) //溢出中断
 	{
+		TIM_ClearITPendingBit(TIM2, TIM_IT_Update); //清除中断标志位
 #ifdef USE_VESC
 		for (u8 i = 0; i < 4; i++)
 		{
 			/* 反馈超时判断 */
-			if ((VESCmotor[i].argum.timeout == 1) && VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks ))
+			if ((VESCmotor[i].argum.timeout == 1) && VESCmotor[i].enable && ((OSTimeGet() - VESCmotor[i].argum.lastRxTim) > VESCmotor[i].argum.timeoutTicks))
 				VESCmotor[i].argum.timeoutCnt++; //反馈超时判断
 			else
 				VESCmotor[i].argum.timeoutCnt = 0;
@@ -72,9 +73,8 @@ void TIM2_IRQHandler(void)
 				if (ELMOmotor[i].argum.timeoutCnt > 1000)
 				{
 					ELMOmotor[i].status.timeout = true;
-					Beep_Show(2);
+		Beep_Show(2);
 					Led8DisData(3);
-					Delay_ms(500);
 				}
 				else
 				{
@@ -86,13 +86,13 @@ void TIM2_IRQHandler(void)
 #endif
 #ifdef USE_DJ
 		for (u8 i = 0; i < 8; i++)
-			{
-				iftimeout(i); //DJ超时检测
-			}
-			if((motor[0].status.timeout==0)&&(motor[1].status.timeout==0)&&
-				(motor[2].status.timeout==0)&&(motor[3].status.timeout==0)&&
-			(motor[4].status.timeout==0)&&(motor[5].status.timeout==0)&&
-			(motor[6].status.timeout==0)&&(motor[7].status.timeout==0))
+		{
+			iftimeout(i); //DJ超时检测
+		}
+		if ((motor[0].status.timeout == 0) && (motor[1].status.timeout == 0) &&
+			(motor[2].status.timeout == 0) && (motor[3].status.timeout == 0) &&
+			(motor[4].status.timeout == 0) && (motor[5].status.timeout == 0) &&
+			(motor[6].status.timeout == 0) && (motor[7].status.timeout == 0))
 			sprintf(Motor_error, "%s", "(*_ *)");
 #endif
 #ifdef USE_EPOS
@@ -110,7 +110,6 @@ void TIM2_IRQHandler(void)
 					EPOSmotor[i].status.timeout = true;
 					Beep_Show(2);
 					Led8DisData(4);
-					Delay_ms(200);
 				}
 				else
 				{
@@ -121,5 +120,4 @@ void TIM2_IRQHandler(void)
 		}
 #endif
 	}
-	TIM_ClearITPendingBit(TIM2, TIM_IT_Update); //清除中断标志位
 }
