@@ -98,7 +98,6 @@
 + PVT模式数组的设置`不可保存`，得在程序中手动添加
 + PVT数组 `QP[1]=0 QV[1]=0;`，MP[3]: 0-不循环 1-循环
 + RM=0在MO=0时发送，PV.PT=1在MO=1之后发送，在下一个BG执行
-+ HMM模式method设置为`actual method` ，设置当前位置为零点，`offset position 和 homing position均给0`
 
 ## VESC相关事项
 
@@ -117,6 +116,7 @@
 + 位置模式再到达目标后，若想再次运动必须`再发一次0x0F`
 + epos没有查询电流的功能，只能查询当前扭矩在除以一个系数算出电流（参数在flat90手册里头）
 + 启动HMM模式，控制字写入`0x1F`，有两个归零速度，一个较快用于寻找机械寻零，一个较慢用来到达索引脉冲
++ HMM模式method设置为`actual method` ，设置当前位置为零点，`offset position 和 homing position均给0`
 
 # 个人臊皮日志——
 
