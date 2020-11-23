@@ -60,8 +60,7 @@ static void Task_Start(void *pdata)
 #if USE_DataScope
 	OSTaskCreate(Task_DataScope, (void *)0, (OS_STK *)&DataSCOPE_TASK_STK[DataSCOPE_STK_SIZE - 1], DataSCOPE_TASK_PRIO);
 #endif
-	ENABLE_ALL_DJMOTOR_5_8
-	BEGIN_ALL_DJMOTOR_5_8
+
 	OSTaskSuspend(START_TASK_PRIO); //挂起起始任务.
 	OS_EXIT_CRITICAL();				//退出临界区(可以被中断打断)
 }
@@ -93,7 +92,13 @@ static void Task_Motor(void *pdata)
 	//motor[5].enable=1;
 	//motor[6].enable=1;
 	//motor[7].enable=1;
-
+	ENABLE_ALL_DJMOTOR_5_8
+	BEGIN_ALL_DJMOTOR_5_8
+	OSTimeDly(1000);
+  motor[4].status.isSetZero=1;
+	motor[5].status.isSetZero=1;
+	motor[6].status.isSetZero=1;
+	motor[7].status.isSetZero=1;
 	while (1)
 	{
 		djcontrol();

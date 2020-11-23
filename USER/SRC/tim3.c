@@ -1,10 +1,19 @@
 /*
+ * @Descripttion: 
+ * @version: 第一版
+ * @Author: 叮咚蛋
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-11-23 20:01:02
+ * @FilePath: \MotoPro\USER\SRC\tim3.c
+ */
+/*
  * @Descripttion: 定时器三，报文发送
  * @version: 第二版
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-16 16:51:52
+ * @LastEditTime: 2020-11-22 19:21:30
  * @FilePath: \MotoPro\USER\SRC\tim3.c
  */
 #include "tim3.h"
@@ -13,7 +22,6 @@
 #include "motor.h"
 #include "queue.h"
 
-bool vesc_flag=true;
 void TIM3_Init(void)
 {
     TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
@@ -80,7 +88,7 @@ void TIM3_IRQHandler(void)
 #endif
 #ifdef USE_VESC
         for (int i = 0; i < 4; i++)
-        {				
+        {
             if (VESCmotor[i].enable)
             {
                 if (VESCmotor[i].begin)
@@ -99,7 +107,7 @@ void TIM3_IRQHandler(void)
                         break;
                     case brake:
                         VESC_Set_Brake_Current(i + 1, VESCmotor[i].limit.breakCurrent, 0);
-                        break;                              
+                        break;
                     default:
                         break;
                     }
@@ -112,7 +120,7 @@ void TIM3_IRQHandler(void)
         }
 #endif
 
-				Can_DeQueue(CAN2, &Can2_Sendqueue); //ELMO EPOS
+        Can_DeQueue(CAN2, &Can2_Sendqueue); //ELMO EPOS
         Can_DeQueue(CAN1, &Can1_Sendqueue); //主控
     }
 }

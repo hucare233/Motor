@@ -34,7 +34,7 @@ void Motor_Init(void)
     M2006instrin.RATIO = 36;
     M3508instrin.CURRENT_LIMIT = 14745; //14745
     M2006instrin.CURRENT_LIMIT = 9000;  //1000
-    M3508instrin.GearRatio = 1.0f;      //全局变量
+    M3508instrin.GearRatio = 1;      //全局变量
     M2006instrin.GearRatio = 6.117f;    //外参齿数比
   }
   { //电机限制保护设置
@@ -379,6 +379,7 @@ void iftimeout(u16 id) //超时检测
         Led8DisData(1);
         motor[id].status.timeout = 1; //超时标志位设1
         sprintf(Motor_error, "%d-Motor timeout", id);
+				Delay_ms(200);
       }
       else
       {

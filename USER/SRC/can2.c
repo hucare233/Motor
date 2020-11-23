@@ -241,6 +241,7 @@ void CAN2_RX0_IRQHandler(void)
 		{
 			motor[id].status.clearFlag = true;
 			motor[id].argum.distance = 0;
+			motor[id].valueReal.pulse=0;
 		}
 	}
 
@@ -397,6 +398,12 @@ void CAN2_RX1_IRQHandler(void)
 			}
 		}
 #endif
+//		if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag==1 && Can2_Sendqueue.Rear!=Can2_Sendqueue.Front)
+//						{
+//							if((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0] == rx_message.Data[0])
+//								&&(	Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1] == rx_message.Data[1]))
+//							Can2_Sendqueue.Front = (Can2_Sendqueue.Front + 1) % CAN_QUEUESIZE;
+//						}
 	}
 }
 

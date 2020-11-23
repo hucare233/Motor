@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-06 20:14:12
+ * @LastEditTime: 2020-11-23 19:59:46
  * @FilePath: \MotoPro\USER\SRC\queue.c
  */
 #include "queue.h"
@@ -64,10 +64,10 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 			}
 		}
 
-//				if(CAN1==CANx)
-//					Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
-//				else
-//					Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
+		//		if(CAN1==CANx)
+		// 	        Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
+		//		else
+		//			Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
 
 		TxMessage.DLC = can_queue->Can_DataSend[can_queue->Front].DLC;
 		TxMessage.RTR = CAN_RTR_DATA;
@@ -98,5 +98,49 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 			Can2_Tx_NoMailBox = 0;
 			insertError(Eerror.head, SYSTEMERROR | (2 << 4) | (1 << 8));
 		}
+//			if(CANx == CAN2) //电机的报文
+//	{
+//		while ((CAN_Transmit(CAN2, &TxMessage)) == CAN_TxStatus_NoMailBox)
+//		{
+//			CanSendCount++;
+//			if (CanSendCount > 10) break;
+//		}
+//		if (CanSendCount > 10)
+//		{
+//			Can2_Tx_NoMailBox++;
+//			if(Can2_Tx_NoMailBox>10)
+//				insertError(Eerror.head, SYSTEMERROR | (2 << 4) | (1 << 8));
+//		}
+//		else
+//		{
+//			Can2_Tx_NoMailBox=0;
+//			deleteError(Eerror.head, ErrorFind(Eerror.head, SYSTEMERROR | (2 << 4) | (1 << 8)));
+//			Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
+//			if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag==0)
+//				can_queue->Front = (can_queue->Front + 1) % CAN_QUEUESIZE;
+//		}
+//	}
+//	else if(CANx == CAN1)
+//	{
+//		while ((CAN_Transmit(CAN1, &TxMessage)) == CAN_TxStatus_NoMailBox)
+//		{
+//			CanSendCount++;
+//			if (CanSendCount > 10) break;
+//		}
+//		if (CanSendCount > 10)
+//		{
+//			Can1_Tx_NoMailBox++;
+//			if(Can1_Tx_NoMailBox>10)
+//				insertError(Eerror.head, SYSTEMERROR | (1 << 4) | (1 << 8));
+//		}
+//		else
+//		{
+//			Can1_Tx_NoMailBox=0;
+//			deleteError(Eerror.head, ErrorFind(Eerror.head, SYSTEMERROR | (1 << 4) | (1 << 8)));
+//			Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
+//			if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag==0)
+//				can_queue->Front = (can_queue->Front + 1) % CAN_QUEUESIZE;
+//		}
+//	}
 	}
 }

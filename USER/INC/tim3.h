@@ -7,6 +7,5 @@
 
 #endif
 void TIM3_Init(void);
-extern bool vesc_flag;
 
 

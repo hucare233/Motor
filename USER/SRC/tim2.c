@@ -50,7 +50,7 @@ void TIM2_IRQHandler(void)
 				Beep_Show(2);
 				insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
 				Led8DisData(2);
-				OSTimeDly(200);
+				Delay_ms(200);
 			}
 			else
 			{
@@ -73,8 +73,9 @@ void TIM2_IRQHandler(void)
 				if (ELMOmotor[i].argum.timeoutCnt > 1000)
 				{
 					ELMOmotor[i].status.timeout = true;
-		Beep_Show(2);
+		      Beep_Show(2);
 					Led8DisData(3);
+					Delay_ms(200);
 				}
 				else
 				{
