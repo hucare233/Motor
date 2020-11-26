@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-22 19:15:02
+ * @LastEditTime: 2020-11-24 22:18:34
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -88,17 +88,13 @@ static void Task_Led8(void *pdata) //流水灯，数码管任务
 static void Task_Motor(void *pdata)
 {
 	/***************电机使能放这里清除起始误差***********/
-	//motor[4].enable=1;
-	//motor[5].enable=1;
-	//motor[6].enable=1;
-	//motor[7].enable=1;
 	ENABLE_ALL_DJMOTOR_5_8
 	BEGIN_ALL_DJMOTOR_5_8
 	OSTimeDly(1000);
-  motor[4].status.isSetZero=1;
-	motor[5].status.isSetZero=1;
-	motor[6].status.isSetZero=1;
-	motor[7].status.isSetZero=1;
+	motor[4].status.isSetZero = 1;
+	motor[5].status.isSetZero = 1;
+	motor[6].status.isSetZero = 1;
+	motor[7].status.isSetZero = 1;
 	while (1)
 	{
 		djcontrol();

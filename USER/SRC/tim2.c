@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-22 14:42:41
+ * @LastEditTime: 2020-11-25 10:09:26
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -14,7 +14,7 @@ void TIM2_Configuration(void)
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-	TIM_TimeBaseInitStructure.TIM_Period = 6999; //2ms
+	TIM_TimeBaseInitStructure.TIM_Period = 699999; //50ms
 	TIM_TimeBaseInitStructure.TIM_Prescaler = 5;
 	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
@@ -44,7 +44,7 @@ void TIM2_IRQHandler(void)
 				VESCmotor[i].argum.timeoutCnt++; //反馈超时判断
 			else
 				VESCmotor[i].argum.timeoutCnt = 0;
-			if (VESCmotor[i].argum.timeoutCnt > 100)
+			if (VESCmotor[i].argum.timeoutCnt > 20)
 			{
 				VESCmotor[i].status.timeout = true;
 				Beep_Show(2);
@@ -70,12 +70,12 @@ void TIM2_IRQHandler(void)
 					ELMOmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					ELMOmotor[i].argum.timeoutCnt = 0;
-				if (ELMOmotor[i].argum.timeoutCnt > 1000)
+				if (ELMOmotor[i].argum.timeoutCnt > 100)
 				{
 					ELMOmotor[i].status.timeout = true;
-		      Beep_Show(2);
+		            Beep_Show(2);
 					Led8DisData(3);
-					Delay_ms(200);
+					Delay_ms(100);
 				}
 				else
 				{

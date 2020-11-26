@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-23 19:59:46
+ * @LastEditTime: 2020-11-23 20:06:57
  * @FilePath: \MotoPro\USER\SRC\queue.c
  */
 #include "queue.h"
@@ -116,7 +116,7 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 //			Can2_Tx_NoMailBox=0;
 //			deleteError(Eerror.head, ErrorFind(Eerror.head, SYSTEMERROR | (2 << 4) | (1 << 8)));
 //			Can_MesgCtrlList(Can2_MesgSentList,&Can2_Sendqueue,CAN_2);
-//			if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag==0)
+//			if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag==false)
 //				can_queue->Front = (can_queue->Front + 1) % CAN_QUEUESIZE;
 //		}
 //	}
@@ -138,7 +138,7 @@ void Can_DeQueue(CAN_TypeDef *CANx, Can_QueueTypeDef *can_queue)
 //			Can1_Tx_NoMailBox=0;
 //			deleteError(Eerror.head, ErrorFind(Eerror.head, SYSTEMERROR | (1 << 4) | (1 << 8)));
 //			Can_MesgCtrlList(Can1_MesgSentList,&Can1_Sendqueue,CAN_1);
-//			if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag==0)
+//			if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag==false)
 //				can_queue->Front = (can_queue->Front + 1) % CAN_QUEUESIZE;
 //		}
 //	}

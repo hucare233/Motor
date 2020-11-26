@@ -1,19 +1,10 @@
 /*
- * @Descripttion: 
- * @version: 第一版
- * @Author: 叮咚蛋
- * @Date: 2020-10-17 14:52:41
- * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-23 20:01:02
- * @FilePath: \MotoPro\USER\SRC\tim3.c
- */
-/*
  * @Descripttion: 定时器三，报文发送
  * @version: 第二版
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-22 19:21:30
+ * @LastEditTime: 2020-11-23 20:02:50
  * @FilePath: \MotoPro\USER\SRC\tim3.c
  */
 #include "tim3.h"

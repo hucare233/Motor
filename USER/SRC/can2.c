@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-21 09:09:53
+ * @LastEditTime: 2020-11-24 08:03:55
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -398,7 +398,7 @@ void CAN2_RX1_IRQHandler(void)
 			}
 		}
 #endif
-//		if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag==1 && Can2_Sendqueue.Rear!=Can2_Sendqueue.Front)
+//		if((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag==true) && (Can2_Sendqueue.Rear!=Can2_Sendqueue.Front))
 //						{
 //							if((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0] == rx_message.Data[0])
 //								&&(	Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1] == rx_message.Data[1]))
@@ -419,7 +419,10 @@ u8 CAN2_Receive_Msg(u8 *buf)
 	return RxMessage.DLC;
 }
 
-/****µç´Å·§¿ØÖÆ****/
+/**
+ * @author: ¶£ßËµ°
+ * @brief:  µç´Å·§¿ØÖÆ
+ */
 void valveCtrl( bool status)
 {
 	CanTxMsg tx_message;
