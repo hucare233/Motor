@@ -32,7 +32,7 @@ typedef struct
 
 /****VESC限制保护****/
 typedef struct
-{
+{    
 	float breakCurrent; //刹车电流
 } VESCLimit;
 

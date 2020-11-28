@@ -1,8 +1,29 @@
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\NEW_mdk\ARM\ARMCC\Bin'
-Build target 'Target 1'
-compiling usart2.c...
-linking...
-Program Size: Code=66760 RO-data=808 RW-data=308 ZI-data=45548  
-FromELF: creating hex file...
-".\Obj\project.axf" - 0 Error(s), 0 Warning(s).
-Build Time Elapsed:  00:00:02
+Load "c:\\Users\\huzhijie\\Desktop\\MotoPro\\Obj\\project.axf" 
+Set JLink Project File to "c:\Users\huzhijie\Desktop\MotoPro\JLinkSettings.ini"* JLink Info: Device "STM32F405RG" selected.
+
+JLink info:
+------------
+DLL: V4.96d, compiled Jan 29 2015 11:45:37
+Firmware: J-Link OB-STM32F072-CortexAR compiled May  4 2017 14:43:40
+Hardware: V1.00
+
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+ROMTableAddr = 0xE00FF003
+
+Target info:
+------------
+Device: STM32F405RG
+VTarget = 3.300V
+State of Pins: TCK: 0, TDI: 0, TDO: 0, TMS: 1, TRES: 0, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+
+Erase Done.Programming Done.Verify OK.Application running ...
+Flash Load finished at 16:27:51

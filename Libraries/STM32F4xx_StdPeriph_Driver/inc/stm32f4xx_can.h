@@ -56,7 +56,7 @@
 typedef struct
 {
   uint16_t CAN_Prescaler;   /*!< Specifies the length of a time quantum. 
-                                 It ranges from 1 to 1024. */
+                                 It ranges from 1 to 1024. 分频*/
   
   uint8_t CAN_Mode;         /*!< Specifies the CAN operating mode.
                                  This parameter can be a value of @ref CAN_operating_mode */
@@ -596,19 +596,19 @@ void CAN_DeInit(CAN_TypeDef* CANx);
 uint8_t CAN_Init(CAN_TypeDef* CANx, CAN_InitTypeDef* CAN_InitStruct);
 void CAN_FilterInit(CAN_FilterInitTypeDef* CAN_FilterInitStruct);
 void CAN_StructInit(CAN_InitTypeDef* CAN_InitStruct);
-void CAN_SlaveStartBank(uint8_t CAN_BankNumber); 
-void CAN_DBGFreeze(CAN_TypeDef* CANx, FunctionalState NewState);
-void CAN_TTComModeCmd(CAN_TypeDef* CANx, FunctionalState NewState);
+void CAN_SlaveStartBank(uint8_t CAN_BankNumber); //设置过滤器边界
+void CAN_DBGFreeze(CAN_TypeDef* CANx, FunctionalState NewState);//冻结收发，可对FIFO读写
+void CAN_TTComModeCmd(CAN_TypeDef* CANx, FunctionalState NewState);//如果使用时间触发模式，则时间戳值自动填充在发送的每条CAN信息的6,7字节中。
 
 /* CAN Frames Transmission functions ******************************************/
-uint8_t CAN_Transmit(CAN_TypeDef* CANx, CanTxMsg* TxMessage);
-uint8_t CAN_TransmitStatus(CAN_TypeDef* CANx, uint8_t TransmitMailbox);
-void CAN_CancelTransmit(CAN_TypeDef* CANx, uint8_t Mailbox);
+uint8_t CAN_Transmit(CAN_TypeDef* CANx, CanTxMsg* TxMessage);//返回邮箱号，证明是否加入邮箱，发送是否成功
+uint8_t CAN_TransmitStatus(CAN_TypeDef* CANx, uint8_t TransmitMailbox);//检查对应邮箱，是失败，挂起还是成功
+void CAN_CancelTransmit(CAN_TypeDef* CANx, uint8_t Mailbox);//取消对应发送邮箱号的发送请求。
 
 /* CAN Frames Reception functions *********************************************/
-void CAN_Receive(CAN_TypeDef* CANx, uint8_t FIFONumber, CanRxMsg* RxMessage);
-void CAN_FIFORelease(CAN_TypeDef* CANx, uint8_t FIFONumber);
-uint8_t CAN_MessagePending(CAN_TypeDef* CANx, uint8_t FIFONumber);
+void CAN_Receive(CAN_TypeDef* CANx, uint8_t FIFONumber, CanRxMsg* RxMessage);//从FIFO0或者FIFO1接收CAN信息。并保存在结构体RxMessage中
+void CAN_FIFORelease(CAN_TypeDef* CANx, uint8_t FIFONumber);// 释放接收FIFO，CAN_FIFO0 或者 CAN_FIFO1
+uint8_t CAN_MessagePending(CAN_TypeDef* CANx, uint8_t FIFONumber);//检测对应的FIFO内报文条数。 
 
 /* Operation modes functions **************************************************/
 uint8_t CAN_OperatingModeRequest(CAN_TypeDef* CANx, uint8_t CAN_OperatingMode);

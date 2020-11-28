@@ -35,15 +35,18 @@
 #define Elmo_Motor7_error 0x87
 #define Elmo_Motor8_error 0x88
 
-#define ENABLE_ALL_ELMO                    \
-  {                                        \
-    Elmo_Motor_Enable_Or_Disable(1, 1, 1); \
-    Elmo_Motor_Enable_Or_Disable(2, 1, 1); \
-    Elmo_Motor_Enable_Or_Disable(3, 1, 1); \
-    Elmo_Motor_Enable_Or_Disable(4, 1, 1); \
+#define ENABLE_ALL_ELMO                      \
+  {                                          \
+    for (u8 i = 0; i < 3; i++)               \
+    {                                        \
+      Elmo_Motor_Enable_Or_Disable(1, 1, 1); \
+      Elmo_Motor_Enable_Or_Disable(2, 1, 1); \
+      Elmo_Motor_Enable_Or_Disable(3, 1, 1); \
+      Elmo_Motor_Enable_Or_Disable(4, 1, 1); \
+    }                                        \
   }
 
-#define DISABLE_ALL_ELMO                  \
+#define DISABLE_ALL_ELMO                   \
   {                                        \
     Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
     Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
@@ -51,7 +54,7 @@
     Elmo_Motor_Enable_Or_Disable(4, 0, 1); \
   }
 
-#define BEGIN_ALL_ELMO  \
+#define BEGIN_ALL_ELMO   \
   {                      \
     Elmo_Motor_BG(1, 1); \
     Elmo_Motor_BG(2, 1); \
@@ -59,7 +62,7 @@
     Elmo_Motor_BG(4, 1); \
   }
 
-#define STOP_ALL_ELMO  \
+#define STOP_ALL_ELMO    \
   {                      \
     Elmo_Motor_ST(1, 1); \
     Elmo_Motor_ST(2, 1); \
@@ -134,12 +137,14 @@ typedef struct
   u8 timeout;
   u16 timepre;
   u16 timecut;
+  u8 arivecnt;
 } ELMOArgum;
 
 /****ELMO总结构体****/
 typedef struct
 {
-  u8 mode;                   //电机模式
+  u8 mode; //电机模式
+  bool begin;
   bool enable;               //电机使能
   ELMOValue valSet, valReal; //外参设定值，实际值
   ELMOStatus status;         //电机状态

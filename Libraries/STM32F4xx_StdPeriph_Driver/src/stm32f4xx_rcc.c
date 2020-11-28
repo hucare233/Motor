@@ -1059,7 +1059,7 @@ void RCC_I2SCLKConfig(uint32_t RCC_I2SCLKSource)
 
 /**
   * @brief  Enables or disables the AHB1 peripheral clock.
-  * @note   After reset, the peripheral clock (used for registers read/write access)
+  * @note   After reset, the clock (used for registers read/write access)
   *         is disabled and the application software has to enable this clock before 
   *         using it.   
   * @param  RCC_AHBPeriph: specifies the AHB1 peripheral to gates its clock.

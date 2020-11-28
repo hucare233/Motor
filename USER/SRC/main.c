@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-24 22:18:34
+ * @LastEditTime: 2020-11-28 16:07:09
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -104,20 +104,41 @@ static void Task_Motor(void *pdata)
 
 static void Task_Elmo(void *pdata) //elmo任务
 {
+	Elmo_Motor_UM(1, 5, 1);
+	Elmo_Motor_UM(2, 5, 1);
+	Elmo_Motor_UM(3, 5, 1);
+	Elmo_Motor_UM(4, 5, 1);
 	while (1)
 	{
 		elmo_control(1);
 		for (u8 i = 1; i < 5; i++)
 		{
-			//			Elmo_Motor_ASKmo(i, 1);
-			//			OSTimeDly(50);
-			//			Elmo_Motor_ASKvx(i, 1);
-			//			OSTimeDly(50);
-			//			Elmo_Motor_ASKpx(i, 1);
-			//			OSTimeDly(50);
-			//			Elmo_Motor_ASKiq(i, 1);
+			Elmo_Motor_ASKmo(i, 1);
+			OSTimeDly(50);
+			Elmo_Motor_ASKvx(i, 1);
+			OSTimeDly(50);
+			Elmo_Motor_ASKpx(i, 1);
+			OSTimeDly(50);
+			Elmo_Motor_ASKiq(i, 1);
+			Elmo_Motor_ASKum(i, 1);
+			OSTimeDly(50);
+			if ((ABS(ELMOmotor[i - 1].valReal.pulse - ELMOmotor[i - 1].intrinsic.PULSE * 4 * ELMOmotor[i - 1].valSet.angle * ELMOmotor[i - 1].intrinsic.RATIO / 360.f) < 100) && (ELMOmotor[i - 1].begin == false))
+			{
+				ELMOmotor[i - 1].argum.arivecnt++;
+			}
+			else
+				ELMOmotor[i - 1].argum.arivecnt = 0;
+			if (ELMOmotor[i - 1].argum.arivecnt > 10)
+			{
+				ELMOmotor[i - 1].status.arrived = true;
+				ELMOmotor[i - 1].begin = false; //可以开始下次运动
+			}
+			else
+			{
+				ELMOmotor[i - 1].status.arrived = false;
+			}
 		}
-		OSTimeDly(1200);
+		OSTimeDly(400);
 	}
 }
 

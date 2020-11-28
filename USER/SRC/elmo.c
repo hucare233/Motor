@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-14 16:19:54
+ * @LastEditTime: 2020-11-28 15:51:21
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -31,8 +31,8 @@ void ELMO_Motor_Init(void)
 		Flat90.PULSE = 4096;
 		Flat90.RATIO = 1;
 		U10.PULSE = 4096;
-		U10.RATIO = 1;
-		EC_4P_30.PULSE = 4096;
+		U10.RATIO = 5.0f;
+		EC_4P_30.PULSE = 1000;
 		EC_4P_30.RATIO = 1;
 	}
 	{ //电机限制保护
@@ -61,7 +61,8 @@ void ELMO_Motor_Init(void)
 	/****0号电机初始化****/
 	ELMOmotor[0].intrinsic = U10;
 	ELMOmotor[0].enable = DISABLE;
-	ELMOmotor[0].mode = RPM;
+	ELMOmotor[0].begin = DISABLE;
+	ELMOmotor[0].mode = position;
 	ELMOmotor[0].valSet.angle = 300;
 	ELMOmotor[0].valSet.speed = 100;
 	ELMOmotor[0].valSet.current = 100;
@@ -69,7 +70,8 @@ void ELMO_Motor_Init(void)
 
 	ELMOmotor[1].intrinsic = U10;
 	ELMOmotor[1].enable = DISABLE;
-	ELMOmotor[1].mode = RPM;
+	ELMOmotor[1].begin = DISABLE;
+	ELMOmotor[1].mode = position;
 	ELMOmotor[1].valSet.angle = 300;
 	ELMOmotor[1].valSet.speed = 100;
 	ELMOmotor[1].valSet.current = 100;
@@ -77,7 +79,8 @@ void ELMO_Motor_Init(void)
 
 	ELMOmotor[2].intrinsic = U10;
 	ELMOmotor[2].enable = DISABLE;
-	ELMOmotor[2].mode = RPM;
+	ELMOmotor[2].begin = DISABLE;
+	ELMOmotor[2].mode = position;
 	ELMOmotor[2].valSet.angle = 300;
 	ELMOmotor[2].valSet.speed = 100;
 	ELMOmotor[2].valSet.current = 100;
@@ -85,7 +88,8 @@ void ELMO_Motor_Init(void)
 
 	ELMOmotor[3].intrinsic = U10;
 	ELMOmotor[3].enable = DISABLE;
-	ELMOmotor[3].mode = RPM;
+	ELMOmotor[3].begin = DISABLE;
+	ELMOmotor[3].mode = position;
 	ELMOmotor[3].valSet.angle = 300;
 	ELMOmotor[3].valSet.speed = 100;
 	ELMOmotor[3].valSet.current = 100;
@@ -275,8 +279,8 @@ void Elmo_Motor_ST(u32 ID, u8 InConGrpFlag)
 
 void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag) //设置转速
 {
-	u32 SP;
-	SP = ELMOmotor[ID - 1].intrinsic.PULSE * 4 / 60 * speed;
+	u32 S_P;
+	S_P = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * speed * ELMOmotor[ID - 1].intrinsic.RATIO / 60.0f;
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
 		flag.Can2SendqueueFULL++;
@@ -290,7 +294,7 @@ void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag) //设置转速
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'P';
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
-		EncodeS32Data(&SP, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		EncodeS32Data(&S_P, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
 	}
 	Can2_Sendqueue.Rear = Rear2;
@@ -306,8 +310,8 @@ void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag) //设置转速
 void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag)
 {
 
-	u32 Pa;
-	Pa = ELMOmotor[ID - 1].intrinsic.PULSE * 4 / 60 * PA;
+	u32 P_a;
+	P_a = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * PA * ELMOmotor[ID - 1].intrinsic.RATIO / 360.f;
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
 		flag.Can2SendqueueFULL++;
@@ -321,7 +325,7 @@ void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag)
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'A';
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
-		EncodeS32Data(&Pa, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		EncodeS32Data(&P_a, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
 	}
 	Can2_Sendqueue.Rear = Rear2;
@@ -365,8 +369,8 @@ void Elmo_Motor_PX(u32 ID, s32 data, u8 InConGrpFlag)
 void Elmo_Motor_JV(u32 ID, s32 JV, u8 InConGrpFlag)
 {
 
-	u32 Jv;
-	Jv = ELMOmotor[ID - 1].intrinsic.PULSE * 4 / 60 * JV;
+	u32 J_v;
+	J_v = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * JV * ELMOmotor[ID - 1].intrinsic.RATIO / 60;
 
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
@@ -381,7 +385,7 @@ void Elmo_Motor_JV(u32 ID, s32 JV, u8 InConGrpFlag)
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'V';
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
-		EncodeS32Data(&Jv, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		EncodeS32Data(&J_v, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
 	}
 	Can2_Sendqueue.Rear = Rear2;

@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-25 10:09:26
+ * @LastEditTime: 2020-11-28 15:48:41
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -70,7 +70,7 @@ void TIM2_IRQHandler(void)
 					ELMOmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					ELMOmotor[i].argum.timeoutCnt = 0;
-				if (ELMOmotor[i].argum.timeoutCnt > 100)
+				if (ELMOmotor[i].argum.timeoutCnt > 500)
 				{
 					ELMOmotor[i].status.timeout = true;
 		            Beep_Show(2);
