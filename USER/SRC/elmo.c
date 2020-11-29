@@ -279,7 +279,7 @@ void Elmo_Motor_ST(u32 ID, u8 InConGrpFlag)
 
 void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag) //设置转速
 {
-	u32 S_P;
+	s32 S_P;
 	S_P = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * speed * ELMOmotor[ID - 1].intrinsic.RATIO / 60.0f;
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
@@ -310,7 +310,7 @@ void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag) //设置转速
 void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag)
 {
 
-	u32 P_a;
+	s32 P_a;
 	P_a = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * PA * ELMOmotor[ID - 1].intrinsic.RATIO / 360.f;
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
@@ -369,7 +369,7 @@ void Elmo_Motor_PX(u32 ID, s32 data, u8 InConGrpFlag)
 void Elmo_Motor_JV(u32 ID, s32 JV, u8 InConGrpFlag)
 {
 
-	u32 J_v;
+	s32 J_v;
 	J_v = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * JV * ELMOmotor[ID - 1].intrinsic.RATIO / 60;
 
 	if (Rear2 == Can2_Sendqueue.Front)

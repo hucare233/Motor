@@ -169,26 +169,26 @@ void USART2_IRQHandler(void)
           break;
         case 0x0C:
         {
-          motor[0].valueSet.angle = 0;
-          motor[1].valueSet.angle = 0;
-          motor[2].valueSet.angle = 0;
-          motor[3].valueSet.angle = 0;
+          Elmo_Motor_PA(1,90,1);
+					Elmo_Motor_PA(2,90,1);
+					Elmo_Motor_PA(3,90,1);
+					Elmo_Motor_PA(4,90,1);
         }
         break;
         case 0x0D:
         {
-          motor[0].valueSet.angle = 45;
-          motor[1].valueSet.angle = -45;
-          motor[2].valueSet.angle = 45;
-          motor[3].valueSet.angle = -45;
+          Elmo_Motor_PA(1,0,1);
+					Elmo_Motor_PA(2,0,1);
+					Elmo_Motor_PA(3,0,1);
+					Elmo_Motor_PA(4,0,1);
         }
         break;
         case 0x0E:
         {
-          motor[0].valueSet.angle = 90;
-          motor[1].valueSet.angle = -90;
-          motor[2].valueSet.angle = 90;
-          motor[3].valueSet.angle = -90;
+          Elmo_Motor_PA(1,-20,1);
+					Elmo_Motor_PA(2,-20,1);
+					Elmo_Motor_PA(3,-20,1);
+					Elmo_Motor_PA(4,-20,1);
         }
         break;
         case 0x0F:

@@ -114,15 +114,15 @@ static void Task_Elmo(void *pdata) //elmoÈÎÎñ
 		for (u8 i = 1; i < 5; i++)
 		{
 			Elmo_Motor_ASKmo(i, 1);
-			OSTimeDly(50);
+			OSTimeDly(20);
 			Elmo_Motor_ASKvx(i, 1);
-			OSTimeDly(50);
+			OSTimeDly(20);
 			Elmo_Motor_ASKpx(i, 1);
-			OSTimeDly(50);
+			OSTimeDly(20);
 			Elmo_Motor_ASKiq(i, 1);
 			Elmo_Motor_ASKum(i, 1);
-			OSTimeDly(50);
-			if ((ABS(ELMOmotor[i - 1].valReal.pulse - ELMOmotor[i - 1].intrinsic.PULSE * 4 * ELMOmotor[i - 1].valSet.angle * ELMOmotor[i - 1].intrinsic.RATIO / 360.f) < 100) && (ELMOmotor[i - 1].begin == false))
+			OSTimeDly(20);
+			if ((ABS(ELMOmotor[i - 1].valReal.pulse - ELMOmotor[i - 1].intrinsic.PULSE * 4 * ELMOmotor[i - 1].valSet.angle * ELMOmotor[i - 1].intrinsic.RATIO / 360.f) < 100) && (ELMOmotor[i - 1].begin == true))
 			{
 				ELMOmotor[i - 1].argum.arivecnt++;
 			}

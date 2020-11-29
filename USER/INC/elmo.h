@@ -40,8 +40,11 @@
     for (u8 i = 0; i < 3; i++)               \
     {                                        \
       Elmo_Motor_Enable_Or_Disable(1, 1, 1); \
+			Delay_ms(10);                          \
       Elmo_Motor_Enable_Or_Disable(2, 1, 1); \
+			Delay_ms(10);                          \
       Elmo_Motor_Enable_Or_Disable(3, 1, 1); \
+			Delay_ms(10);                          \
       Elmo_Motor_Enable_Or_Disable(4, 1, 1); \
     }                                        \
   }
@@ -49,8 +52,11 @@
 #define DISABLE_ALL_ELMO                   \
   {                                        \
     Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
-    Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
+		Delay_ms(10);                          \
+    Elmo_Motor_Enable_Or_Disable(2, 0, 1); \
+		Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(3, 0, 1); \
+		Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(4, 0, 1); \
   }
 
@@ -60,6 +66,10 @@
     Elmo_Motor_BG(2, 1); \
     Elmo_Motor_BG(3, 1); \
     Elmo_Motor_BG(4, 1); \
+		ELMOmotor[0].begin == true; \
+		ELMOmotor[1].begin == true; \
+		ELMOmotor[2].begin == true; \
+		ELMOmotor[3].begin == true; \
   }
 
 #define STOP_ALL_ELMO    \
