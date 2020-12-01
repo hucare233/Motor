@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-11 19:03:19
+ * @LastEditTime: 2020-11-29 20:19:31
  * @FilePath: \MotoPro\USER\SRC\vesc.c
  */
 #include "vesc.h"
@@ -133,6 +133,31 @@ void VESC_Set_Speed(u8 controller_ID, s32 speed, u8 InConGrpFlag)
 	VESCmotor[controller_ID - 1].argum.timeout = 1;
 	VESCmotor[controller_ID - 1].argum.lastRxTim = OSTimeGet();
 }
+
+/** 
+	* @brief 设定VESC位置
+	*/
+void VESC_Set_Position(u8 controller_ID, s32 pos, u8 InConGrpFlag)
+{
+	int32_t send_index = 0;
+	if (Rear3 == VESC_Sendqueue.Front)
+	{
+		flag.VESCSendqueueFULL++;
+		return;
+	}
+	else
+	{
+
+		buffer_append_int32(VESC_Sendqueue.Can_DataSend[VESC_Sendqueue.Rear].Data, (pos*1000000/5.0f), &send_index);
+		VESC_Sendqueue.Can_DataSend[VESC_Sendqueue.Rear].ID = 0xf0000000 | controller_ID | ((uint32_t)CAN_PACKET_SET_POS << 8);
+		VESC_Sendqueue.Can_DataSend[VESC_Sendqueue.Rear].DLC = send_index;
+		VESC_Sendqueue.Can_DataSend[VESC_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	VESC_Sendqueue.Rear = Rear3;
+	VESCmotor[controller_ID - 1].argum.timeout = 1;
+	VESCmotor[controller_ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
 /** 
 	* @brief 设定VESC电流
 	*/

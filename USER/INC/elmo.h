@@ -66,10 +66,10 @@
     Elmo_Motor_BG(2, 1); \
     Elmo_Motor_BG(3, 1); \
     Elmo_Motor_BG(4, 1); \
-		ELMOmotor[0].begin == true; \
-		ELMOmotor[1].begin == true; \
-		ELMOmotor[2].begin == true; \
-		ELMOmotor[3].begin == true; \
+		ELMOmotor[0].begin = true; \
+		ELMOmotor[1].begin = true; \
+		ELMOmotor[2].begin = true; \
+		ELMOmotor[3].begin = true; \
   }
 
 #define STOP_ALL_ELMO    \
@@ -164,14 +164,14 @@ typedef struct
 } ELMO_Motor;
 extern ELMOflag ELMOFlag;
 extern ELMO_Motor ELMOmotor[5];
-extern s32 speed;
+extern u32 speed;
 extern u8 Um;
 extern s32 Pa;
 extern s32 Jv;
 extern s32 Px;
 extern s32 Motor_Emer_Code;
 void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag);
-void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag);
+void Elmo_Motor_SP(u32 ID, u32 speed, u8 InConGrpFlag);
 void Elmo_Motor_BG(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_Enable_Or_Disable(u32 ID, u8 enable_or_disable, u8 InConGrpFlag);
 void Elmo_Motor_SV(u32 ID, u8 InConGrpFlag);

@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-28 15:51:21
+ * @LastEditTime: 2020-11-29 21:50:09
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -14,7 +14,7 @@ ELMILimit ELMOlimit;
 ELMOArgum ELMOargum;
 ELMO_Motor ELMOmotor[5];
 ELMOflag ELMOFlag;
-s32 speed;
+u32 speed;
 u8 Um;
 u8 enable_or_disable;
 s32 Pa;
@@ -33,7 +33,7 @@ void ELMO_Motor_Init(void)
 		U10.PULSE = 4096;
 		U10.RATIO = 5.0f;
 		EC_4P_30.PULSE = 1000;
-		EC_4P_30.RATIO = 1;
+		EC_4P_30.RATIO = 169.0f/9;
 	}
 	{ //电机限制保护
 		ELMOlimit.isPosLimitON = false;
@@ -277,9 +277,9 @@ void Elmo_Motor_ST(u32 ID, u8 InConGrpFlag)
  * @brief: 位置模式持续速度
  */
 
-void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag) //设置转速
+void Elmo_Motor_SP(u32 ID, u32 speed, u8 InConGrpFlag) //设置转速
 {
-	s32 S_P;
+	u32 S_P;
 	S_P = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * speed * ELMOmotor[ID - 1].intrinsic.RATIO / 60.0f;
 	if (Rear2 == Can2_Sendqueue.Front)
 	{

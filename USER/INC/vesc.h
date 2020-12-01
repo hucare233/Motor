@@ -1,4 +1,4 @@
-#ifndef __VESC_H
+ #ifndef __VESC_H
 #define __VESC_H
 
 #include "sys.h"
@@ -106,6 +106,7 @@ extern s32 handlecurect;
 void VESCInit(void);
 void VESC_Set_Duty_Cycle(u8 controller_ID, float duty_cycle, u8 InConGrpFlag);
 void VESC_Set_Speed(u8 controller_ID, s32 speed, u8 InConGrpFlag);
+void VESC_Set_Position(u8 controller_ID, s32 pos, u8 InConGrpFlag);
 void VESC_Set_Current(u8 controller_ID, float current, u8 InConGrpFlag);
 void VESC_Set_Brake_Current(u8 controller_ID, float brake_current, u8 InConGrpFlag);
 void VESC_Set_Handbrake_Current(u8 controller_ID, float handbrake_current, u8 InConGrpFlag);

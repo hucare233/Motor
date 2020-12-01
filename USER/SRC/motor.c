@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-22 14:30:55
+ * @LastEditTime: 2020-11-29 15:42:58
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -294,7 +294,7 @@ u8 ifstuck(u16 id) //判断是否堵转
     {
       if (motor[id].valueReal.speed != 0)
       {
-        if (ABS(motor[id].valueReal.speed) < 100) //电机速度小于阈值
+        if (ABS(motor[id].valueReal.speed) < 50) //电机速度小于阈值
         {
           DJ_Stuck++;
         }
@@ -326,7 +326,7 @@ u8 ifstuck(u16 id) //判断是否堵转
   {
     if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 50)
     {
-      if (ABS(motor[id].PIDs.CurVal) < 100 && (motor[id].status.arrived == false)) //电机速度小于阈值并且没到达位置
+      if (ABS(motor[id].valueReal.speed) < 100 && (motor[id].status.arrived == false)) //电机速度小于阈值并且没到达位置
       {
         DJ_Stuck++;
       }

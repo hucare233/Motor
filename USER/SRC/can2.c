@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-28 16:14:55
+ * @LastEditTime: 2020-11-29 16:29:30
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -382,7 +382,7 @@ void CAN2_RX1_IRQHandler(void)
 				DecodeS32Data(&ELMOmotor[id].mode, &rx_message.Data[4]);
 			}
 		}
-		if (((rx_message.StdId >= 0x81) && (rx_message.StdId <= 0x88)) && (rx_message.RTR == CAN_RTR_Data)) //ELMO错误报文
+		if (((rx_message.StdId >= 0x81) && (rx_message.StdId <= 0x88)) && (rx_message.RTR == CAN_RTR_Data) && ((rx_message.Data[1] != 0X82) && (rx_message.Data[1] != 0X10))) //ELMO错误报文  TODO:除去8210的错误，不影响正常使用
 		{
 			u8 id = rx_message.StdId - 0x81;
 			insertError(Eerror.head, ELMOERROR | ((id + 1) << 4) | EMERGENCY);
@@ -437,12 +437,12 @@ void valveCtrl(bool status)
 	tx_message.Data[0] = 0x04;
 	if (status)
 	{
-		tx_message.Data[1] = 'S' + 0x40;
+		tx_message.Data[1] = 'S' + 0x40; //开
 		tx_message.Data[2] = 'N';
 	}
 	else
 	{
-		tx_message.Data[1] = 'E' + 0x40;
+		tx_message.Data[1] = 'E' + 0x40; //关
 		tx_message.Data[2] = 'F';
 	}
 	tx_message.Data[3] = 1;

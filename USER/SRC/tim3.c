@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-23 20:02:50
+ * @LastEditTime: 2020-11-29 20:32:34
  * @FilePath: \MotoPro\USER\SRC\tim3.c
  */
 #include "tim3.h"
@@ -98,6 +98,9 @@ void TIM3_IRQHandler(void)
                         break;
                     case brake:
                         VESC_Set_Brake_Current(i + 1, VESCmotor[i].limit.breakCurrent, 0);
+                        break;
+                    case position:
+                        VESC_Set_Position(i + 1, VESCmotor[i].valSet.position * VESCmotor[i].instrinsic.POLE_PAIRS, 0);
                         break;
                     default:
                         break;

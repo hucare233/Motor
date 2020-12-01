@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-28 16:08:16
+ * @LastEditTime: 2020-11-29 11:15:19
  * @FilePath: \MotoPro\USER\SRC\usart2.c
  */
 #include "usart2.h"
@@ -169,26 +169,38 @@ void USART2_IRQHandler(void)
           break;
         case 0x0C:
         {
-          Elmo_Motor_PA(1,90,1);
-					Elmo_Motor_PA(2,90,1);
-					Elmo_Motor_PA(3,90,1);
-					Elmo_Motor_PA(4,90,1);
+          Elmo_Motor_PA(1, 90, 1);
+          Elmo_Motor_PA(2, 90, 1);
+          Elmo_Motor_PA(3, 90, 1);
+          Elmo_Motor_PA(4, 90, 1);
+          ELMOmotor[0].valSet.angle = 90;
+          ELMOmotor[1].valSet.angle = 90;
+          ELMOmotor[2].valSet.angle = 90;
+          ELMOmotor[3].valSet.angle = 90;
         }
         break;
         case 0x0D:
         {
-          Elmo_Motor_PA(1,0,1);
-					Elmo_Motor_PA(2,0,1);
-					Elmo_Motor_PA(3,0,1);
-					Elmo_Motor_PA(4,0,1);
+          Elmo_Motor_PA(1, 0, 1);
+          Elmo_Motor_PA(2, 0, 1);
+          Elmo_Motor_PA(3, 0, 1);
+          Elmo_Motor_PA(4, 0, 1);
+          ELMOmotor[0].valSet.angle = 0;
+          ELMOmotor[1].valSet.angle = 0;
+          ELMOmotor[2].valSet.angle = 0;
+          ELMOmotor[3].valSet.angle = 0;
         }
         break;
         case 0x0E:
         {
-          Elmo_Motor_PA(1,-20,1);
-					Elmo_Motor_PA(2,-20,1);
-					Elmo_Motor_PA(3,-20,1);
-					Elmo_Motor_PA(4,-20,1);
+          Elmo_Motor_PA(1, -20, 1);
+          Elmo_Motor_PA(2, -20, 1);
+          Elmo_Motor_PA(3, -20, 1);
+          Elmo_Motor_PA(4, -20, 1);
+          ELMOmotor[0].valSet.angle = -20;
+          ELMOmotor[1].valSet.angle = -20;
+          ELMOmotor[2].valSet.angle = -20;
+          ELMOmotor[3].valSet.angle = -20;
         }
         break;
         case 0x0F:
