@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-29 21:50:09
+ * @LastEditTime: 2020-12-02 11:20:41
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -326,6 +326,37 @@ void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag)
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
 		EncodeS32Data(&P_a, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 设置相对位置
+ */
+
+void Elmo_Motor_PR(u32 ID, s32 PR, u8 InConGrpFlag)
+{
+
+	s32 P_r;
+	P_r = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * PR * ELMOmotor[ID - 1].intrinsic.RATIO / 360.f;
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'P';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'R';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&P_r, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
 	}
 	Can2_Sendqueue.Rear = Rear2;

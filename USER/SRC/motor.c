@@ -281,7 +281,7 @@ void pulse_caculate(u8 id)
 
 u8 ifstuck(u16 id) //判断是否堵转
 {
-  u16 DJ_Stuck; //堵转计数
+  static u16 DJ_Stuck; //堵转计数
   if (motor[id].enable == 0)
     return 1;                 //没有是能退出堵转检测
   if (Motorlimit.stuckmotion) //堵转监控开启

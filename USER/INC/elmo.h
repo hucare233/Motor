@@ -40,11 +40,11 @@
     for (u8 i = 0; i < 3; i++)               \
     {                                        \
       Elmo_Motor_Enable_Or_Disable(1, 1, 1); \
-			Delay_ms(10);                          \
+      Delay_ms(10);                          \
       Elmo_Motor_Enable_Or_Disable(2, 1, 1); \
-			Delay_ms(10);                          \
+      Delay_ms(10);                          \
       Elmo_Motor_Enable_Or_Disable(3, 1, 1); \
-			Delay_ms(10);                          \
+      Delay_ms(10);                          \
       Elmo_Motor_Enable_Or_Disable(4, 1, 1); \
     }                                        \
   }
@@ -52,32 +52,36 @@
 #define DISABLE_ALL_ELMO                   \
   {                                        \
     Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
-		Delay_ms(10);                          \
+    Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(2, 0, 1); \
-		Delay_ms(10);                          \
+    Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(3, 0, 1); \
-		Delay_ms(10);                          \
+    Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(4, 0, 1); \
   }
 
-#define BEGIN_ALL_ELMO   \
-  {                      \
-    Elmo_Motor_BG(1, 1); \
-    Elmo_Motor_BG(2, 1); \
-    Elmo_Motor_BG(3, 1); \
-    Elmo_Motor_BG(4, 1); \
-		ELMOmotor[0].begin = true; \
-		ELMOmotor[1].begin = true; \
-		ELMOmotor[2].begin = true; \
-		ELMOmotor[3].begin = true; \
+#define BEGIN_ALL_ELMO         \
+  {                            \
+    Elmo_Motor_BG(1, 1);       \
+    Elmo_Motor_BG(2, 1);       \
+    Elmo_Motor_BG(3, 1);       \
+    Elmo_Motor_BG(4, 1);       \
+    ELMOmotor[0].begin = true; \
+    ELMOmotor[1].begin = true; \
+    ELMOmotor[2].begin = true; \
+    ELMOmotor[3].begin = true; \
   }
 
-#define STOP_ALL_ELMO    \
-  {                      \
-    Elmo_Motor_ST(1, 1); \
-    Elmo_Motor_ST(2, 1); \
-    Elmo_Motor_ST(3, 1); \
-    Elmo_Motor_ST(4, 1); \
+#define STOP_ALL_ELMO          \
+  {                            \
+    Elmo_Motor_ST(1, 1);       \
+    Elmo_Motor_ST(2, 1);       \
+    Elmo_Motor_ST(3, 1);       \
+    Elmo_Motor_ST(4, 1);       \
+    ELMOmotor[0].begin = false; \
+    ELMOmotor[1].begin = false; \
+    ELMOmotor[2].begin = false; \
+    ELMOmotor[3].begin = false; \
   }
 
 /****ELMO内参****/
@@ -171,6 +175,7 @@ extern s32 Jv;
 extern s32 Px;
 extern s32 Motor_Emer_Code;
 void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag);
+void Elmo_Motor_PR(u32 ID, s32 PR, u8 InConGrpFlag);
 void Elmo_Motor_SP(u32 ID, u32 speed, u8 InConGrpFlag);
 void Elmo_Motor_BG(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_Enable_Or_Disable(u32 ID, u8 enable_or_disable, u8 InConGrpFlag);

@@ -303,11 +303,15 @@
 
 ---
 
+## 2020.12.2
+
+1. 更改DJ位置计算函数，进一次中断计算当前id的位置，减少cpu负担
+
 # --to be continue
 
 # 一只19级的咸鱼
 
-[fad]: \md_pictures\fad.png
+[fad]: \md_pictures\fad.png。
 [shuai]: \md_pictures\shuai.png
 [xk]: \md_pictures\xk.png
 [cy]: \md_pictures\cy.png

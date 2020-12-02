@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-29 11:15:19
+ * @LastEditTime: 2020-12-02 09:28:34
  * @FilePath: \MotoPro\USER\SRC\usart2.c
  */
 #include "usart2.h"
@@ -311,8 +311,7 @@ void USART2_IRQHandler(void)
         {
           VESCmotor[0].mode = brake;
           VESCmotor[1].mode = brake;
-        }
-        break;
+        }break;
         }
       }
       break;
