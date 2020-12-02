@@ -111,33 +111,33 @@ static void Task_Elmo(void *pdata) //elmo任务
 	while (1)
 	{
 		elmo_control(1);
-//		for (u8 i = 1; i < 5; i++)
-//		{
-//			Elmo_Motor_ASKmo(i, 1);
-//			OSTimeDly(10);
-//			Elmo_Motor_ASKvx(i, 1);
-//			OSTimeDly(10);
-//			Elmo_Motor_ASKpx(i, 1);
-//			OSTimeDly(10);
-//			Elmo_Motor_ASKiq(i, 1);
-//			Elmo_Motor_ASKum(i, 1);
-//			OSTimeDly(10);
-//			if ((ABS(ELMOmotor[i - 1].valReal.pulse - ELMOmotor[i - 1].intrinsic.PULSE * 4 * ELMOmotor[i - 1].valSet.angle * ELMOmotor[i - 1].intrinsic.RATIO / 360.f) < 100) && (ELMOmotor[i - 1].begin == true))
-//			{
-//				ELMOmotor[i - 1].argum.arivecnt++;
-//			}
-//			else
-//				ELMOmotor[i - 1].argum.arivecnt = 0;
-//			if (ELMOmotor[i - 1].argum.arivecnt > 5)
-//			{
-//				ELMOmotor[i - 1].status.arrived = true;
-//				ELMOmotor[i - 1].begin = false; //可以开始下次运动
-//			}
-//			else
-//			{
-//				ELMOmotor[i - 1].status.arrived = false;
-//			}
-//		}
+		for (u8 i = 1; i < 5; i++)
+		{
+			Elmo_Motor_ASKmo(i, 1);
+			OSTimeDly(10);
+			Elmo_Motor_ASKvx(i, 1);
+			OSTimeDly(10);
+			Elmo_Motor_ASKpx(i, 1);
+			OSTimeDly(10);
+			Elmo_Motor_ASKiq(i, 1);
+			Elmo_Motor_ASKum(i, 1);
+			OSTimeDly(10);
+			if ((ABS(ELMOmotor[i - 1].valReal.pulse - ELMOmotor[i - 1].intrinsic.PULSE * 4 * ELMOmotor[i - 1].valSet.angle * ELMOmotor[i - 1].intrinsic.RATIO / 360.f) < 100) && (ELMOmotor[i - 1].begin == true))
+			{
+				ELMOmotor[i - 1].argum.arivecnt++;
+			}
+			else
+				ELMOmotor[i - 1].argum.arivecnt = 0;
+			if (ELMOmotor[i - 1].argum.arivecnt > 5)
+			{
+				ELMOmotor[i - 1].status.arrived = true;
+				ELMOmotor[i - 1].begin = false; //可以开始下次运动
+			}
+			else
+			{
+				ELMOmotor[i - 1].status.arrived = false;
+			}
+		}
 		OSTimeDly(400);
 	}
 }

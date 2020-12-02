@@ -193,7 +193,7 @@ void Motor_Init(void);
 void speed_mode(s16 id);
 void position_mode(s16 id);
 void zero_mode(s16 id);
-void pulse_caculate(void);
+void pulse_caculate(u8 id);
 u8 ifstuck(u16 id);
 void iftimeout(u16 id);
 void djcontrol(void);

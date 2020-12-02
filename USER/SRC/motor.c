@@ -256,11 +256,8 @@ void zero_mode(s16 id) //寻零模式
  * @brief: 位置计算
  */
 
-void pulse_caculate(void)
+void pulse_caculate(u8 id)
 {
-
-  for (int id = 0; id < 8; id++)
-  {
     motor[id].argum.distance = motor[id].valueReal.pulseRead - motor[id].valuePrv.pulseRead;
     motor[id].valuePrv = motor[id].valueReal;
     if (ABS(motor[id].argum.distance) > 4150) //last edit : 4085 ;
@@ -274,7 +271,6 @@ void pulse_caculate(void)
     /* 判断是否需要重置零点 */
     if (motor[id].status.isSetZero)
       setZero(&motor[id]);
-  }
 }
 
 /**
