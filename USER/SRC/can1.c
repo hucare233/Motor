@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-18 18:59:27
+ * @LastEditTime: 2020-12-04 08:48:16
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 #include "can1.h"
@@ -226,7 +226,7 @@ void CAN1_RX0_IRQHandler(void)
         else if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && rx_message.Data[2] == 1) //电机使能
         {
           motor[SteeringID].mode = position; //位置模式
-          motor[SteeringID].begin = true;   //锁位置，立即运行
+          motor[SteeringID].begin = true;    //锁位置，立即运行
           motor[SteeringID].enable = true;   //电机使能
           answer_master(&rx_message);
         }
@@ -332,11 +332,66 @@ void CAN1_RX0_IRQHandler(void)
           motor[6].valueSet.angle = 95;
           motor[7].valueSet.angle = -95;
         }
-        DecodeS16Data(&motor[4].limit.posSPlimit, &rx_message.Data[4]);
-        DecodeS16Data(&motor[5].limit.posSPlimit, &rx_message.Data[4]);
-        DecodeS16Data(&motor[6].limit.posSPlimit, &rx_message.Data[4]);
-        DecodeS16Data(&motor[7].limit.posSPlimit, &rx_message.Data[4]);
-        answer_master(&rx_message);
+
+       switch (rx_message.Data[3])
+       {
+       case 1:
+       {
+         Elmo_Motor_PA(1, 90, 1);
+         Elmo_Motor_PA(2, 90, 1);
+         Elmo_Motor_PA(3, 90, 1);
+         Elmo_Motor_PA(4, 90, 1);
+         ELMOmotor[0].valSet.angle = 90;
+         ELMOmotor[1].valSet.angle = 90;
+         ELMOmotor[2].valSet.angle = 90;
+         ELMOmotor[3].valSet.angle = 90;
+				 Delay_ms(2);
+				 ENABLE_ALL_ELMO
+       }
+       break;
+       case 2: //前腿翻转
+       {
+         Elmo_Motor_PA(2, 260, 1);
+         Elmo_Motor_PA(3, 260, 1);
+         ELMOmotor[1].valSet.angle = 260;
+         ELMOmotor[2].valSet.angle = 260;
+				 Delay_ms(2);
+				 ENABLE_ALL_ELMO
+       }
+       break;
+       case 3:
+       {
+         Elmo_Motor_PA(1, -80, 1);
+         Elmo_Motor_PA(4, -80, 1);
+         ELMOmotor[0].valSet.angle = -80;
+         ELMOmotor[3].valSet.angle = -80;
+				 Delay_ms(2);
+				 ENABLE_ALL_ELMO
+       }
+       break;
+       case 4:
+       {
+         Elmo_Motor_PA(1, 0, 1);
+         Elmo_Motor_PA(2, 180, 1);
+         Elmo_Motor_PA(3, 180, 1);
+         Elmo_Motor_PA(4, 0, 1);
+         ELMOmotor[0].valSet.angle = 0;
+         ELMOmotor[1].valSet.angle = 0;
+         ELMOmotor[2].valSet.angle = 0;
+         ELMOmotor[3].valSet.angle = 0;
+				 Delay_ms(2);
+				 ENABLE_ALL_ELMO
+       }
+       break;
+       default:
+         break;
+       }
+
+       DecodeS16Data(&motor[4].limit.posSPlimit, &rx_message.Data[4]);
+       DecodeS16Data(&motor[5].limit.posSPlimit, &rx_message.Data[4]);
+       DecodeS16Data(&motor[6].limit.posSPlimit, &rx_message.Data[4]);
+       DecodeS16Data(&motor[7].limit.posSPlimit, &rx_message.Data[4]);
+       answer_master(&rx_message);
       }
     }
 #elif defined ActionMotor //执行电机报文处理

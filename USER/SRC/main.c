@@ -24,7 +24,7 @@ int main(void)
 	USART1_Configuration();
 	Key_Configuration();
 	LED_Configuration();
-	//InitCANControlList(Can2_MesgSentList, CAN_2);
+//	InitCANControlList(Can2_MesgSentList, CAN_2);
 	TIM2_Configuration(); //³¬Ê±¼ì²â
 	TIM3_Init();
 	param_Init();

@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-29 20:32:34
+ * @LastEditTime: 2020-12-04 09:22:05
  * @FilePath: \MotoPro\USER\SRC\tim3.c
  */
 #include "tim3.h"
@@ -113,7 +113,10 @@ void TIM3_IRQHandler(void)
                 VESC_Set_Current(i + 1, 0.0, 0); //发送电流
         }
 #endif
-
+//        if (flag.Can2CtrlList_Enable == true)
+//        {
+//            TraversalControlList(Can2_MesgSentList, &Can2_Sendqueue, CAN_2); //开启can2报文控制表
+//        }
         Can_DeQueue(CAN2, &Can2_Sendqueue); //ELMO EPOS
         Can_DeQueue(CAN1, &Can1_Sendqueue); //主控
     }
