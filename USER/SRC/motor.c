@@ -46,7 +46,7 @@ void Motor_Init(void)
     Motorlimit.zeroSP = 1000;
     Motorlimit.zeroCurrent = 2000;
     Motorlimit.stuckmotion = 1;
-    Motorlimit.timeoutmotion = 0;
+    Motorlimit.timeoutmotion = 1;
   }
   {                                 //电机其他参数设置
     Motorargum.timeoutTicks = 2000; //2000ms
@@ -281,7 +281,6 @@ void pulse_caculate(u8 id)
 
 u8 ifstuck(u16 id) //判断是否堵转
 {
-  static u16 DJ_Stuck; //堵转计数
   if (motor[id].enable == 0)
     return 1;                 //没有是能退出堵转检测
   if (Motorlimit.stuckmotion) //堵转监控开启
@@ -290,15 +289,15 @@ u8 ifstuck(u16 id) //判断是否堵转
     {
       if (motor[id].valueReal.speed != 0)
       {
-        if (ABS(motor[id].valueReal.speed) < 50) //电机速度小于阈值
+        if (ABS(motor[id].valueReal.speed) < 20) //电机速度小于阈值
         {
-          DJ_Stuck++;
+					motor[id].argum.stuckCnt++;
         }
         else
         {
-          DJ_Stuck = 0;
+          motor[id].argum.stuckCnt = 0;
         }
-        if (DJ_Stuck > 200) //计数超过200
+        if (motor[id].argum.stuckCnt > 100) //计数超过100
         {
           motor[id].status.stuck = 1; //堵转了
         }
@@ -306,7 +305,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].status.stuck = 0; //没有堵转
         }
-        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 65)
+        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
         {
           BEEP_ON; //一直响报警
           motor[id].enable = 0;
@@ -324,19 +323,19 @@ u8 ifstuck(u16 id) //判断是否堵转
     {
       if (ABS(motor[id].valueReal.speed) < 100 && (motor[id].status.arrived == false)) //电机速度小于阈值并且没到达位置
       {
-        DJ_Stuck++;
+        motor[id].argum.stuckCnt++;
       }
       else
       {
-        DJ_Stuck = 0;
+        motor[id].argum.stuckCnt = 0;
       }
-      if (DJ_Stuck > 200) //计数超过200
+      if (motor[id].argum.stuckCnt > 100) //计数超过100
       {
         motor[id].status.stuck = 1; //堵转了
       }
       else
         motor[id].status.stuck = 0; //没有堵转
-      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 65)
+      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
       {
         BEEP_ON;
         motor[id].enable = 0;
