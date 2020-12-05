@@ -45,7 +45,7 @@ void ELMO_Motor_Init(void)
 		ELMOlimit.zeroCurrent = 4000;
 	}
 	{								   //电机其他参数设置
-		ELMOargum.timeoutTicks = 1000; //1s
+		ELMOargum.timeoutTicks = 100; //10ms
 	}
 	{
 		ELMOFlag.bg = 0;
@@ -401,7 +401,7 @@ void Elmo_Motor_JV(u32 ID, s32 JV, u8 InConGrpFlag)
 {
 
 	s32 J_v;
-	J_v = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * JV * ELMOmotor[ID - 1].intrinsic.RATIO / 60;
+	J_v = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * JV * ELMOmotor[ID - 1].intrinsic.RATIO / 60.f;
 
 	if (Rear2 == Can2_Sendqueue.Front)
 	{

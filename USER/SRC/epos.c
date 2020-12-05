@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-13 10:21:52
+ * @LastEditTime: 2020-12-05 16:20:44
  * @FilePath: \MotoPro\USER\SRC\epos.c
  */
 #include "epos.h"
@@ -46,7 +46,7 @@ void EPOS_Motor_Init(void)
 		EPOSlimit.zeroCurrent = 4000;
 	}
 	{
-		EPOSargum.timeoutTicks = 1000; //100ms
+		EPOSargum.timeoutTicks = 100; //10ms
 	}
 	{
 		EPOSmotor[0].intrinsic = FLat90;

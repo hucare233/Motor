@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-05 09:11:31
+ * @LastEditTime: 2020-12-05 17:05:52
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -51,7 +51,7 @@ void TIM2_IRQHandler(void)
 				OSTimeDly(1000);
 				BEEP_OFF;
 				OSTimeDly(1000);
-				insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
+				0 insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
 				Led8DisData(2);
 				Delay_ms(200);
 			}
@@ -68,12 +68,16 @@ void TIM2_IRQHandler(void)
 		{
 			if (ELMOmotor[i].enable)
 			{
+				if (ELMOmotor[i].argum.timeout)
+					ELMOmotor[i].argum.timecut++;
+				else
+					ELMOmotor[i].argum.timecut = 0;
 				/* 反馈超时判断 */
-				if ((OSTimeGet() - ELMOmotor[i].argum.lastRxTim) > ELMOmotor[i].argum.timeoutTicks && (ELMOmotor[i].argum.timeout == 1))
+				if ((OSTimeGet() - ELMOmotor[i].argum.lastRxTim) > ELMOmotor[i].argum.timeoutTicks)
 					ELMOmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					ELMOmotor[i].argum.timeoutCnt = 0;
-				if (ELMOmotor[i].argum.timeoutCnt > 50)
+				if ((ELMOmotor[i].argum.timeoutCnt > 4) || (ELMOmotor[i].argum.timecut > 5))
 				{
 					ELMOmotor[i].status.timeout = true;
 					BEEP_ON;
@@ -107,12 +111,16 @@ void TIM2_IRQHandler(void)
 		{
 			if (EPOSmotor[i].enable)
 			{
+				if (EPOSmotor[i].argum.timeout)
+					EPOSmotor[i].argum.timecut++;
+				else
+					EPOSmotor[i].argum.timecut = 0;
 				/* 反馈超时判断 */
-				if ((OSTimeGet() - EPOSmotor[i].argum.lastRxTim) > EPOSmotor[i].argum.timeoutTicks && (EPOSmotor[i].argum.timeout == 1))
+				if ((OSTimeGet() - EPOSmotor[i].argum.lastRxTim) > EPOSmotor[i].argum.timeoutTicks )
 					EPOSmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					EPOSmotor[i].argum.timeoutCnt = 0;
-				if (EPOSmotor[i].argum.timeoutCnt > 100)
+				if (EPOSmotor[i].argum.timeoutCnt > 4 || (EPOSmotor[i].argum.timecut > 1))
 				{
 					EPOSmotor[i].status.timeout = true;
 					BEEP_ON;
