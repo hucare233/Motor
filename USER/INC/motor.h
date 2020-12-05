@@ -98,6 +98,12 @@ enum MOTOR_MODE
     handbrake
 };
 
+enum MOTOR_TYPE
+{
+    M2006=0,
+	  M3508
+};
+
 /****电机限制保护结构体****/
 typedef struct
 {
@@ -119,6 +125,7 @@ typedef struct
     u8 RATIO;          //减速比
     u16 CURRENT_LIMIT; //最大输出电流限制
     float GearRatio;
+	  bool TYPE;
 } MotorParam;
 
 /****电机外参****/

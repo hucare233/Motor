@@ -36,6 +36,8 @@ void Motor_Init(void)
     M2006instrin.CURRENT_LIMIT = 9000;  //1000
     M3508instrin.GearRatio = 1;         //全局变量
     M2006instrin.GearRatio = 6.117f;    //外参齿数比
+		M3508instrin.TYPE=M3508;
+		M2006instrin.TYPE=M2006;
   }
   { //电机限制保护设置
     Motorlimit.isPosLimitON = false;
@@ -305,7 +307,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].status.stuck = 0; //没有堵转
         }
-        if (motor[id].intrinsic == M3508instrin)
+        if (motor[id].intrinsic.TYPE == M3508)
         {
           if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
           {
@@ -317,7 +319,7 @@ u8 ifstuck(u16 id) //判断是否堵转
           else
             return 0;
         }
-        else if (motor[id].intrinsic == M2006instrin) //电调不反馈温度
+        else if (motor[id].intrinsic.TYPE == M2006) //电调不反馈温度
         {
           if (motor[id].status.stuck == 1)
           {
@@ -350,7 +352,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         }
         else
           motor[id].status.stuck = 0; //没有堵转
-        if (motor[id].intrinsic == M3508instrin)
+        if (motor[id].intrinsic.TYPE == M3508)
         {
           if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
           {
@@ -362,7 +364,7 @@ u8 ifstuck(u16 id) //判断是否堵转
           else
             return 0;
         }
-        else if (motor[id].intrinsic == M2006instrin) //电调不反馈温度
+        else if (motor[id].intrinsic.TYPE == M2006) //电调不反馈温度
         {
           if (motor[id].status.stuck == 1)
           {
@@ -376,8 +378,9 @@ u8 ifstuck(u16 id) //判断是否堵转
         }
       }
     }
-    return 0;
+    
   }
+	return 0;
 }
 /**
  * @author: 叮咚蛋

@@ -20,7 +20,7 @@ u8 enable_or_disable;
 s32 Pa;
 s32 Jv;
 s32 Px;
-s32 Motor_Emer_Code = (0x0 << 28) | (0 << 16) | (0 << 8) | 0;
+s32 Motor_Emer_Code = (0x1 << 28) | (0 << 16) | (0 << 8) | 0;
 /**
  * @author: 叮咚蛋
  * @brief: 电机参数初始化

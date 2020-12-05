@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-12-02 08:50:22
+ * @LastEditTime: 2020-12-05 09:42:59
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -386,7 +386,7 @@ void CAN2_RX1_IRQHandler(void)
 		{
 			u8 id = rx_message.StdId - 0x81;
 			insertError(Eerror.head, ELMOERROR | ((id + 1) << 4) | EMERGENCY);
-			Motor_Emer_Code = (0x1 << 24) | (rx_message.StdId << 16) | (rx_message.Data[0] << 8) | rx_message.Data[1];
+			Motor_Emer_Code = (0x9 << 24) | (rx_message.StdId << 16) | (rx_message.Data[0] << 8) | rx_message.Data[1];
 		}
 #endif
 #ifdef USE_VESC
