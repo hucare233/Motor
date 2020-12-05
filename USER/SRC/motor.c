@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-29 15:42:58
+ * @LastEditTime: 2020-12-05 09:11:39
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -34,7 +34,7 @@ void Motor_Init(void)
     M2006instrin.RATIO = 36;
     M3508instrin.CURRENT_LIMIT = 14745; //14745
     M2006instrin.CURRENT_LIMIT = 9000;  //1000
-    M3508instrin.GearRatio = 1;      //全局变量
+    M3508instrin.GearRatio = 1;         //全局变量
     M2006instrin.GearRatio = 6.117f;    //外参齿数比
   }
   { //电机限制保护设置
@@ -258,19 +258,19 @@ void zero_mode(s16 id) //寻零模式
 
 void pulse_caculate(u8 id)
 {
-    motor[id].argum.distance = motor[id].valueReal.pulseRead - motor[id].valuePrv.pulseRead;
-    motor[id].valuePrv = motor[id].valueReal;
-    if (ABS(motor[id].argum.distance) > 4150) //last edit : 4085 ;
-      motor[id].argum.distance -= SIG(motor[id].argum.distance) * motor[id].intrinsic.PULSE;
-    motor[id].valueReal.pulse += motor[id].argum.distance;                              //累计脉冲计算
-    motor[id].argum.difPulseSet = motor[id].valueSet.pulse - motor[id].valueReal.pulse; //更新误差
-    motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
+  motor[id].argum.distance = motor[id].valueReal.pulseRead - motor[id].valuePrv.pulseRead;
+  motor[id].valuePrv = motor[id].valueReal;
+  if (ABS(motor[id].argum.distance) > 4150) //last edit : 4085 ;
+    motor[id].argum.distance -= SIG(motor[id].argum.distance) * motor[id].intrinsic.PULSE;
+  motor[id].valueReal.pulse += motor[id].argum.distance;                              //累计脉冲计算
+  motor[id].argum.difPulseSet = motor[id].valueSet.pulse - motor[id].valueReal.pulse; //更新误差
+  motor[id].valueReal.angle = motor[id].valueReal.pulse * 360.f / motor[id].intrinsic.RATIO / motor[id].intrinsic.GearRatio / motor[id].intrinsic.PULSE;
 
-    if (motor[id].begin)
-      motor[id].argum.lockPulse = motor[id].valueReal.pulse;
-    /* 判断是否需要重置零点 */
-    if (motor[id].status.isSetZero)
-      setZero(&motor[id]);
+  if (motor[id].begin)
+    motor[id].argum.lockPulse = motor[id].valueReal.pulse;
+  /* 判断是否需要重置零点 */
+  if (motor[id].status.isSetZero)
+    setZero(&motor[id]);
 }
 
 /**
@@ -291,7 +291,7 @@ u8 ifstuck(u16 id) //判断是否堵转
       {
         if (ABS(motor[id].valueReal.speed) < 20) //电机速度小于阈值
         {
-					motor[id].argum.stuckCnt++;
+          motor[id].argum.stuckCnt++;
         }
         else
         {
@@ -305,50 +305,80 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].status.stuck = 0; //没有堵转
         }
-        if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
+        if (motor[id].intrinsic == M3508instrin)
         {
-          BEEP_ON; //一直响报警
-          motor[id].enable = 0;
-          sprintf(Motor_error, "%d-Motor stuck", id);
-          return 1;
+          if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
+          {
+            BEEP_ON; //一直响报警
+            motor[id].enable = 0;
+            sprintf(Motor_error, "%d-Motor stuck", id);
+            return 1;
+          }
+          else
+            return 0;
+        }
+        else if (motor[id].intrinsic == M2006instrin) //电调不反馈温度
+        {
+          if (motor[id].status.stuck == 1)
+          {
+            BEEP_ON; //一直响报警
+            motor[id].enable = 0;
+            sprintf(Motor_error, "%d-Motor stuck", id);
+            return 1;
+          }
+          else
+            return 0;
+        }
+      }
+    }
+
+    else if (motor[id].mode == position) //位置模式
+    {
+      if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 50)
+      {
+        if (ABS(motor[id].valueReal.speed) < 100 && (motor[id].status.arrived == false)) //电机速度小于阈值并且没到达位置
+        {
+          motor[id].argum.stuckCnt++;
         }
         else
-          return 0;
+        {
+          motor[id].argum.stuckCnt = 0;
+        }
+        if (motor[id].argum.stuckCnt > 100) //计数超过100
+        {
+          motor[id].status.stuck = 1; //堵转了
+        }
+        else
+          motor[id].status.stuck = 0; //没有堵转
+        if (motor[id].intrinsic == M3508instrin)
+        {
+          if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
+          {
+            BEEP_ON; //一直响报警
+            motor[id].enable = 0;
+            sprintf(Motor_error, "%d-Motor stuck", id);
+            return 1;
+          }
+          else
+            return 0;
+        }
+        else if (motor[id].intrinsic == M2006instrin) //电调不反馈温度
+        {
+          if (motor[id].status.stuck == 1)
+          {
+            BEEP_ON; //一直响报警
+            motor[id].enable = 0;
+            sprintf(Motor_error, "%d-Motor stuck", id);
+            return 1;
+          }
+          else
+            return 0;
+        }
       }
     }
+    return 0;
   }
-  else if (motor[id].mode == position) //位置模式
-  {
-    if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 50)
-    {
-      if (ABS(motor[id].valueReal.speed) < 100 && (motor[id].status.arrived == false)) //电机速度小于阈值并且没到达位置
-      {
-        motor[id].argum.stuckCnt++;
-      }
-      else
-      {
-        motor[id].argum.stuckCnt = 0;
-      }
-      if (motor[id].argum.stuckCnt > 100) //计数超过100
-      {
-        motor[id].status.stuck = 1; //堵转了
-      }
-      else
-        motor[id].status.stuck = 0; //没有堵转
-      if (motor[id].status.stuck == 1 && motor[id].valueReal.tempeture >= 55)
-      {
-        BEEP_ON;
-        motor[id].enable = 0;
-        sprintf(Motor_error, "%d-Motor stuck", id);
-        return 1;
-      }
-      else
-        return 0;
-    }
-  }
-  return 0;
 }
-
 /**
  * @author: 叮咚蛋
  * @brief: 超时检测
@@ -370,11 +400,14 @@ void iftimeout(u16 id) //超时检测
       }
       if (motor[id].argum.timeoutCnt > 50)
       {
-        Beep_Show(2);
+        BEEP_ON;
+        OSTimeDly(1000);
+        BEEP_OFF;
+        OSTimeDly(1000);
         Led8DisData(1);
         motor[id].status.timeout = 1; //超时标志位设1
         sprintf(Motor_error, "%d-Motor timeout", id);
-				Delay_ms(200);
+        Delay_ms(200);
       }
       else
       {

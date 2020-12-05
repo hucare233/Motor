@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-02 09:27:11
+ * @LastEditTime: 2020-12-05 08:13:30
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -24,9 +24,7 @@ int main(void)
 	USART1_Configuration();
 	Key_Configuration();
 	LED_Configuration();
-//	InitCANControlList(Can2_MesgSentList, CAN_2);
-	TIM2_Configuration(); //超时检测
-	TIM3_Init();
+	//	InitCANControlList(Can2_MesgSentList, CAN_2);
 	param_Init();
 	OSInit();
 	OSTaskCreate(Task_Start, (void *)0, &START_TASK_STK[START_STK_SIZE - 1], START_TASK_PRIO);
@@ -38,13 +36,18 @@ static void Task_Start(void *pdata)
 {
 	OS_CPU_SR cpu_sr = 0;
 	pdata = pdata;
+
+	OS_CPU_SysTickInit(); //重要！！！不写没有任务调度
 	Beep_Show(2);
 	//play_Music_1();   //祝你生日快乐
 	//Play_Music(mzdhlmusic,78);
 	Led8DisData(0);
 	UsartLCDshow();
-	OS_CPU_SysTickInit(); //重要！！！不写没有任务调度
-	OS_ENTER_CRITICAL();  //进入临界区(无法被中断打断)
+
+	TIM2_Configuration();
+	TIM3_Init();
+
+	OS_ENTER_CRITICAL(); //进入临界区(无法被中断打断)
 	OSTaskCreate(Task_Lcd, (void *)0, (OS_STK *)&LCD_TASK_STK[LCD_STK_SIZE - 1], LCD_TASK_PRIO);
 	OSTaskCreate(Task_Led8, (void *)0, (OS_STK *)&LED8_TASK_STK[LED8_STK_SIZE - 1], LED8_TASK_PRIO);
 	OSTaskCreate(Task_Elmo, (void *)0, (OS_STK *)&ELMO_TASK_STK[ELMO_STK_SIZE - 1], ELMO_TASK_PRIO);

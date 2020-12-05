@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-11-28 15:48:41
+ * @LastEditTime: 2020-12-05 09:11:31
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -47,7 +47,10 @@ void TIM2_IRQHandler(void)
 			if (VESCmotor[i].argum.timeoutCnt > 20)
 			{
 				VESCmotor[i].status.timeout = true;
-				Beep_Show(2);
+				BEEP_ON;
+				OSTimeDly(1000);
+				BEEP_OFF;
+				OSTimeDly(1000);
 				insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
 				Led8DisData(2);
 				Delay_ms(200);
@@ -61,7 +64,7 @@ void TIM2_IRQHandler(void)
 		}
 #endif
 #ifdef USE_ELMO
-		for (u32 i = 0; i < 4; i++) //ELMO超时判断
+		for (int i = 0; i < 4; i++) //ELMO超时判断
 		{
 			if (ELMOmotor[i].enable)
 			{
@@ -70,10 +73,13 @@ void TIM2_IRQHandler(void)
 					ELMOmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					ELMOmotor[i].argum.timeoutCnt = 0;
-				if (ELMOmotor[i].argum.timeoutCnt > 500)
+				if (ELMOmotor[i].argum.timeoutCnt > 50)
 				{
 					ELMOmotor[i].status.timeout = true;
-		            Beep_Show(2);
+					BEEP_ON;
+					OSTimeDly(1000);
+					BEEP_OFF;
+					OSTimeDly(1000);
 					Led8DisData(3);
 					Delay_ms(100);
 				}
@@ -86,7 +92,7 @@ void TIM2_IRQHandler(void)
 		}
 #endif
 #ifdef USE_DJ
-		for (u8 i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			iftimeout(i); //DJ超时检测
 		}
@@ -97,7 +103,7 @@ void TIM2_IRQHandler(void)
 			sprintf(Motor_error, "%s", "(*_ *)");
 #endif
 #ifdef USE_EPOS
-		for (u8 i = 0; i < 4; i++) //EPOS超时判断
+		for (int i = 0; i < 4; i++) //EPOS超时判断
 		{
 			if (EPOSmotor[i].enable)
 			{
@@ -109,7 +115,10 @@ void TIM2_IRQHandler(void)
 				if (EPOSmotor[i].argum.timeoutCnt > 100)
 				{
 					EPOSmotor[i].status.timeout = true;
-					Beep_Show(2);
+					BEEP_ON;
+					OSTimeDly(1000);
+					BEEP_OFF;
+					OSTimeDly(1000);
 					Led8DisData(4);
 				}
 				else
