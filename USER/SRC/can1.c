@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-04 08:48:16
+ * @LastEditTime: 2020-12-05 09:56:05
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 #include "can1.h"
@@ -346,7 +346,7 @@ void CAN1_RX0_IRQHandler(void)
          ELMOmotor[2].valSet.angle = 90;
          ELMOmotor[3].valSet.angle = 90;
 				 Delay_ms(2);
-				 ENABLE_ALL_ELMO
+				 BEGIN_ALL_ELMO
        }
        break;
        case 2: //前腿翻转
@@ -356,7 +356,7 @@ void CAN1_RX0_IRQHandler(void)
          ELMOmotor[1].valSet.angle = 260;
          ELMOmotor[2].valSet.angle = 260;
 				 Delay_ms(2);
-				 ENABLE_ALL_ELMO
+				 BEGIN_ALL_ELMO
        }
        break;
        case 3:
@@ -366,7 +366,7 @@ void CAN1_RX0_IRQHandler(void)
          ELMOmotor[0].valSet.angle = -80;
          ELMOmotor[3].valSet.angle = -80;
 				 Delay_ms(2);
-				 ENABLE_ALL_ELMO
+				 BEGIN_ALL_ELMO
        }
        break;
        case 4:
@@ -380,7 +380,7 @@ void CAN1_RX0_IRQHandler(void)
          ELMOmotor[2].valSet.angle = 0;
          ELMOmotor[3].valSet.angle = 0;
 				 Delay_ms(2);
-				 ENABLE_ALL_ELMO
+				 BEGIN_ALL_ELMO 
        }
        break;
        default:

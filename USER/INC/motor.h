@@ -163,6 +163,7 @@ typedef struct
     u8 timeoutCnt;    //超时用计数值，[相关于超时状态timeout]
     u32 lastRxTim;    //上次接收到报文的系统时间，[相关于超时状态timeout]
     u16 timeoutTicks; //判断超时用系统节拍数，[相关于超时状态timeout]
+    u16 stuckTicks;
 } MotorArgum;
 
 /****DJ电机总结构体****/

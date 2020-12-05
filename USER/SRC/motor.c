@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-05 09:11:39
+ * @LastEditTime: 2020-12-05 14:59:44
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -36,8 +36,8 @@ void Motor_Init(void)
     M2006instrin.CURRENT_LIMIT = 9000;  //1000
     M3508instrin.GearRatio = 1;         //全局变量
     M2006instrin.GearRatio = 6.117f;    //外参齿数比
-		M3508instrin.TYPE=M3508;
-		M2006instrin.TYPE=M2006;
+    M3508instrin.TYPE = M3508;
+    M2006instrin.TYPE = M2006;
   }
   { //电机限制保护设置
     Motorlimit.isPosLimitON = false;
@@ -50,9 +50,10 @@ void Motor_Init(void)
     Motorlimit.stuckmotion = 1;
     Motorlimit.timeoutmotion = 1;
   }
-  {                                 //电机其他参数设置
-    Motorargum.timeoutTicks = 2000; //2000ms
+  {                               //电机其他参数设置
+    Motorargum.timeoutTicks = 40; //40*50=2000MS
     Motorargum.lockPulse = 0;
+    Motorargum.stuckTicks = 100; //100ms
   }
   /****0号电机初始化****/
   motor[0].intrinsic = M2006instrin; //| M2006instrin  M3508instrin
@@ -299,7 +300,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].argum.stuckCnt = 0;
         }
-        if (motor[id].argum.stuckCnt > 100) //计数超过100
+        if (motor[id].argum.stuckCnt > motor[id].argum.stuckTicks) //计数超过100
         {
           motor[id].status.stuck = 1; //堵转了
         }
@@ -346,7 +347,7 @@ u8 ifstuck(u16 id) //判断是否堵转
         {
           motor[id].argum.stuckCnt = 0;
         }
-        if (motor[id].argum.stuckCnt > 100) //计数超过100
+        if (motor[id].argum.stuckCnt > motor[id].argum.stuckTicks) //计数超过100
         {
           motor[id].status.stuck = 1; //堵转了
         }
@@ -378,9 +379,8 @@ u8 ifstuck(u16 id) //判断是否堵转
         }
       }
     }
-    
   }
-	return 0;
+  return 0;
 }
 /**
  * @author: 叮咚蛋
@@ -401,7 +401,7 @@ void iftimeout(u16 id) //超时检测
       {
         motor[id].argum.timeoutCnt = 0;
       }
-      if (motor[id].argum.timeoutCnt > 50)
+      if (motor[id].argum.timeoutCnt > motor[id].argum.timeoutTicks)
       {
         BEEP_ON;
         OSTimeDly(1000);
@@ -410,7 +410,7 @@ void iftimeout(u16 id) //超时检测
         Led8DisData(1);
         motor[id].status.timeout = 1; //超时标志位设1
         sprintf(Motor_error, "%d-Motor timeout", id);
-        Delay_ms(200);
+        OSTimeDly(200);
       }
       else
       {

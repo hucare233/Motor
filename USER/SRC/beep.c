@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-06 20:34:26
+ * @LastEditTime: 2020-12-05 14:58:41
  * @FilePath: \MotoPro\USER\SRC\beep.c
  */
 #include "beep.h"
@@ -32,9 +32,9 @@ void Beep_Show(u8 num)
         for (int i = 0; i < num; i++)
         {
                 BEEP_ON;
-                Delay_ms(200);
+                OSTimeDly(2000);
                 BEEP_OFF;
-                Delay_ms(200);
+                OSTimeDly(2000);
         }
 }
 
