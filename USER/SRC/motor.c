@@ -403,12 +403,13 @@ void iftimeout(u16 id) //超时检测
       }
       if (motor[id].argum.timeoutCnt > motor[id].argum.timeoutTicks)
       {
-        BEEP_ON;
-        OSTimeDly(1000);
-        BEEP_OFF;
-        OSTimeDly(1000);
+				motor[id].status.timeout=true;//超时标志位设1
+				flag.MotorerrorFlag[0]=true;
+//        BEEP_ON;
+//        OSTimeDly(1000);
+//        BEEP_OFF;
+//        OSTimeDly(1000);
         Led8DisData(1);
-        motor[id].status.timeout = 1; //超时标志位设1
         sprintf(Motor_error, "%d-Motor timeout", id);
         OSTimeDly(200);
       }

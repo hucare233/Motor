@@ -74,17 +74,14 @@
         motor[7].begin = 0;  \
     }
 
-#define DJ_clear_error                  \
-    {                                   \
-        motor[0].argum.timeoutCnt = 0; \
-        motor[1].argum.timeoutCnt = 0; \
-        motor[2].argum.timeoutCnt = 0; \
-        motor[3].argum.timeoutCnt = 0; \
-        motor[4].argum.timeoutCnt = 0; \
-        motor[5].argum.timeoutCnt = 0; \
-        motor[6].argum.timeoutCnt = 0; \
-        motor[7].argum.timeoutCnt = 0; \
-        sprintf(Motor_error,"%s","(-- _*)");\
+#define DJ_clear_error                         \
+    {                                          \
+        for (init i = 0; i < 8; i++)           \
+        {                                      \
+            motor[id].argum.stuckCnt = 0;      \
+            motor[id].argum.timeoutCnt = 0;    \
+        }                                      \
+        sprintf(Motor_error, "%s", "(-- _*)"); \
     }
 /****电机模式****/
 enum MOTOR_MODE
@@ -100,8 +97,8 @@ enum MOTOR_MODE
 
 enum MOTOR_TYPE
 {
-    M2006=0,
-	  M3508
+    M2006 = 0,
+    M3508
 };
 
 /****电机限制保护结构体****/
@@ -125,7 +122,7 @@ typedef struct
     u8 RATIO;          //减速比
     u16 CURRENT_LIMIT; //最大输出电流限制
     float GearRatio;
-	  bool TYPE;
+    bool TYPE;
 } MotorParam;
 
 /****电机外参****/

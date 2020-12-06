@@ -50,6 +50,7 @@ static void Task_Start(void *pdata)
 	OS_ENTER_CRITICAL(); //进入临界区(无法被中断打断)
 	OSTaskCreate(Task_Lcd, (void *)0, (OS_STK *)&LCD_TASK_STK[LCD_STK_SIZE - 1], LCD_TASK_PRIO);
 	OSTaskCreate(Task_Led8, (void *)0, (OS_STK *)&LED8_TASK_STK[LED8_STK_SIZE - 1], LED8_TASK_PRIO);
+	OSTaskCreate(Task_BEEP, (void *)0, (OS_STK *)&BEEP_TASK_STK[BEEP_STK_SIZE - 1], BEEP_TASK_PRIO);
 	OSTaskCreate(Task_Elmo, (void *)0, (OS_STK *)&ELMO_TASK_STK[ELMO_STK_SIZE - 1], ELMO_TASK_PRIO);
 	OSTaskCreate(Task_EPOS, (void *)0, (OS_STK *)&EPOS_TASK_STK[EPOS_STK_SIZE - 1], EPOS_TASK_PRIO);
 	OSTaskCreate(Task_Motor, (void *)0, (OS_STK *)&MOTOR_TASK_STK[MOTOR_STK_SIZE - 1], MOTOR_TASK_PRIO);
@@ -88,16 +89,29 @@ static void Task_Led8(void *pdata) //流水灯，数码管任务
 	}
 }
 
+static void Task_BEEP(void *pdata) //蜂鸣器任务
+{
+	while (1)
+	{
+    for(int i=0;i<4;i++)
+		{
+		  if(flag.MotorerrorFlag[i]==true)
+				Beep_Show(2);
+		}
+		OSTimeDly(200);
+	}
+}
+
 static void Task_Motor(void *pdata)
 {
 	/***************电机使能放这里清除起始误差***********/
 	ENABLE_ALL_DJMOTOR_5_8
 	BEGIN_ALL_DJMOTOR_5_8
 	OSTimeDly(1000);
-	motor[4].status.isSetZero = 1;
-	motor[5].status.isSetZero = 1;
-	motor[6].status.isSetZero = 1;
-	motor[7].status.isSetZero = 1;
+//	motor[4].status.isSetZero = 1;
+//	motor[5].status.isSetZero = 1;
+//	motor[6].status.isSetZero = 1;
+//	motor[7].status.isSetZero = 1;
 	while (1)
 	{
 		djcontrol();

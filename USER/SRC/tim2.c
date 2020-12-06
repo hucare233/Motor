@@ -47,11 +47,12 @@ void TIM2_IRQHandler(void)
 			if (VESCmotor[i].argum.timeoutCnt > 20)
 			{
 				VESCmotor[i].status.timeout = true;
-				BEEP_ON;
-				OSTimeDly(1000);
-				BEEP_OFF;
-				OSTimeDly(1000);
-				0 insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
+		    flag.MotorerrorFlag[3]=true;  
+//				BEEP_ON;
+//				OSTimeDly(1000);
+//				BEEP_OFF;
+//				OSTimeDly(1000);
+				insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
 				Led8DisData(2);
 				Delay_ms(200);
 			}
@@ -80,12 +81,13 @@ void TIM2_IRQHandler(void)
 				if ((ELMOmotor[i].argum.timeoutCnt > 4) || (ELMOmotor[i].argum.timecut > 5))
 				{
 					ELMOmotor[i].status.timeout = true;
-					BEEP_ON;
-					OSTimeDly(1000);
-					BEEP_OFF;
-					OSTimeDly(1000);
+					flag.MotorerrorFlag[1]=true;
+//					BEEP_ON;
+//					OSTimeDly(1000);
+//					BEEP_OFF;
+//					OSTimeDly(1000);
 					Led8DisData(3);
-					Delay_ms(100);
+					OSTimeDly(100);
 				}
 				else
 				{
@@ -123,10 +125,11 @@ void TIM2_IRQHandler(void)
 				if (EPOSmotor[i].argum.timeoutCnt > 4 || (EPOSmotor[i].argum.timecut > 1))
 				{
 					EPOSmotor[i].status.timeout = true;
-					BEEP_ON;
-					OSTimeDly(1000);
-					BEEP_OFF;
-					OSTimeDly(1000);
+          flag.MotorerrorFlag[2]=true;
+//					BEEP_ON;
+//					OSTimeDly(1000);
+//					BEEP_OFF;
+//					OSTimeDly(1000);
 					Led8DisData(4);
 				}
 				else

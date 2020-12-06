@@ -42,6 +42,12 @@ static void Task_Lcd(void *pdata);
 __align(8) OS_STK LED8_TASK_STK[LED8_STK_SIZE];
 static void Task_Led8(void *pdata);
 
+//蜂鸣器任务
+#define BEEP_TASK_PRIO 29
+#define BEEP_STK_SIZE 128
+__align(8) OS_STK BEEP_TASK_STK[BEEP_STK_SIZE];
+static void Task_BEEP(void *pdata);
+
 //DJ任务
 #define MOTOR_TASK_PRIO 9
 #define MOTOR_STK_SIZE 256
