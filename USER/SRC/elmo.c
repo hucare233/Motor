@@ -45,7 +45,7 @@ void ELMO_Motor_Init(void)
 		ELMOlimit.zeroCurrent = 4000;
 	}
 	{								   //电机其他参数设置
-		ELMOargum.timeoutTicks = 100; //10ms
+		ELMOargum.timeoutTicks = 500; //50ms
 	}
 	{
 		ELMOFlag.bg = 0;

@@ -20,10 +20,10 @@
 /**
   *@brief 报文控制表
   */
-#define CAN_QUEUESIZE 30		//发送报文队列长度
+#define CAN_QUEUESIZE 50		//发送报文队列长度
 #define CAN_HAVESENDQUEUESIZE 5 //已发送报文队列长度
 #define CAN1_NodeNumber 6u		//不要超过8（故障标志位只有8位）
-#define CAN2_NodeNumber 6u		//不要超过8（故障标志位只有8位）
+#define CAN2_NodeNumber 8u		//不要超过8（故障标志位只有8位）
 #define Rear1 ((Can1_Sendqueue.Rear + 1) % CAN_QUEUESIZE)
 #define Rear2 ((Can2_Sendqueue.Rear + 1) % CAN_QUEUESIZE)
 #define Rear3 ((VESC_Sendqueue.Rear + 1) % CAN_QUEUESIZE)
@@ -46,12 +46,11 @@ typedef struct
 /****报文控制块****/
 typedef struct
 {
-	s32 SendNumber;
-	s32 ReceiveNumber;
-	u32 QUEUEFullTimeout;
-	u8 TimeOut;
-	s32 SendSem;
-	Can_QueueTypeDef SentQueue;
+		s32 SendNumber;
+		s32	ReceiveNumber;
+		u32 QUEUEFullTimeout;
+		u8  TimeOut;
+		s32	SendSem; 
 } MesgControlGrpTypeDef;
 
 /****CAN流程号****/

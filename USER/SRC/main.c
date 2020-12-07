@@ -16,15 +16,17 @@ int main(void)
 	CAN1_Configuration();
 	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
 	Can_SendqueueInit();													   //can队列初始化
+	InitCANControlList(Can1_MesgSentList, CAN_2);    //报文控制表初始化
 	Beep_Init();
 	//Time_Control_Beep_Init();
 	//PS2_Init();
 	Led8_Configuration();
+	TIM2_Configuration();
+	TIM3_Init();
 	USART2_Configuration();
 	USART1_Configuration();
 	Key_Configuration();
 	LED_Configuration();
-	//	InitCANControlList(Can2_MesgSentList, CAN_2);
 	param_Init();
 	OSInit();
 	OSTaskCreate(Task_Start, (void *)0, &START_TASK_STK[START_STK_SIZE - 1], START_TASK_PRIO);
@@ -36,17 +38,12 @@ static void Task_Start(void *pdata)
 {
 	OS_CPU_SR cpu_sr = 0;
 	pdata = pdata;
-
 	OS_CPU_SysTickInit(); //重要！！！不写没有任务调度
-	Beep_Show(2);
 	//play_Music_1();   //祝你生日快乐
 	//Play_Music(mzdhlmusic,78);
 	Led8DisData(0);
 	UsartLCDshow();
-
-	TIM2_Configuration();
-	TIM3_Init();
-
+	//Beep_Show(2);
 	OS_ENTER_CRITICAL(); //进入临界区(无法被中断打断)
 	OSTaskCreate(Task_Lcd, (void *)0, (OS_STK *)&LCD_TASK_STK[LCD_STK_SIZE - 1], LCD_TASK_PRIO);
 	OSTaskCreate(Task_Led8, (void *)0, (OS_STK *)&LED8_TASK_STK[LED8_STK_SIZE - 1], LED8_TASK_PRIO);
@@ -96,7 +93,12 @@ static void Task_BEEP(void *pdata) //蜂鸣器任务
     for(int i=0;i<4;i++)
 		{
 		  if(flag.MotorerrorFlag[i]==true)
-				Beep_Show(2);
+			{
+				BEEP_ON;
+                OSTimeDly(3000);
+                BEEP_OFF;
+                OSTimeDly(3000);
+			}
 		}
 		OSTimeDly(200);
 	}
@@ -105,9 +107,9 @@ static void Task_BEEP(void *pdata) //蜂鸣器任务
 static void Task_Motor(void *pdata)
 {
 	/***************电机使能放这里清除起始误差***********/
-	ENABLE_ALL_DJMOTOR_5_8
-	BEGIN_ALL_DJMOTOR_5_8
-	OSTimeDly(1000);
+//	ENABLE_ALL_DJMOTOR_5_8
+//	BEGIN_ALL_DJMOTOR_5_8
+//	OSTimeDly(1000);
 //	motor[4].status.isSetZero = 1;
 //	motor[5].status.isSetZero = 1;
 //	motor[6].status.isSetZero = 1;
@@ -121,24 +123,27 @@ static void Task_Motor(void *pdata)
 
 static void Task_Elmo(void *pdata) //elmo任务
 {
-	Elmo_Motor_UM(1, 5, 1);
-	Elmo_Motor_UM(2, 5, 1);
-	Elmo_Motor_UM(3, 5, 1);
-	Elmo_Motor_UM(4, 5, 1);
+	Elmo_Motor_UM(1, 5, 0);
+	Elmo_Motor_UM(2, 5, 0);
+	Elmo_Motor_UM(3, 5, 0);
+	Elmo_Motor_UM(4, 5, 0);
+	OSTimeDly(40);
+	ENABLE_ALL_ELMO
+	Elmo_Motor_SP(1,2000,0);
+	Elmo_Motor_SP(2,2000,0);
+	Elmo_Motor_SP(3,2000,0);
+	Elmo_Motor_SP(4,2000,0);
+	OSTimeDly(40);
 	while (1)
 	{
 		elmo_control(1);
 		for (u8 i = 1; i < 5; i++)
 		{
-			Elmo_Motor_ASKmo(i, 1);
-			OSTimeDly(10);
-			Elmo_Motor_ASKvx(i, 1);
-			OSTimeDly(10);
-			Elmo_Motor_ASKpx(i, 1);
-			OSTimeDly(10);
-			Elmo_Motor_ASKiq(i, 1);
-			Elmo_Motor_ASKum(i, 1);
-			OSTimeDly(10);
+			Elmo_Motor_ASKmo(i, 0);
+			Elmo_Motor_ASKvx(i, 0);
+			Elmo_Motor_ASKpx(i, 0);
+			Elmo_Motor_ASKiq(i, 0);
+			Elmo_Motor_ASKum(i, 0);
 			if ((ABS(ELMOmotor[i - 1].valReal.pulse - ELMOmotor[i - 1].intrinsic.PULSE * 4 * ELMOmotor[i - 1].valSet.angle * ELMOmotor[i - 1].intrinsic.RATIO / 360.f) < 100) && (ELMOmotor[i - 1].begin == true))
 			{
 				ELMOmotor[i - 1].argum.arivecnt++;
@@ -155,7 +160,7 @@ static void Task_Elmo(void *pdata) //elmo任务
 				ELMOmotor[i - 1].status.arrived = false;
 			}
 		}
-		OSTimeDly(400);
+		OSTimeDly(320);
 	}
 }
 

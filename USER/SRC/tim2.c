@@ -78,7 +78,7 @@ void TIM2_IRQHandler(void)
 					ELMOmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					ELMOmotor[i].argum.timeoutCnt = 0;
-				if ((ELMOmotor[i].argum.timeoutCnt > 4) || (ELMOmotor[i].argum.timecut > 5))
+				if ((ELMOmotor[i].argum.timeoutCnt > 10) && (ELMOmotor[i].argum.timecut > 10))
 				{
 					ELMOmotor[i].status.timeout = true;
 					flag.MotorerrorFlag[1]=true;
@@ -87,12 +87,12 @@ void TIM2_IRQHandler(void)
 //					BEEP_OFF;
 //					OSTimeDly(1000);
 					Led8DisData(3);
-					OSTimeDly(100);
 				}
-				else
+				else if((ELMOmotor[0].status.timeout==false)&&(ELMOmotor[1].status.timeout==false)&&(ELMOmotor[2].status.timeout==false)&&(ELMOmotor[3].status.timeout==false))
 				{
 					Led8DisData(0);
 					ELMOmotor[i].status.timeout = false;
+					flag.MotorerrorFlag[1]=false;
 				}
 			}
 		}
@@ -122,7 +122,7 @@ void TIM2_IRQHandler(void)
 					EPOSmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					EPOSmotor[i].argum.timeoutCnt = 0;
-				if (EPOSmotor[i].argum.timeoutCnt > 4 || (EPOSmotor[i].argum.timecut > 1))
+				if ((EPOSmotor[i].argum.timeoutCnt > 4) &&( EPOSmotor[i].argum.timecut > 1))
 				{
 					EPOSmotor[i].status.timeout = true;
           flag.MotorerrorFlag[2]=true;
@@ -132,10 +132,11 @@ void TIM2_IRQHandler(void)
 //					OSTimeDly(1000);
 					Led8DisData(4);
 				}
-				else
+				else if((EPOSmotor[0].status.timeout==false)&&(EPOSmotor[1].status.timeout==false)&&(EPOSmotor[2].status.timeout==false)&&(EPOSmotor[3].status.timeout==false))
 				{
 					Led8DisData(0);
 					EPOSmotor[i].status.timeout = false;
+					flag.MotorerrorFlag[2]=false;
 				}
 			}
 		}

@@ -76,10 +76,10 @@
 
 #define DJ_clear_error                         \
     {                                          \
-        for (init i = 0; i < 8; i++)           \
+        for (int i = 0; i < 8; i++)           \
         {                                      \
-            motor[id].argum.stuckCnt = 0;      \
-            motor[id].argum.timeoutCnt = 0;    \
+            motor[i].argum.stuckCnt = 0;      \
+            motor[i].argum.timeoutCnt = 0;    \
         }                                      \
         sprintf(Motor_error, "%s", "(-- _*)"); \
     }

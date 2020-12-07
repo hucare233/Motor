@@ -12,7 +12,8 @@
 #include "motor.h"
 #include "elmo.h"
 #include "queue.h"
-
+static u8 Registration_Std[2][10]={{'B','S','U','M','S','P','P','M','M','M'},
+																	 {'G','T','M','O','P','X','A','O','O','O'}};
 u32 timeout_ticks = 2000; //200ms
 s16 timeout_counts = 0;	  //超时计数
 u32 last_update_time[8] = {0};
@@ -274,26 +275,6 @@ u8 CAN2_Send_Msg(u8 *msg, u8 len)
 		return 1;
 	return 0;
 }
-//can口接收数据查询
-//buf:数据缓存区;
-//返回值:0,无数据被收到;
-//		 其他,接收的数据长度;
-
-static void Elmo_Feedback_Deel(MesgControlGrpTypeDef *Can_MesgSentList)
-{
-	Can_MesgSentList->ReceiveNumber += 1;
-	Can_MesgSentList->TimeOut = 0;
-	Can_MesgSentList->SendSem--;
-	Can_MesgSentList->SentQueue.Front = (Can_MesgSentList->SentQueue.Front + 1) % CAN_QUEUESIZE;
-}
-
-static void Epos_Feedback_Deel(MesgControlGrpTypeDef *Can_MesgSentList)
-{
-	Can_MesgSentList->ReceiveNumber += 1;
-	Can_MesgSentList->TimeOut = 0;
-	Can_MesgSentList->SendSem--;
-	Can_MesgSentList->SentQueue.Front = (Can_MesgSentList->SentQueue.Front + 1) % CAN_QUEUESIZE;
-}
 
 void CAN2_RX1_IRQHandler(void)
 {
@@ -315,7 +296,6 @@ void CAN2_RX1_IRQHandler(void)
 				(rx_message.Data[0] == 0x43 && rx_message.Data[1] == 0x6C && rx_message.Data[2] == 0x60) |
 				(rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x40 && rx_message.Data[2] == 0x60) |
 				(rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x77 && rx_message.Data[2] == 0x60))
-				Epos_Feedback_Deel(&Can2_eposMesgSentList[id]);
 			if (rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x40 && rx_message.Data[2] == 0x60) //使能
 				EPOSmotor[id].enable = rx_message.Data[4] >> 3;
 			if (rx_message.Data[0] == 0x4F && rx_message.Data[1] == 0x60 && rx_message.Data[2] == 0x60) //模式
@@ -356,7 +336,6 @@ void CAN2_RX1_IRQHandler(void)
 				(rx_message.Data[0] == 'S' && rx_message.Data[1] == 'T' && (rx_message.Data[3] & BIT6) != 1) |
 				(rx_message.Data[0] == 'T' && rx_message.Data[1] == 'C' && (rx_message.Data[3] & BIT6) != 1) |
 				(rx_message.Data[0] == 'U' && rx_message.Data[1] == 'M' && (rx_message.Data[3] & BIT6) != 1))
-				Elmo_Feedback_Deel(&Can2_elmoMesgSentList[id]);
 			if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && (rx_message.Data[3] & BIT6) != 1)
 			{
 				ELMOmotor[id].enable = rx_message.Data[4];
@@ -381,6 +360,26 @@ void CAN2_RX1_IRQHandler(void)
 			{
 				DecodeS32Data(&ELMOmotor[id].mode, &rx_message.Data[4]);
 			}
+			for(int m=0;m<10;m++)
+					{
+						if(Registration_Std[0][m] == rx_message.Data[0])
+						{
+							if(Registration_Std[1][m] == rx_message.Data[1])
+							{
+								Can2_MesgSentList[id].ReceiveNumber += 1;
+								Can2_MesgSentList[id].TimeOut = 0;
+								Can2_MesgSentList[id].SendSem --;
+								if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag==true&& Can2_Sendqueue.Rear!=Can2_Sendqueue.Front)
+								{
+									if((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].ID&0xF)==id+1\
+										&&Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0]==rx_message.Data[0]\
+										&&Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1]==rx_message.Data[1])
+									Can2_Sendqueue.Front = (Can2_Sendqueue.Front + 1) % CAN_QUEUESIZE;
+								}
+								break;
+							}
+						}
+					}
 		}
 		if (((rx_message.StdId >= 0x81) && (rx_message.StdId <= 0x88)) && (rx_message.RTR == CAN_RTR_Data) && ((rx_message.Data[1] != 0X82) && (rx_message.Data[1] != 0X10))) //ELMO错误报文  TODO:除去8210的错误，不影响正常使用
 		{

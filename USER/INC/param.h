@@ -56,6 +56,8 @@ typedef struct
   volatile bool Usart2DMASendFinish; // Usart2_DMA传输
   volatile bool Usart3DMASendFinish; // Usart2_DMA传输
 	volatile bool MotorerrorFlag[4];  //电机标志位 0-DJ 1-ELMO 2-EPOS 3-VESC
+	u16 Can1_ErrNode;
+  u16 Can2_ErrNode;	
 } FlagTypeDef;
 
 /****踢球结构体****/
