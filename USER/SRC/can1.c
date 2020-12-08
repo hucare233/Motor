@@ -322,10 +322,10 @@ void CAN1_RX0_IRQHandler(void)
         {
         case 1:
         {
-          Elmo_Motor_PA(1, 90, 1);
-          Elmo_Motor_PA(2, 90, 1);
-          Elmo_Motor_PA(3, 90, 1);
-          Elmo_Motor_PA(4, 90, 1);
+          Elmo_Motor_PA(1, -105, 1);
+          Elmo_Motor_PA(2, 75, 1);
+          Elmo_Motor_PA(3, 75, 1);
+          Elmo_Motor_PA(4, -105, 1);
           ELMOmotor[0].valSet.angle = 90;
           ELMOmotor[1].valSet.angle = 90;
           ELMOmotor[2].valSet.angle = 90;
@@ -335,8 +335,8 @@ void CAN1_RX0_IRQHandler(void)
         break;
         case 2: //前腿翻转
         {
-          Elmo_Motor_PA(2, 260, 1);
-          Elmo_Motor_PA(3, 260, 1);
+          Elmo_Motor_PA(2, 255, 1);
+          Elmo_Motor_PA(3, 255, 1);
           ELMOmotor[1].valSet.angle = 260;
           ELMOmotor[2].valSet.angle = 260;
           //BEGIN_ALL_ELMO
@@ -344,8 +344,8 @@ void CAN1_RX0_IRQHandler(void)
         break;
         case 3:
         {
-          Elmo_Motor_PA(1, -80, 1);
-          Elmo_Motor_PA(4, -80, 1);
+          Elmo_Motor_PA(1, 75, 1);
+          Elmo_Motor_PA(4, 75, 1);
           ELMOmotor[0].valSet.angle = -80;
           ELMOmotor[3].valSet.angle = -80;
           //BEGIN_ALL_ELMO

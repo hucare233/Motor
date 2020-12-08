@@ -277,10 +277,10 @@ void Elmo_Motor_ST(u32 ID, u8 InConGrpFlag)
  * @brief: 位置模式持续速度
  */
 
-void Elmo_Motor_SP(u32 ID, u32 speed, u8 InConGrpFlag) //设置转速
+void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag) //设置转速
 {
-	u32 S_P;
-	S_P = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * speed * ELMOmotor[ID - 1].intrinsic.RATIO / 60.0f;
+	s32 S_P;
+	S_P = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * speed / 60;
 	if (Rear2 == Can2_Sendqueue.Front)
 	{
 		flag.Can2SendqueueFULL++;
@@ -401,7 +401,7 @@ void Elmo_Motor_JV(u32 ID, s32 JV, u8 InConGrpFlag)
 {
 
 	s32 J_v;
-	J_v = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * JV * ELMOmotor[ID - 1].intrinsic.RATIO / 60.f;
+	J_v = ELMOmotor[ID - 1].intrinsic.PULSE * 4 * JV / 60.f;
 
 	if (Rear2 == Can2_Sendqueue.Front)
 	{

@@ -169,17 +169,17 @@ void USART2_IRQHandler(void)
           break;
         case 0x0C:
         {
-          Elmo_Motor_PA(1, 90, 1);
+          Elmo_Motor_PA(1, 75, 1);
           //Delay_ms(4);
-          Elmo_Motor_PA(2, 90, 1);
+          Elmo_Motor_PA(2, 75, 1);
           //Delay_ms(4);
-          Elmo_Motor_PA(3, 90, 1);
+          Elmo_Motor_PA(3, 75, 1);
           //Delay_ms(4);
-          Elmo_Motor_PA(4, 90, 1);
-          ELMOmotor[0].valSet.angle = 90;
-          ELMOmotor[1].valSet.angle = 90;
-          ELMOmotor[2].valSet.angle = 90;
-          ELMOmotor[3].valSet.angle = 90;
+          Elmo_Motor_PA(4, 75, 1);
+          ELMOmotor[0].valSet.angle = 75;
+          ELMOmotor[1].valSet.angle = 75;
+          ELMOmotor[2].valSet.angle = 75;
+          ELMOmotor[3].valSet.angle = 75;
           BEGIN_ALL_ELMO
         }
         break;
@@ -218,18 +218,18 @@ void USART2_IRQHandler(void)
         case 0x0F:
           //play_Music_1(); //祝你生日快乐
           {
-            Elmo_Motor_PA(1, 90, 1);
+            Elmo_Motor_PA(1, 75, 1);
             //Delay_ms(4);
-            Elmo_Motor_PA(2, 90, 1);
+            Elmo_Motor_PA(2, 75, 1);
             //Delay_ms(4);
-            Elmo_Motor_PA(3, 90, 1);
+            Elmo_Motor_PA(3, 75, 1);
             //Delay_ms(4);
-            Elmo_Motor_PA(4, 90, 1);
+            Elmo_Motor_PA(4, 75, 1);
             //Delay_ms(4);
-            ELMOmotor[0].valSet.angle = 90;
-            ELMOmotor[1].valSet.angle = 90;
-            ELMOmotor[2].valSet.angle = 90;
-            ELMOmotor[3].valSet.angle = 90;
+            ELMOmotor[0].valSet.angle = 75;
+            ELMOmotor[1].valSet.angle = 75;
+            ELMOmotor[2].valSet.angle = 75;
+            ELMOmotor[3].valSet.angle = 75;
             Elmo_Motor_SP(1, 2000, 1);
             //Delay_ms(4);
             Elmo_Motor_SP(2, 2000, 1);
@@ -264,7 +264,7 @@ void USART2_IRQHandler(void)
       break;
       case 0x01: //摩擦轮主界面
       {
-        switch (usart.RxBuffer_USART2[5])
+        switch (usart.RxBuffer_USART2[5])  
         {
         case 0x0F:
         {
@@ -706,13 +706,13 @@ void USART2_IRQHandler(void)
         {
           if (ELMOmotor[0].mode == 2)
           {
-            Jv = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_JV(1, Jv, 1);
+            ELMOmotor[0].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_JV(1, ELMOmotor[0].valSet.speed, 1);
           }
           else if (ELMOmotor[0].mode == 5)
           {
-            speed = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_SP(1, speed, 1);
+            ELMOmotor[0].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_SP(1, ELMOmotor[0].valSet.speed, 1);
           }
         }
         break;
@@ -720,13 +720,13 @@ void USART2_IRQHandler(void)
         {
           if (ELMOmotor[1].mode == 2)
           {
-            Jv = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_JV(2, Jv, 1);
+            ELMOmotor[1].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_JV(2, ELMOmotor[1].valSet.speed, 1);
           }
           else if (ELMOmotor[1].mode == 5)
           {
-            speed = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_SP(2, speed, 1);
+            ELMOmotor[1].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_SP(2, ELMOmotor[1].valSet.speed, 1);
           }
         }
         break;
@@ -734,13 +734,13 @@ void USART2_IRQHandler(void)
         {
           if (ELMOmotor[2].mode == 2)
           {
-            Jv = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_JV(3, Jv, 1);
+            ELMOmotor[2].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_JV(3, ELMOmotor[2].valSet.speed, 1);
           }
           else if (ELMOmotor[2].mode == 5)
           {
-            speed = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_SP(3, speed, 1);
+            ELMOmotor[2].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_SP(3, ELMOmotor[2].valSet.speed, 1);
           }
         }
         break;
@@ -748,13 +748,13 @@ void USART2_IRQHandler(void)
         {
           if (ELMOmotor[3].mode == 2)
           {
-            Jv = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_JV(4, Jv, 1);
+            ELMOmotor[3].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_JV(4, ELMOmotor[3].valSet.speed, 1);
           }
           else if (ELMOmotor[3].mode == 5)
           {
-            speed = atof((char *)(&usart.RxBuffer_USART2[7]));
-            Elmo_Motor_SP(4, speed, 1);
+            ELMOmotor[3].valSet.speed = atof((char *)(&usart.RxBuffer_USART2[7]));
+            Elmo_Motor_SP(4, ELMOmotor[3].valSet.speed, 1);
           }
         }
         break;

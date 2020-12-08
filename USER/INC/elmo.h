@@ -51,13 +51,16 @@
 
 #define DISABLE_ALL_ELMO                   \
   {                                        \
-    Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
+    for(u8 i=0;i<3;i++)                    \
+		{                                      \
+		Elmo_Motor_Enable_Or_Disable(1, 0, 1); \
     Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(2, 0, 1); \
     Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(3, 0, 1); \
     Delay_ms(10);                          \
     Elmo_Motor_Enable_Or_Disable(4, 0, 1); \
+		}                                      \
   }
 
 #define BEGIN_ALL_ELMO         \
@@ -176,7 +179,7 @@ extern s32 Px;
 extern s32 Motor_Emer_Code;
 void Elmo_Motor_PA(u32 ID, s32 PA, u8 InConGrpFlag);
 void Elmo_Motor_PR(u32 ID, s32 PR, u8 InConGrpFlag);
-void Elmo_Motor_SP(u32 ID, u32 speed, u8 InConGrpFlag);
+void Elmo_Motor_SP(u32 ID, s32 speed, u8 InConGrpFlag);
 void Elmo_Motor_BG(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_Enable_Or_Disable(u32 ID, u8 enable_or_disable, u8 InConGrpFlag);
 void Elmo_Motor_SV(u32 ID, u8 InConGrpFlag);

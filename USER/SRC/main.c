@@ -43,7 +43,7 @@ static void Task_Start(void *pdata)
 	//Play_Music(mzdhlmusic,78);
 	Led8DisData(0);
 	UsartLCDshow();
-	//Beep_Show(2);
+	Beep_Show(2);
 	OS_ENTER_CRITICAL(); //进入临界区(无法被中断打断)
 	OSTaskCreate(Task_Lcd, (void *)0, (OS_STK *)&LCD_TASK_STK[LCD_STK_SIZE - 1], LCD_TASK_PRIO);
 	OSTaskCreate(Task_Led8, (void *)0, (OS_STK *)&LED8_TASK_STK[LED8_STK_SIZE - 1], LED8_TASK_PRIO);
