@@ -129,7 +129,7 @@ void USART2_IRQHandler(void)
       {
         //   Beep_Show(1);
 
-    switch (usart.RxBuffer_USART2[1])
+        switch (usart.RxBuffer_USART2[1])
         {
         case 0x00:
           ENABLE_ALL_DJMOTOR_1_4
@@ -170,76 +170,76 @@ void USART2_IRQHandler(void)
         case 0x0C:
         {
           Elmo_Motor_PA(1, 90, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(2, 90, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(3, 90, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(4, 90, 1);
           ELMOmotor[0].valSet.angle = 90;
           ELMOmotor[1].valSet.angle = 90;
           ELMOmotor[2].valSet.angle = 90;
           ELMOmotor[3].valSet.angle = 90;
-					BEGIN_ALL_ELMO
+          BEGIN_ALL_ELMO
         }
         break;
         case 0x0D:
         {
           Elmo_Motor_PA(1, 0, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(2, 0, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(3, 0, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(4, 0, 1);
           ELMOmotor[0].valSet.angle = 0;
           ELMOmotor[1].valSet.angle = 0;
           ELMOmotor[2].valSet.angle = 0;
           ELMOmotor[3].valSet.angle = 0;
-					BEGIN_ALL_ELMO
+          BEGIN_ALL_ELMO
         }
         break;
         case 0x0E:
         {
           Elmo_Motor_PA(1, -20, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(2, -20, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(3, -20, 1);
-					//Delay_ms(4);
+          //Delay_ms(4);
           Elmo_Motor_PA(4, -20, 1);
           ELMOmotor[0].valSet.angle = -20;
           ELMOmotor[1].valSet.angle = -20;
           ELMOmotor[2].valSet.angle = -20;
           ELMOmotor[3].valSet.angle = -20;
-					BEGIN_ALL_ELMO
+          BEGIN_ALL_ELMO
         }
         break;
         case 0x0F:
           //play_Music_1(); //祝你生日快乐
-				{
-          Elmo_Motor_PA(1, 90, 1);
-					//Delay_ms(4);
-          Elmo_Motor_PA(2, 90, 1);
-					//Delay_ms(4);
-          Elmo_Motor_PA(3, 90, 1);
-					//Delay_ms(4);
-          Elmo_Motor_PA(4, 90, 1);
-					//Delay_ms(4);
-          ELMOmotor[0].valSet.angle = 90;
-          ELMOmotor[1].valSet.angle = 90;
-          ELMOmotor[2].valSet.angle = 90;
-          ELMOmotor[3].valSet.angle = 90;
-					Elmo_Motor_SP(1,2000,1);
-					//Delay_ms(4);
-					Elmo_Motor_SP(2,2000,1);
-					//Delay_ms(4);
-					Elmo_Motor_SP(3,2000,1);
-					//Delay_ms(4);
-					Elmo_Motor_SP(4,2000,1);
-					//Delay_ms(4);
-					BEGIN_ALL_ELMO
-        }
+          {
+            Elmo_Motor_PA(1, 90, 1);
+            //Delay_ms(4);
+            Elmo_Motor_PA(2, 90, 1);
+            //Delay_ms(4);
+            Elmo_Motor_PA(3, 90, 1);
+            //Delay_ms(4);
+            Elmo_Motor_PA(4, 90, 1);
+            //Delay_ms(4);
+            ELMOmotor[0].valSet.angle = 90;
+            ELMOmotor[1].valSet.angle = 90;
+            ELMOmotor[2].valSet.angle = 90;
+            ELMOmotor[3].valSet.angle = 90;
+            Elmo_Motor_SP(1, 2000, 1);
+            //Delay_ms(4);
+            Elmo_Motor_SP(2, 2000, 1);
+            //Delay_ms(4);
+            Elmo_Motor_SP(3, 2000, 1);
+            //Delay_ms(4);
+            Elmo_Motor_SP(4, 2000, 1);
+            //Delay_ms(4);
+            BEGIN_ALL_ELMO
+          }
           break;
         default:
           break;
@@ -346,7 +346,8 @@ void USART2_IRQHandler(void)
         {
           VESCmotor[0].mode = brake;
           VESCmotor[1].mode = brake;
-        }break;
+        }
+        break;
         }
       }
       break;

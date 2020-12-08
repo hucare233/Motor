@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-05 08:13:30
+ * @LastEditTime: 2020-12-07 19:14:04
  * @FilePath: \MotoPro\USER\SRC\main.c
  */
 #include "main.h"
@@ -16,7 +16,7 @@ int main(void)
 	CAN1_Configuration();
 	CAN2_Mode_Init(CAN_SJW_1tq, CAN_BS2_4tq, CAN_BS1_9tq, 3, CAN_Mode_Normal); //CAN初始化
 	Can_SendqueueInit();													   //can队列初始化
-	InitCANControlList(Can1_MesgSentList, CAN_2);    //报文控制表初始化
+	InitCANControlList(Can1_MesgSentList, CAN_2);							   //报文控制表初始化
 	Beep_Init();
 	//Time_Control_Beep_Init();
 	//PS2_Init();
@@ -90,14 +90,14 @@ static void Task_BEEP(void *pdata) //蜂鸣器任务
 {
 	while (1)
 	{
-    for(int i=0;i<4;i++)
+		for (int i = 0; i < 4; i++)
 		{
-		  if(flag.MotorerrorFlag[i]==true)
+			if (flag.MotorerrorFlag[i] == true)
 			{
 				BEEP_ON;
-                OSTimeDly(3000);
-                BEEP_OFF;
-                OSTimeDly(3000);
+				OSTimeDly(3000);
+				BEEP_OFF;
+				OSTimeDly(3000);
 			}
 		}
 		OSTimeDly(200);
@@ -107,13 +107,13 @@ static void Task_BEEP(void *pdata) //蜂鸣器任务
 static void Task_Motor(void *pdata)
 {
 	/***************电机使能放这里清除起始误差***********/
-//	ENABLE_ALL_DJMOTOR_5_8
-//	BEGIN_ALL_DJMOTOR_5_8
-//	OSTimeDly(1000);
-//	motor[4].status.isSetZero = 1;
-//	motor[5].status.isSetZero = 1;
-//	motor[6].status.isSetZero = 1;
-//	motor[7].status.isSetZero = 1;
+	//	ENABLE_ALL_DJMOTOR_5_8
+	//	BEGIN_ALL_DJMOTOR_5_8
+	//	OSTimeDly(1000);
+	//	motor[4].status.isSetZero = 1;
+	//	motor[5].status.isSetZero = 1;
+	//	motor[6].status.isSetZero = 1;
+	//	motor[7].status.isSetZero = 1;
 	while (1)
 	{
 		djcontrol();
@@ -129,10 +129,10 @@ static void Task_Elmo(void *pdata) //elmo任务
 	Elmo_Motor_UM(4, 5, 0);
 	OSTimeDly(40);
 	ENABLE_ALL_ELMO
-	Elmo_Motor_SP(1,2000,0);
-	Elmo_Motor_SP(2,2000,0);
-	Elmo_Motor_SP(3,2000,0);
-	Elmo_Motor_SP(4,2000,0);
+	Elmo_Motor_SP(1, 2000, 0);
+	Elmo_Motor_SP(2, 2000, 0);
+	Elmo_Motor_SP(3, 2000, 0);
+	Elmo_Motor_SP(4, 2000, 0);
 	OSTimeDly(40);
 	while (1)
 	{

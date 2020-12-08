@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-05 17:05:52
+ * @LastEditTime: 2020-12-08 08:05:00
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -47,11 +47,11 @@ void TIM2_IRQHandler(void)
 			if (VESCmotor[i].argum.timeoutCnt > 20)
 			{
 				VESCmotor[i].status.timeout = true;
-		    flag.MotorerrorFlag[3]=true;  
-//				BEEP_ON;
-//				OSTimeDly(1000);
-//				BEEP_OFF;
-//				OSTimeDly(1000);
+				flag.MotorerrorFlag[3] = true;
+				//				BEEP_ON;
+				//				OSTimeDly(1000);
+				//				BEEP_OFF;
+				//				OSTimeDly(1000);
 				insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
 				Led8DisData(2);
 				Delay_ms(200);
@@ -81,20 +81,23 @@ void TIM2_IRQHandler(void)
 				if ((ELMOmotor[i].argum.timeoutCnt > 10) && (ELMOmotor[i].argum.timecut > 10))
 				{
 					ELMOmotor[i].status.timeout = true;
-					flag.MotorerrorFlag[1]=true;
-//					BEEP_ON;
-//					OSTimeDly(1000);
-//					BEEP_OFF;
-//					OSTimeDly(1000);
+					flag.MotorerrorFlag[1] = true;
+					//					BEEP_ON;
+					//					OSTimeDly(1000);
+					//					BEEP_OFF;
+					//					OSTimeDly(1000);
 					Led8DisData(3);
 				}
-				else if((ELMOmotor[0].status.timeout==false)&&(ELMOmotor[1].status.timeout==false)&&(ELMOmotor[2].status.timeout==false)&&(ELMOmotor[3].status.timeout==false))
+				else
 				{
-					Led8DisData(0);
 					ELMOmotor[i].status.timeout = false;
-					flag.MotorerrorFlag[1]=false;
 				}
 			}
+		}
+		if ((ELMOmotor[0].status.timeout == false) && (ELMOmotor[1].status.timeout == false) && (ELMOmotor[2].status.timeout == false) && (ELMOmotor[3].status.timeout == false))
+		{
+			Led8DisData(0);
+			flag.MotorerrorFlag[1] = false;
 		}
 #endif
 #ifdef USE_DJ
@@ -118,27 +121,30 @@ void TIM2_IRQHandler(void)
 				else
 					EPOSmotor[i].argum.timecut = 0;
 				/* 反馈超时判断 */
-				if ((OSTimeGet() - EPOSmotor[i].argum.lastRxTim) > EPOSmotor[i].argum.timeoutTicks )
+				if ((OSTimeGet() - EPOSmotor[i].argum.lastRxTim) > EPOSmotor[i].argum.timeoutTicks)
 					EPOSmotor[i].argum.timeoutCnt++; //反馈超时判断
 				else
 					EPOSmotor[i].argum.timeoutCnt = 0;
-				if ((EPOSmotor[i].argum.timeoutCnt > 4) &&( EPOSmotor[i].argum.timecut > 1))
+				if ((EPOSmotor[i].argum.timeoutCnt > 4) && (EPOSmotor[i].argum.timecut > 1))
 				{
 					EPOSmotor[i].status.timeout = true;
-          flag.MotorerrorFlag[2]=true;
-//					BEEP_ON;
-//					OSTimeDly(1000);
-//					BEEP_OFF;
-//					OSTimeDly(1000);
+					flag.MotorerrorFlag[2] = true;
+					//					BEEP_ON;
+					//					OSTimeDly(1000);
+					//					BEEP_OFF;
+					//					OSTimeDly(1000);
 					Led8DisData(4);
 				}
-				else if((EPOSmotor[0].status.timeout==false)&&(EPOSmotor[1].status.timeout==false)&&(EPOSmotor[2].status.timeout==false)&&(EPOSmotor[3].status.timeout==false))
+				else
 				{
-					Led8DisData(0);
 					EPOSmotor[i].status.timeout = false;
-					flag.MotorerrorFlag[2]=false;
-				}
+				} 
 			}
+		}
+		if ((EPOSmotor[0].status.timeout == false) && (EPOSmotor[1].status.timeout == false) && (EPOSmotor[2].status.timeout == false) && (EPOSmotor[3].status.timeout == false))
+		{
+			Led8DisData(0);
+			flag.MotorerrorFlag[2] = false;
 		}
 #endif
 	}

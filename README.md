@@ -117,6 +117,8 @@
 + VESC [论坛](http://vesc-project.com/vesc_tool) 地址
 + VESC需要定时赋值否则会自动释放
 + VESC暂时只用到了速度模式，所以程序基本没写多少（位置模式我在上位机用队里的磁编试过，但是板子的can好像有点问题一直就没做成）
++ 有感模式下在速度大于openloop erpm时会切换到无感模式，在上位机把openloop erpm改大
++ ERPM是电角度转速，=RPM*POLES极对数。还有一个是Minimum ERPM，小于这个转速电机就不运行了
 
 ## EPOS相关事项
 

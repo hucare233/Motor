@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-02 11:20:41
+ * @LastEditTime: 2020-12-07 19:14:34
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -33,7 +33,7 @@ void ELMO_Motor_Init(void)
 		U10.PULSE = 4096;
 		U10.RATIO = 5.0f;
 		EC_4P_30.PULSE = 1000;
-		EC_4P_30.RATIO = 169.0f/9;
+		EC_4P_30.RATIO = 169.0f / 9;
 	}
 	{ //电机限制保护
 		ELMOlimit.isPosLimitON = false;
@@ -44,7 +44,7 @@ void ELMO_Motor_Init(void)
 		ELMOlimit.zeroSP = 500;
 		ELMOlimit.zeroCurrent = 4000;
 	}
-	{								   //电机其他参数设置
+	{								  //电机其他参数设置
 		ELMOargum.timeoutTicks = 500; //50ms
 	}
 	{
