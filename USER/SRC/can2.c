@@ -322,24 +322,7 @@ void CAN2_RX1_IRQHandler(void)
 				//TODO:136是F90扭矩常数
 				EPOSmotor[id].valReal.current = EPOSmotor[id].valReal.torque / 136.0f;
 			}
-			for (int m = 0; m < 10; m++)
-			{
-				if (Registration_Std_Epos[0][m] == rx_message.Data[0])
-				{
-					if (Registration_Std_Epos[1][m] == rx_message.Data[1])
-					{
-						Can2_MesgSentList[id+4].ReceiveNumber += 1;
-						Can2_MesgSentList[id+4].TimeOut = 0;
-						Can2_MesgSentList[id+4].SendSem--;
-						if (Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag == true && Can2_Sendqueue.Rear != Can2_Sendqueue.Front)
-						{
-							if ((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].ID & 0xF) == id + 1 && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0] == rx_message.Data[0] && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1] == rx_message.Data[1])
-								Can2_Sendqueue.Front = (Can2_Sendqueue.Front + 1) % CAN_QUEUESIZE;
-						}
-						break;
-					}
-				}
-			}
+	
 		}
 #endif
 #ifdef USE_ELMO
@@ -380,24 +363,7 @@ void CAN2_RX1_IRQHandler(void)
 			{
 				DecodeS32Data(&ELMOmotor[id].mode, &rx_message.Data[4]);
 			}
-			for (int m = 0; m < 10; m++)
-			{
-				if (Registration_Std_Elmo[0][m] == rx_message.Data[0])
-				{
-					if (Registration_Std_Elmo[1][m] == rx_message.Data[1])
-					{
-						Can2_MesgSentList[id].ReceiveNumber += 1;
-						Can2_MesgSentList[id].TimeOut = 0;
-						Can2_MesgSentList[id].SendSem--;
-						if (Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag == true && Can2_Sendqueue.Rear != Can2_Sendqueue.Front)
-						{
-							if ((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].ID & 0xF) == id + 1 && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0] == rx_message.Data[0] && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1] == rx_message.Data[1])
-								Can2_Sendqueue.Front = (Can2_Sendqueue.Front + 1) % CAN_QUEUESIZE;
-						}
-						break;
-					}
-				}
-			}
+
 		}
 		if (((rx_message.StdId >= 0x81) && (rx_message.StdId <= 0x88)) && (rx_message.RTR == CAN_RTR_Data) && ((rx_message.Data[1] != 0X82) && (rx_message.Data[1] != 0X10))) //ELMO错误报文  TODO:除去8210的错误，不影响正常使用
 		{
