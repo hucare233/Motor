@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-05 09:42:59
+ * @LastEditTime: 2020-12-13 18:21:31
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -12,8 +12,10 @@
 #include "motor.h"
 #include "elmo.h"
 #include "queue.h"
-static u8 Registration_Std[2][10]={{'B','S','U','M','S','P','P','M','M','M'},
-																	 {'G','T','M','O','P','X','A','O','O','O'}};
+static u8 Registration_Std_Elmo[2][10] = {{'B', 'S', 'U', 'M', 'S', 'P', 'P', 'M', 'M', 'M'},
+									 {'G', 'T', 'M', 'O', 'P', 'X', 'A', 'O', 'O', 'O'}};
+static u8 Registration_Std_Epos[2][10] = {{0X40, 0X64, 0X60, 0X40, 0XFF, 0X81, 0X7A, 0X40, 0X40, 0X40},
+									 {0X60, 0X60, 0X60, 0X60, 0X60, 0X60, 0X60, 0X60, 0X60, 0X60}};
 u32 timeout_ticks = 2000; //200ms
 s16 timeout_counts = 0;	  //超时计数
 u32 last_update_time[8] = {0};
@@ -296,8 +298,8 @@ void CAN2_RX1_IRQHandler(void)
 				(rx_message.Data[0] == 0x43 && rx_message.Data[1] == 0x6C && rx_message.Data[2] == 0x60) |
 				(rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x40 && rx_message.Data[2] == 0x60) |
 				(rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x77 && rx_message.Data[2] == 0x60))
-			if (rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x40 && rx_message.Data[2] == 0x60) //使能
-				EPOSmotor[id].enable = rx_message.Data[4] >> 3;
+				if (rx_message.Data[0] == 0x4B && rx_message.Data[1] == 0x40 && rx_message.Data[2] == 0x60) //使能
+					EPOSmotor[id].enable = rx_message.Data[4] >> 3;
 			if (rx_message.Data[0] == 0x4F && rx_message.Data[1] == 0x60 && rx_message.Data[2] == 0x60) //模式
 				EPOSmotor[id].mode = rx_message.Data[4];
 			if (rx_message.Data[0] == 0x43 && rx_message.Data[1] == 0x62 && rx_message.Data[2] == 0x60) //设定位置
@@ -320,6 +322,24 @@ void CAN2_RX1_IRQHandler(void)
 				//TODO:136是F90扭矩常数
 				EPOSmotor[id].valReal.current = EPOSmotor[id].valReal.torque / 136.0f;
 			}
+			for (int m = 0; m < 10; m++)
+			{
+				if (Registration_Std_Epos[0][m] == rx_message.Data[0])
+				{
+					if (Registration_Std_Epos[1][m] == rx_message.Data[1])
+					{
+						Can2_MesgSentList[id+4].ReceiveNumber += 1;
+						Can2_MesgSentList[id+4].TimeOut = 0;
+						Can2_MesgSentList[id+4].SendSem--;
+						if (Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag == true && Can2_Sendqueue.Rear != Can2_Sendqueue.Front)
+						{
+							if ((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].ID & 0xF) == id + 1 && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0] == rx_message.Data[0] && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1] == rx_message.Data[1])
+								Can2_Sendqueue.Front = (Can2_Sendqueue.Front + 1) % CAN_QUEUESIZE;
+						}
+						break;
+					}
+				}
+			}
 		}
 #endif
 #ifdef USE_ELMO
@@ -336,10 +356,10 @@ void CAN2_RX1_IRQHandler(void)
 				(rx_message.Data[0] == 'S' && rx_message.Data[1] == 'T' && (rx_message.Data[3] & BIT6) != 1) |
 				(rx_message.Data[0] == 'T' && rx_message.Data[1] == 'C' && (rx_message.Data[3] & BIT6) != 1) |
 				(rx_message.Data[0] == 'U' && rx_message.Data[1] == 'M' && (rx_message.Data[3] & BIT6) != 1))
-			if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && (rx_message.Data[3] & BIT6) != 1)
-			{
-				ELMOmotor[id].enable = rx_message.Data[4];
-			}
+				if (rx_message.Data[0] == 'M' && rx_message.Data[1] == 'O' && (rx_message.Data[3] & BIT6) != 1)
+				{
+					ELMOmotor[id].enable = rx_message.Data[4];
+				}
 			if (rx_message.Data[0] == 'V' && rx_message.Data[1] == 'X' && (rx_message.Data[3] & BIT6) != 1)
 			{
 				DecodeS32Data(&ELMOmotor[id].valReal.speed, &rx_message.Data[4]);
@@ -360,26 +380,24 @@ void CAN2_RX1_IRQHandler(void)
 			{
 				DecodeS32Data(&ELMOmotor[id].mode, &rx_message.Data[4]);
 			}
-			for(int m=0;m<10;m++)
+			for (int m = 0; m < 10; m++)
+			{
+				if (Registration_Std_Elmo[0][m] == rx_message.Data[0])
+				{
+					if (Registration_Std_Elmo[1][m] == rx_message.Data[1])
 					{
-						if(Registration_Std[0][m] == rx_message.Data[0])
+						Can2_MesgSentList[id].ReceiveNumber += 1;
+						Can2_MesgSentList[id].TimeOut = 0;
+						Can2_MesgSentList[id].SendSem--;
+						if (Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag == true && Can2_Sendqueue.Rear != Can2_Sendqueue.Front)
 						{
-							if(Registration_Std[1][m] == rx_message.Data[1])
-							{
-								Can2_MesgSentList[id].ReceiveNumber += 1;
-								Can2_MesgSentList[id].TimeOut = 0;
-								Can2_MesgSentList[id].SendSem --;
-								if(Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag==true&& Can2_Sendqueue.Rear!=Can2_Sendqueue.Front)
-								{
-									if((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].ID&0xF)==id+1\
-										&&Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0]==rx_message.Data[0]\
-										&&Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1]==rx_message.Data[1])
-									Can2_Sendqueue.Front = (Can2_Sendqueue.Front + 1) % CAN_QUEUESIZE;
-								}
-								break;
-							}
+							if ((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].ID & 0xF) == id + 1 && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[0] == rx_message.Data[0] && Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].Data[1] == rx_message.Data[1])
+								Can2_Sendqueue.Front = (Can2_Sendqueue.Front + 1) % CAN_QUEUESIZE;
 						}
+						break;
 					}
+				}
+			}
 		}
 		if (((rx_message.StdId >= 0x81) && (rx_message.StdId <= 0x88)) && (rx_message.RTR == CAN_RTR_Data) && ((rx_message.Data[1] != 0X82) && (rx_message.Data[1] != 0X10))) //ELMO错误报文  TODO:除去8210的错误，不影响正常使用
 		{
