@@ -1,17 +1,26 @@
 /*
+ * @Descripttion: 
+ * @version: 第一版
+ * @Author: 叮咚蛋
+ * @Date: 2020-10-17 14:52:41
+ * @LastEditors: 叮咚蛋
+ * @LastEditTime: 2020-12-15 10:06:41
+ * @FilePath: \MotoPro\USER\SRC\can1.c
+ */
+/*
  * @Descripttion: 主控通信
  * @version: 第二版
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-05 09:56:05
+ * @LastEditTime: 2020-12-13 19:11:46
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 #include "can1.h"
 
 static s16 s16TempData[4];
 u16 u16TempData[4];
-
+s16 kl_angle;
 void CAN1_Configuration(void)
 {
   NVIC_InitTypeDef NVIC_InitStructure;
@@ -326,19 +335,19 @@ void CAN1_RX0_IRQHandler(void)
           Elmo_Motor_PA(2, 75, 1);
           Elmo_Motor_PA(3, 75, 1);
           Elmo_Motor_PA(4, -105, 1);
-          ELMOmotor[0].valSet.angle = 90;
-          ELMOmotor[1].valSet.angle = 90;
-          ELMOmotor[2].valSet.angle = 90;
-          ELMOmotor[3].valSet.angle = 90;
-         // BEGIN_ALL_ELMO
+          ELMOmotor[0].valSet.angle = -105;
+          ELMOmotor[1].valSet.angle = 75;
+          ELMOmotor[2].valSet.angle = 75;
+          ELMOmotor[3].valSet.angle = -105;
+          // BEGIN_ALL_ELMO
         }
         break;
         case 2: //前腿翻转
         {
           Elmo_Motor_PA(2, 255, 1);
           Elmo_Motor_PA(3, 255, 1);
-          ELMOmotor[1].valSet.angle = 260;
-          ELMOmotor[2].valSet.angle = 260;
+          ELMOmotor[1].valSet.angle = 255;
+          ELMOmotor[2].valSet.angle = 255;
           //BEGIN_ALL_ELMO
         }
         break;
@@ -346,8 +355,8 @@ void CAN1_RX0_IRQHandler(void)
         {
           Elmo_Motor_PA(1, 75, 1);
           Elmo_Motor_PA(4, 75, 1);
-          ELMOmotor[0].valSet.angle = -80;
-          ELMOmotor[3].valSet.angle = -80;
+          ELMOmotor[0].valSet.angle = 75;
+          ELMOmotor[3].valSet.angle = 75;
           //BEGIN_ALL_ELMO
         }
         break;
@@ -358,25 +367,96 @@ void CAN1_RX0_IRQHandler(void)
           Elmo_Motor_PA(3, 180, 1);
           Elmo_Motor_PA(4, 0, 1);
           ELMOmotor[0].valSet.angle = 0;
+          ELMOmotor[1].valSet.angle = 180;
+          ELMOmotor[2].valSet.angle = 180;
+          ELMOmotor[3].valSet.angle = 0;
+          //BEGIN_ALL_ELMO
+        }
+        break;
+        case 5:
+        {
+          //Elmo_Motor_PA(1, 18, 1);
+          //Elmo_Motor_PA(4,18, 1);
+          ELMOmotor[0].valSet.angle = 18;
+          ELMOmotor[3].valSet.angle = 18;
+          BEGIN_ALL_ELMO
+        }
+        break;
+        case 6:
+        {
+          Elmo_Motor_PA(1, 0, 1);
+          Elmo_Motor_PA(2, 0, 1);
+          Elmo_Motor_PA(3, 0, 1);
+          Elmo_Motor_PA(4, 0, 1);
+          ELMOmotor[0].valSet.angle = 0;
           ELMOmotor[1].valSet.angle = 0;
           ELMOmotor[2].valSet.angle = 0;
           ELMOmotor[3].valSet.angle = 0;
-          //BEGIN_ALL_ELMO
+          BEGIN_ALL_ELMO
         }
         break;
         default:
           break;
         }
         DecodeS16Data(&ELMOmotor[0].valSet.speed, &rx_message.Data[3]);
-				DecodeS16Data(&ELMOmotor[1].valSet.speed, &rx_message.Data[3]);
-				DecodeS16Data(&ELMOmotor[2].valSet.speed, &rx_message.Data[3]);
-				DecodeS16Data(&ELMOmotor[3].valSet.speed, &rx_message.Data[3]);
-			  Elmo_Motor_SP(1,ELMOmotor[0].valSet.speed,1);
-				Elmo_Motor_SP(2,ELMOmotor[1].valSet.speed,1);
-				Elmo_Motor_SP(3,ELMOmotor[2].valSet.speed,1);
-				Elmo_Motor_SP(4,ELMOmotor[3].valSet.speed,1);
-				BEGIN_ALL_ELMO
+        DecodeS16Data(&ELMOmotor[1].valSet.speed, &rx_message.Data[3]);
+        DecodeS16Data(&ELMOmotor[2].valSet.speed, &rx_message.Data[3]);
+        DecodeS16Data(&ELMOmotor[3].valSet.speed, &rx_message.Data[3]);
+        //DecodeS16Data(&kl_angle, &rx_message.Data[3]);
+        //Elmo_Motor_PA(1, kl_angle, 1);
+        //Elmo_Motor_PA(2, kl_angle, 1);
+        //Elmo_Motor_PA(3, kl_angle, 1);
+        //Elmo_Motor_PA(4, kl_angle, 1);
+        // ELMOmotor[0].valSet.angle = kl_angle;
+        //ELMOmotor[1].valSet.angle = kl_angle;
+        // ELMOmotor[2].valSet.angle = kl_angle;
+        //ELMOmotor[3].valSet.angle = kl_angle;
+        if (rx_message.Data[2] == 1)
+        {
+          Elmo_Motor_SP(1, ELMOmotor[0].valSet.speed, 1);
+          Elmo_Motor_SP(2, ELMOmotor[1].valSet.speed, 1);
+          Elmo_Motor_SP(3, ELMOmotor[2].valSet.speed, 1);
+          Elmo_Motor_SP(4, ELMOmotor[3].valSet.speed, 1);
+        }
+        else
+        {
+          Elmo_Motor_SP(1, ELMOmotor[0].valSet.speed, 1);
+          Elmo_Motor_SP(2, ELMOmotor[1].valSet.speed, 1);
+          Elmo_Motor_SP(3, ELMOmotor[2].valSet.speed, 1);
+          Elmo_Motor_SP(4, ELMOmotor[3].valSet.speed, 1);
+        }
+        BEGIN_ALL_ELMO
         answer_master(&rx_message);
+      }
+      else if ((rx_message.Data[0] == 'M') && (rx_message.Data[1] == 'O'))
+      {
+        switch (rx_message.Data[2])
+        {
+        case 0:
+        {
+          DISABLE_ALL_ELMO
+        }
+        break;
+        case 1: //前腿翻转
+        {
+          ENABLE_ALL_ELMO
+        }
+        break;
+        default:
+          break;
+        }
+      }
+      else if ((rx_message.Data[0] == 'G') && (rx_message.Data[1] == 'L'))
+      {
+        DISABLE_ALL_ELMO
+        Elmo_Motor_PX(1, 0, 1);
+        Elmo_Motor_PX(2, 0, 1);
+        Elmo_Motor_PX(3, 0, 1);
+        Elmo_Motor_PX(4, 0, 1);
+        ELMOmotor[0].valSet.angle = 0;
+        ELMOmotor[1].valSet.angle = 0;
+        ELMOmotor[2].valSet.angle = 0;
+        ELMOmotor[3].valSet.angle = 0;
       }
     }
 #elif defined ActionMotor //执行电机报文处理

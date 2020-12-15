@@ -411,12 +411,12 @@ void iftimeout(u16 id) //超时检测
 //        OSTimeDly(1000);
         Led8DisData(1);
         sprintf(Motor_error, "%d-Motor timeout", id);
-        Delay_ms(50);
+//        Delay_ms(10);
       }
       else
       {
         motor[id].status.timeout = 0;
-        Led8DisData(0);
+        //Led8DisData(0);
       }
     }
   }

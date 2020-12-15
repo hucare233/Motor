@@ -101,6 +101,8 @@ typedef struct
   vs16 current; //电流
   vs32 speed;   //速度（rpm, 后面计算时转换为JV值与SP值）
   vs32 pulse;   //累计脉冲
+  vs32 ac;
+  vs32 dc;
 } ELMOValue;
 
 /****电机状态****/
@@ -190,6 +192,8 @@ void ELMO_Init(CAN_TypeDef *CANx);
 void ELMO_Motor_Init(void);
 void elmo_control(u32 id);
 void Elmo_Motor_PX(u32 ID, s32 data, u8 InConGrpFlag);
+void Elmo_Motor_AC(u32 ID, s32 data, u8 InConGrpFlag);
+void Elmo_Motor_DC(u32 ID, s32 data, u8 InConGrpFlag);
 void Elmo_Motor_JV(u32 ID, s32 JV, u8 InConGrpFlag);
 void Elmo_Motor_ST(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_RM(u32 ID, s32 data, u8 InConGrpFlag);
@@ -200,6 +204,8 @@ void Elmo_Motor_ASKiq(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_ASKum(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_ASKpx(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_ASKpa(u32 ID, u8 InConGrpFlag);
+void Elmo_Motor_ASKac(u32 ID, u8 InConGrpFlag);
+void Elmo_Motor_ASKdc(u32 ID, u8 InConGrpFlag);
 void Elmo_Motor_MP(u32 ID, u8 Sub, s32 data, u8 InConGrpFlag);
 void Elmo_Motor_QP(u32 ID, u8 Sub, s32 data, u8 InConGrpFlag);
 void Elmo_Motor_QT(u32 ID, u8 Sub, s32 data, u8 InConGrpFlag);

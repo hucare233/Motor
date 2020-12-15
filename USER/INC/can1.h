@@ -11,4 +11,5 @@
 
 void CAN1_Configuration(void);
 void feedbackAngle(u16 motorID);
+extern s16 kl_angle;
 #endif

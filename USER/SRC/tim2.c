@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-08 08:05:00
+ * @LastEditTime: 2020-12-15 17:24:44
  * @FilePath: \MotoPro\USER\SRC\tim2.c
  */
 #include "tim2.h"
@@ -53,15 +53,20 @@ void TIM2_IRQHandler(void)
 				//				BEEP_OFF;
 				//				OSTimeDly(1000);
 				insertError(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT);
-				Led8DisData(2);
-				Delay_ms(200);
+				Led8DisData(4);
+//				Delay_ms(10);
 			}
 			else
 			{
-				Led8DisData(0);
+				//Led8DisData(0);
 				VESCmotor[i].status.timeout = false;
 				deleteError(Eerror.head, ErrorFind(Eerror.head, VESCERROR | ((i + 1) << 4) | TIMEOUT));
 			}
+		}
+		if ((VESCmotor[0].status.timeout == false) && (VESCmotor[1].status.timeout == false) && (VESCmotor[2].status.timeout == false) && (VESCmotor[3].status.timeout == false))
+		{
+			//Led8DisData(0);
+			flag.MotorerrorFlag[3] = false;
 		}
 #endif
 #ifdef USE_ELMO
@@ -86,7 +91,8 @@ void TIM2_IRQHandler(void)
 					//					OSTimeDly(1000);
 					//					BEEP_OFF;
 					//					OSTimeDly(1000);
-					Led8DisData(3);
+					Led8DisData(2);
+					//Delay_ms(10);
 				}
 				else
 				{
@@ -96,7 +102,7 @@ void TIM2_IRQHandler(void)
 		}
 		if ((ELMOmotor[0].status.timeout == false) && (ELMOmotor[1].status.timeout == false) && (ELMOmotor[2].status.timeout == false) && (ELMOmotor[3].status.timeout == false))
 		{
-			Led8DisData(0);
+			//Led8DisData(0);
 			flag.MotorerrorFlag[1] = false;
 		}
 #endif
@@ -109,7 +115,10 @@ void TIM2_IRQHandler(void)
 			(motor[2].status.timeout == 0) && (motor[3].status.timeout == 0) &&
 			(motor[4].status.timeout == 0) && (motor[5].status.timeout == 0) &&
 			(motor[6].status.timeout == 0) && (motor[7].status.timeout == 0))
-			sprintf(Motor_error, "%s", "(*_ *)");
+		{	
+		  sprintf(Motor_error, "%s", "(*_ *)");
+			flag.MotorerrorFlag[0]=false;
+		}
 #endif
 #ifdef USE_EPOS
 		for (int i = 0; i < 4; i++) //EPOS超时判断
@@ -133,7 +142,8 @@ void TIM2_IRQHandler(void)
 					//					OSTimeDly(1000);
 					//					BEEP_OFF;
 					//					OSTimeDly(1000);
-					Led8DisData(4);
+					Led8DisData(3);
+					//Delay_ms(10);
 				}
 				else
 				{
@@ -143,9 +153,13 @@ void TIM2_IRQHandler(void)
 		}
 		if ((EPOSmotor[0].status.timeout == false) && (EPOSmotor[1].status.timeout == false) && (EPOSmotor[2].status.timeout == false) && (EPOSmotor[3].status.timeout == false))
 		{
-			Led8DisData(0);
+			//Led8DisData(0);
 			flag.MotorerrorFlag[2] = false;
 		}
 #endif
+		if((flag.MotorerrorFlag[0]==false)&&(flag.MotorerrorFlag[1]==false)&&(flag.MotorerrorFlag[2]==false)&&(flag.MotorerrorFlag[3]==false))
+		{	
+		  Led8DisData(0);
+		}
 	}
 }

@@ -21,7 +21,7 @@ int main(void)
 	//Time_Control_Beep_Init();
 	//PS2_Init();
 	Led8_Configuration();
-	TIM2_Configuration();
+  TIM2_Configuration();
 	TIM3_Init();
 	USART2_Configuration();
 	USART1_Configuration();
@@ -144,6 +144,9 @@ static void Task_Elmo(void *pdata) //elmo任务
 			Elmo_Motor_ASKpx(i, 0);
 			Elmo_Motor_ASKiq(i, 0);
 			Elmo_Motor_ASKum(i, 0);
+			OSTimeDly(20);  //防止队列满
+			Elmo_Motor_ASKac(i, 0);
+			Elmo_Motor_ASKdc(i, 0);
 			if ((ABS(ELMOmotor[i - 1].valReal.pulse - ELMOmotor[i - 1].intrinsic.PULSE * 4 * ELMOmotor[i - 1].valSet.angle * ELMOmotor[i - 1].intrinsic.RATIO / 360.f) < 100) && (ELMOmotor[i - 1].begin == true))
 			{
 				ELMOmotor[i - 1].argum.arivecnt++;

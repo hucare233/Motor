@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-02 09:28:34
+ * @LastEditTime: 2020-12-15 11:52:53
  * @FilePath: \MotoPro\USER\SRC\usart2.c
  */
 #include "usart2.h"
@@ -144,14 +144,44 @@ void USART2_IRQHandler(void)
           STOP_ALL_DJMOTOR_1_4
           break;
         case 0x04:
-          ENABLE_ALL_DJMOTOR_5_8
-          break;
+        {
+          //ENABLE_ALL_DJMOTOR_5_8
+          Elmo_Motor_PA(1, 0, 1);
+          Elmo_Motor_PA(2, 0, 1);
+          Elmo_Motor_PA(3, 0, 1);
+          Elmo_Motor_PA(4, 0, 1);
+          ELMOmotor[0].valSet.angle = 0;
+          ELMOmotor[1].valSet.angle = 0;
+          ELMOmotor[2].valSet.angle = 0;
+          ELMOmotor[3].valSet.angle = 0;
+          BEGIN_ALL_ELMO
+        }
+        break;
         case 0x05:
-          DISABLE_ALL_DJMOTOR_5_8
-          break;
+        {
+          //DISABLE_ALL_DJMOTOR_5_8
+          Elmo_Motor_PA(1, -20, 1);
+          Elmo_Motor_PA(2, -20, 1);
+          Elmo_Motor_PA(3, -20, 1);
+          Elmo_Motor_PA(4, -20, 1);
+          ELMOmotor[0].valSet.angle = -20;
+          ELMOmotor[1].valSet.angle = -20;
+          ELMOmotor[2].valSet.angle = -20;
+          ELMOmotor[3].valSet.angle = -20;
+          BEGIN_ALL_ELMO
+        }
+        break;
         case 0x06:
+        {
           BEGIN_ALL_DJMOTOR_5_8
-          break;
+          DISABLE_ALL_ELMO
+          Elmo_Motor_PX(1, 0, 1);
+          Elmo_Motor_PX(2, 0, 1);
+          Elmo_Motor_PX(3, 0, 1);
+          Elmo_Motor_PX(4, 0, 1);
+        }
+
+        break;
         case 0x07:
           STOP_ALL_DJMOTOR_5_8
           break;
@@ -165,80 +195,69 @@ void USART2_IRQHandler(void)
           BEGIN_ALL_ELMO
           break;
         case 0x0B:
+        {
           STOP_ALL_ELMO
-          break;
+        }
+        break;
         case 0x0C:
         {
-          Elmo_Motor_PA(1, 75, 1);
+          Elmo_Motor_SP(1, 2000, 0);
+          Elmo_Motor_SP(2, 2000, 0);
+          Elmo_Motor_SP(3, 2000, 0);
+          Elmo_Motor_SP(4, 2000, 0);
+          Elmo_Motor_PA(1, -105, 1);
           //Delay_ms(4);
           Elmo_Motor_PA(2, 75, 1);
           //Delay_ms(4);
           Elmo_Motor_PA(3, 75, 1);
           //Delay_ms(4);
-          Elmo_Motor_PA(4, 75, 1);
-          ELMOmotor[0].valSet.angle = 75;
+          Elmo_Motor_PA(4, -105, 1);
+          ELMOmotor[0].valSet.angle = -105;
           ELMOmotor[1].valSet.angle = 75;
           ELMOmotor[2].valSet.angle = 75;
-          ELMOmotor[3].valSet.angle = 75;
+          ELMOmotor[3].valSet.angle = -105;
           BEGIN_ALL_ELMO
+          //Elmo_Motor_BG(0, 1);
         }
         break;
         case 0x0D:
         {
-          Elmo_Motor_PA(1, 0, 1);
+          Elmo_Motor_PA(2, 255, 1);
           //Delay_ms(4);
-          Elmo_Motor_PA(2, 0, 1);
-          //Delay_ms(4);
-          Elmo_Motor_PA(3, 0, 1);
-          //Delay_ms(4);
-          Elmo_Motor_PA(4, 0, 1);
-          ELMOmotor[0].valSet.angle = 0;
-          ELMOmotor[1].valSet.angle = 0;
-          ELMOmotor[2].valSet.angle = 0;
-          ELMOmotor[3].valSet.angle = 0;
+          Elmo_Motor_PA(3, 255, 1);
+          ELMOmotor[1].valSet.angle = 255;
+          ELMOmotor[2].valSet.angle = 255;
           BEGIN_ALL_ELMO
+          //Elmo_Motor_BG(0, 1);
         }
         break;
         case 0x0E:
         {
-          Elmo_Motor_PA(1, -20, 1);
-          //Delay_ms(4);
-          Elmo_Motor_PA(2, -20, 1);
-          //Delay_ms(4);
-          Elmo_Motor_PA(3, -20, 1);
-          //Delay_ms(4);
-          Elmo_Motor_PA(4, -20, 1);
-          ELMOmotor[0].valSet.angle = -20;
-          ELMOmotor[1].valSet.angle = -20;
-          ELMOmotor[2].valSet.angle = -20;
-          ELMOmotor[3].valSet.angle = -20;
+          Elmo_Motor_PA(1, 75, 1);
+          Elmo_Motor_PA(4, 75, 1);
+          ELMOmotor[0].valSet.angle = 75;
+          ELMOmotor[3].valSet.angle = 75;
           BEGIN_ALL_ELMO
+          //Elmo_Motor_BG(0, 1);
         }
         break;
         case 0x0F:
           //play_Music_1(); //祝你生日快乐
           {
-            Elmo_Motor_PA(1, 75, 1);
-            //Delay_ms(4);
-            Elmo_Motor_PA(2, 75, 1);
-            //Delay_ms(4);
-            Elmo_Motor_PA(3, 75, 1);
-            //Delay_ms(4);
-            Elmo_Motor_PA(4, 75, 1);
-            //Delay_ms(4);
-            ELMOmotor[0].valSet.angle = 75;
-            ELMOmotor[1].valSet.angle = 75;
-            ELMOmotor[2].valSet.angle = 75;
-            ELMOmotor[3].valSet.angle = 75;
-            Elmo_Motor_SP(1, 2000, 1);
-            //Delay_ms(4);
-            Elmo_Motor_SP(2, 2000, 1);
-            //Delay_ms(4);
-            Elmo_Motor_SP(3, 2000, 1);
-            //Delay_ms(4);
-            Elmo_Motor_SP(4, 2000, 1);
-            //Delay_ms(4);
+            Elmo_Motor_SP(1, 100, 0);
+            Elmo_Motor_SP(2, 100, 0);
+            Elmo_Motor_SP(3, 100, 0);
+            Elmo_Motor_SP(4, 100, 0);
+            Elmo_Motor_PA(1, 0, 1);
+            Elmo_Motor_PA(2, 180, 1);
+            Elmo_Motor_PA(3, 180, 1);
+            Elmo_Motor_PA(4, 0, 1);
+            ELMOmotor[0].valSet.angle = 0;
+            ELMOmotor[1].valSet.angle = 180;
+            ELMOmotor[2].valSet.angle = 180;
+            ELMOmotor[3].valSet.angle = 0;
             BEGIN_ALL_ELMO
+            //Elmo_Motor_BG(0, 1);
           }
           break;
         default:
@@ -264,7 +283,7 @@ void USART2_IRQHandler(void)
       break;
       case 0x01: //摩擦轮主界面
       {
-        switch (usart.RxBuffer_USART2[5])  
+        switch (usart.RxBuffer_USART2[5])
         {
         case 0x0F:
         {
@@ -896,6 +915,60 @@ void USART2_IRQHandler(void)
           Elmo_Motor_ST(2, 1);
           Elmo_Motor_ST(3, 1);
           Elmo_Motor_ST(4, 1);
+        }
+        break;
+        }
+      }
+      case 0x09:
+      {
+        switch (usart.RxBuffer_USART2[5])
+        {
+        case 0x01:
+        {
+          ELMOmotor[0].valSet.ac = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_AC(1, ELMOmotor[0].valSet.ac, 1);
+        }
+        break;
+        case 0x02:
+        {
+          ELMOmotor[0].valSet.dc = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_DC(1, ELMOmotor[0].valSet.dc, 1);
+        }
+        break;
+        case 0x03:
+        {
+          ELMOmotor[1].valSet.ac = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_AC(2, ELMOmotor[1].valSet.ac, 1);
+        }
+        break;
+        case 0x04:
+        {
+          ELMOmotor[1].valSet.dc = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_DC(2, ELMOmotor[1].valSet.dc, 1);
+        }
+        break;
+        case 0x05:
+        {
+          ELMOmotor[2].valSet.ac = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_AC(3, ELMOmotor[2].valSet.ac, 1);
+        }
+        break;
+        case 0x06:
+        {
+          ELMOmotor[2].valSet.dc = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_DC(3, ELMOmotor[2].valSet.dc, 1);
+        }
+        break;
+        case 0x07:
+        {
+          ELMOmotor[3].valSet.ac = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_AC(4, ELMOmotor[3].valSet.ac, 1);
+        }
+        break;
+        case 0x08:
+        {
+          ELMOmotor[3].valSet.dc = atof((char *)(&usart.RxBuffer_USART2[7]));
+          Elmo_Motor_DC(4, ELMOmotor[3].valSet.dc, 1);
         }
         break;
         }
@@ -1551,6 +1624,83 @@ void UsartLCDshow(void)
     usart.TxBuffer_USART2[i++] = 0x1E;
     usart.TxBuffer_USART2[i++] = 0x00;
     sprintf(str_temp, "%#X\n", Motor_Emer_Code);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0xff;
+    usart.TxBuffer_USART2[i++] = 0xfc;
+    usart.TxBuffer_USART2[i++] = 0xff;
+    usart.TxBuffer_USART2[i++] = 0xff;
+  }
+  case 9: //elmo2界面
+  {
+    usart.TxBuffer_USART2[i++] = 0xee;
+    usart.TxBuffer_USART2[i++] = 0xb1;
+    usart.TxBuffer_USART2[i++] = 0x12;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x09;
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x01;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[0].valReal.ac);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x02;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[0].valReal.dc);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x03;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[1].valReal.ac);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x04;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[1].valReal.dc);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x05;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[2].valReal.ac);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x06;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[2].valReal.dc);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x07;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[3].valReal.ac);
+    usart.TxBuffer_USART2[i++] = strlen(str_temp);
+    strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
+    i += strlen(str_temp);
+
+    usart.TxBuffer_USART2[i++] = 0x00;
+    usart.TxBuffer_USART2[i++] = 0x08;
+    usart.TxBuffer_USART2[i++] = 0x00;
+    sprintf(str_temp, "%d", ELMOmotor[3].valReal.dc);
     usart.TxBuffer_USART2[i++] = strlen(str_temp);
     strcpy((char *)(&usart.TxBuffer_USART2[i]), str_temp);
     i += strlen(str_temp);

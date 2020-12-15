@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-07 19:14:34
+ * @LastEditTime: 2020-12-15 17:28:22
  * @FilePath: \MotoPro\USER\SRC\elmo.c
  */
 #include "elmo.h"
@@ -188,6 +188,62 @@ void Elmo_Motor_SV(u32 ID, u8 InConGrpFlag)
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'V';
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 加速度
+ */
+
+void Elmo_Motor_AC(u32 ID, s32 data, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'A';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'C';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&data, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 减速度
+ */
+
+void Elmo_Motor_DC(u32 ID, s32 data, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X08;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'D';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'C';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		EncodeS32Data(&data, &Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[4]);
 		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
 	}
 	Can2_Sendqueue.Rear = Rear2;
@@ -706,7 +762,59 @@ void Elmo_Motor_ASKpa(u32 ID, u8 InConGrpFlag)
 	ELMOmotor[ID - 1].argum.timeout = 1;
 	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
 }
+/**
+ * @author: 叮咚蛋
+ * @brief: 查询加速度
+ */
 
+void Elmo_Motor_ASKac(u32 ID, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X04;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'A';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'C';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
+
+/**
+ * @author: 叮咚蛋
+ * @brief: 查询减速度
+ */
+
+void Elmo_Motor_ASKdc(u32 ID, u8 InConGrpFlag)
+{
+	if (Rear2 == Can2_Sendqueue.Front)
+	{
+		flag.Can2SendqueueFULL++;
+		return;
+	}
+	else
+	{
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].ID = 0x300 + ID;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].DLC = 0X04;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[0] = 'D';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[1] = 'C';
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[2] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].Data[3] = 0;
+		Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Rear].InConGrpFlag = InConGrpFlag;
+	}
+	Can2_Sendqueue.Rear = Rear2;
+	ELMOmotor[ID - 1].argum.timeout = 1;
+	ELMOmotor[ID - 1].argum.lastRxTim = OSTimeGet();
+}
 /**
  * @author: 叮咚蛋
  * @brief: 查询相对位置
