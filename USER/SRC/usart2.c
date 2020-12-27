@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-15 11:52:53
+ * @LastEditTime: 2020-12-22 18:38:28
  * @FilePath: \MotoPro\USER\SRC\usart2.c
  */
 #include "usart2.h"
@@ -205,17 +205,17 @@ void USART2_IRQHandler(void)
           Elmo_Motor_SP(2, 2000, 0);
           Elmo_Motor_SP(3, 2000, 0);
           Elmo_Motor_SP(4, 2000, 0);
-          Elmo_Motor_PA(1, -105, 1);
+          Elmo_Motor_PA(1, -75, 1);
           //Delay_ms(4);
           Elmo_Motor_PA(2, 75, 1);
           //Delay_ms(4);
           Elmo_Motor_PA(3, 75, 1);
           //Delay_ms(4);
-          Elmo_Motor_PA(4, -105, 1);
-          ELMOmotor[0].valSet.angle = -105;
+          Elmo_Motor_PA(4, -75, 1);
+          ELMOmotor[0].valSet.angle = -75;
           ELMOmotor[1].valSet.angle = 75;
           ELMOmotor[2].valSet.angle = 75;
-          ELMOmotor[3].valSet.angle = -105;
+          ELMOmotor[3].valSet.angle = -75;
           BEGIN_ALL_ELMO
           //Elmo_Motor_BG(0, 1);
         }

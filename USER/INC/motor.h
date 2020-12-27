@@ -119,7 +119,7 @@ typedef struct
 typedef struct
 {
     u16 PULSE;         //编码器线数
-    u8 RATIO;          //减速比
+    float RATIO;          //减速比
     u16 CURRENT_LIMIT; //最大输出电流限制
     float GearRatio;
     bool TYPE;

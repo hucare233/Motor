@@ -46,7 +46,8 @@
 #define MOTOR_0_3 1
 #define MOTOR_1_2 2
 #define MOROE_4_and_2 3
-#define ID_SELF MOROE_4_and_2
+#define ID_SELF 0x00010500
+#define ID_BACK 0x00050101
 //#define GearRatio (104.0f/17.0f)
 #elif defined TryRobot
 #define MOTOR_all 0

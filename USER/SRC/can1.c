@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-15 10:06:41
+ * @LastEditTime: 2020-12-22 18:31:02
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 /*
@@ -98,8 +98,8 @@ void CAN1_Configuration(void)
   //	CAN_FilterInitStructure.CAN_FilterIdLow = (((uint32_t)0x00010500 << 8) << 3) & 0xffff;
   //	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = (0xffffff00 << 3) >> 16;
   //	CAN_FilterInitStructure.CAN_FilterMaskIdLow = (0xffffff00 << 3) & 0xffff;
-  CAN_FilterInitStructure.CAN_FilterIdHigh = (((u32)0x00010500 << 3) & 0xFFFF0000) >> 16;
-  CAN_FilterInitStructure.CAN_FilterIdLow = (((u32)0x00010500 << 3) | CAN_ID_EXT | CAN_RTR_DATA) & 0xFFFF;
+  CAN_FilterInitStructure.CAN_FilterIdHigh = (((u32)ID_SELF << 3) & 0xFFFF0000) >> 16;
+  CAN_FilterInitStructure.CAN_FilterIdLow = (((u32)ID_SELF << 3) | CAN_ID_EXT | CAN_RTR_DATA) & 0xFFFF;
   CAN_FilterInitStructure.CAN_FilterMaskIdHigh = 0xFFFF;
   CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0xFFFF;
   CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN_FilterFIFO0;
@@ -125,9 +125,8 @@ static void answer_master(CanRxMsg *rx_message)
   Can1_Sendqueue.Rear = Rear1;
 }
 
-void feedbackAngle(u16 motorID)
+void feedbackAngle(void)
 {
-
   if (Rear1 == Can1_Sendqueue.Front)
   {
     flag.Can1SendqueueFULL++;
@@ -135,14 +134,13 @@ void feedbackAngle(u16 motorID)
   }
   else
   {
-    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].ID = motorID - 0x80;
-    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].DLC = 5;
-    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[0] = 'B';
-    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[1] = 'B';
-    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[2] = 'G';
-    u8 id = motorID - 0x305;
-    s16TempData[id] = motor[id].valueReal.angle * 30.f;
-    EncodeS16Data(&s16TempData[id], &Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[3]);
+    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].ID = ID_BACK;
+    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].DLC = 7;
+    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[0] = 'A';
+    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[1] = 'S';
+    Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[2] = 'K';
+    EncodeS16Data(&ELMOmotor[1].valReal.angle, &Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[3]);
+    EncodeS16Data(&ELMOmotor[0].valReal.angle, &Can1_Sendqueue.Can_DataSend[Can1_Sendqueue.Rear].Data[5]);
   }
   Can1_Sendqueue.Rear = Rear1;
 }
@@ -251,10 +249,7 @@ void CAN1_RX0_IRQHandler(void)
           motor[SteeringID].begin = false; //锁当前位置
           answer_master(&rx_message);
         }
-        else if (rx_message.Data[0] == 'B' && rx_message.Data[1] == 'B' && rx_message.Data[2] == 'G')
-        {
-          feedbackAngle(rx_message.StdId);
-        }
+        
       }
       if (rx_message.StdId == 0x320) //全发
       {
@@ -458,6 +453,10 @@ void CAN1_RX0_IRQHandler(void)
         ELMOmotor[2].valSet.angle = 0;
         ELMOmotor[3].valSet.angle = 0;
       }
+			else if (rx_message.Data[0] == 'A' && rx_message.Data[1] == 'S' && rx_message.Data[2] == 'K')
+        {
+          feedbackAngle();
+        }
     }
 #elif defined ActionMotor //执行电机报文处理
     if ((rx_message.IDE == CAN_Id_Extended) && (rx_message.RTR == CAN_RTR_Data))

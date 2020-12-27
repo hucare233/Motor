@@ -30,8 +30,8 @@ void Motor_Init(void)
   { //电机内参
     M3508instrin.PULSE = 8192;
     M2006instrin.PULSE = 8192;
-    M3508instrin.RATIO = 19;
-    M2006instrin.RATIO = 36;
+    M3508instrin.RATIO = 19.2f;
+    M2006instrin.RATIO = 36.0f;
     M3508instrin.CURRENT_LIMIT = 14745; //14745
     M2006instrin.CURRENT_LIMIT = 9000;  //1000
     M3508instrin.GearRatio = 1;         //全局变量
