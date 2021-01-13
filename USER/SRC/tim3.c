@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-12-04 09:22:05
+ * @LastEditTime: 2021-01-12 17:19:32
  * @FilePath: \MotoPro\USER\SRC\tim3.c
  */
 #include "tim3.h"
@@ -80,13 +80,13 @@ void TIM3_IRQHandler(void)
 #ifdef USE_VESC
         for (int i = 0; i < 4; i++)
         {
+            VESC_caculate(&VESCmotor[i]);
             if (VESCmotor[i].enable)
             {
                 if (VESCmotor[i].begin)
                 {
                     switch (VESCmotor[i].mode)
-                    { /*********************************************/
-
+                    {
                     case current:
                         VESC_Set_Current(i + 1, VESCmotor[i].valSet.current, 0);
                         break;
@@ -100,7 +100,16 @@ void TIM3_IRQHandler(void)
                         VESC_Set_Brake_Current(i + 1, VESCmotor[i].limit.breakCurrent, 0);
                         break;
                     case position:
-                        VESC_Set_Position(i + 1, VESCmotor[i].valSet.position * VESCmotor[i].instrinsic.POLE_PAIRS, 0);
+                        VESC_position_mode_pos(i);
+                        break;
+                    case vesc_postion_rpm:
+                        VESC_position_mode_rpm(i);
+                        break;
+                    case vesc_postion_I:
+                        VESC_position_mode_I(i);
+                        break;
+                    case vesc_RPM_I:
+                        VESC_RPM_mode_I(i);
                         break;
                     default:
                         break;
@@ -110,7 +119,7 @@ void TIM3_IRQHandler(void)
                     VESC_Set_Brake_Current(i + 1, VESCmotor[i].limit.breakCurrent, 0);
             }
             else
-                VESC_Set_Current(i + 1, 0.0, 0); //·¢ËÍµçÁ÷
+                VESC_Set_Current(i + 1, 0.0, 0);
         }
 #endif
         //        if (flag.Can2CtrlList_Enable == true)

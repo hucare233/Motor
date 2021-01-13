@@ -84,16 +84,7 @@
         sprintf(Motor_error, "%s", "(-- _*)"); \
     }
 /****电机模式****/
-enum MOTOR_MODE
-{
-    duty = 0,
-    current,
-    RPM,
-    brake,
-    zero,
-    position,
-    handbrake
-};
+enum MOTOR_MODE { duty=0, current, RPM, brake, zero, position, vesc_postion_rpm, vesc_postion_I ,vesc_RPM_I};
 
 enum MOTOR_TYPE
 {

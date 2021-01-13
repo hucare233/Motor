@@ -206,7 +206,6 @@ static void Task_VESC(void *pdata)
 {
 	while (1)
 	{
-		VESC_CONTROL(1);
 		//		Can_DeQueue(CAN2, &VESC_Sendqueue); //VESC
 		OSTimeDly(1000);
 	}

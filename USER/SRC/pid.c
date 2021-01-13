@@ -4,7 +4,7 @@
  * @Author: ¶£ßËµ°
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: ¶£ßËµ°
- * @LastEditTime: 2020-11-06 20:08:18
+ * @LastEditTime: 2021-01-13 22:31:08
  * @FilePath: \MotoPro\USER\SRC\pid.c
  */
 #include "pid.h"
@@ -27,6 +27,63 @@ void PID_Init(PID_setTypeDef *PID, float KP, float KI, float KD, float KS, s32 S
 	PID->uKP_Coe = KP;
 	PID->uKI_Coe = KI;
 	PID->uKS_Coe = KS;
+}
+
+/**
+ * @author: ¶£ßËµ°
+ * @brief: ±¾½ÜÃ÷pid³õÊ¼»¯
+ * @param {float} KP
+ * @param {float} KI
+ * @param {float} KD
+ * @param {float} KD_Filter
+ */
+
+void VESC_PID_Init(VESC_PID_setTypeDef* PID, float KP,float KI,float KD,float KD_Filter)
+{
+  PID->kp = KP;
+  PID->ki = KI;
+  PID->kd = KD;
+  PID->kd_filter = KD_Filter;
+}
+
+/**
+ * @author: ¶£ßËµ°
+ * @brief: pidÔËËã
+ * @param {s32} setval
+ * @param {s32} curval
+ */
+
+void VESC_PID_Operation(VESC_PID_setTypeDef* PID, s32 setval, s32 curval)
+{
+  PID->SetVal = setval;
+  PID->CurVal = curval;
+  PID->error = PID->SetVal - PID->CurVal;
+  
+  // Too low RPM set. Reset state and return.
+	if (ABS(PID->SetVal) < 20) {//TODO: ´Ë´¦20ÔİÂÒ¸ø
+		PID->i_term = 0.0f;
+		PID->prv_error = PID->error;
+		return;
+	}
+  
+  // Compute parameters
+  PID->p_term = PID->error * PID->kp / 100.f;
+  PID->i_term += PID->error * PID->ki / 1000.f / 100.f;
+  PID->d_term = (PID->error - PID->prv_error) * PID->kd / 100.f;//TODO:Ó¦¸Ã*1000£¬·½±ã¼ÆËãÊ¡ÂÔ
+  
+  // Filter D
+  UTILS_LP_FAST(PID->d_filter, PID->d_term, PID->kd_filter);
+	PID->d_term = PID->d_filter;  
+  
+ 	// I-term wind-up protection
+	utils_truncate_number(&PID->i_term, -1.0f, 1.0f);  
+  
+  // Store previous error
+	PID->prv_error = PID->error;
+  
+	// Calculate output
+	PID->output = PID->p_term + PID->i_term + PID->d_term;
+	utils_truncate_number(&PID->output, -1.0f, 1.0f);  
 }
 
 /**

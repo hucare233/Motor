@@ -120,6 +120,19 @@
 + 有感模式下在速度大于openloop erpm时会切换到无感模式，在上位机把openloop erpm改大
 + ERPM是电角度转速，=RPM*POLES极对数。还有一个是Minimum ERPM，小于这个转速电机就不运行了
 + 速度模式发送erpm
++ 更改源码固件参数
+
+---
+
+| 参数变量  |  更改   | 所在文件 |
+| :----: | :-------: |:-------: |
+|  MCCONF_S_PID_MIN_RPM    | 0.0f  |mcconf_default.h|
+|  APPCONF_SEND_CAN_STATUS   | true |appconf_default.h|
+| APPCONF_SEND_CAN_STATUS_RATE_HZ   |   2000    |appconf_default.h|
+| APPCONF_CONTROLLER_ID   |   需要id   |appconf_default.h|
+| APPCONF_CAN_BAUD_RATE   |   CAN_BAUD_1M   |appconf_default.h|
+
+---
 
 ## EPOS相关事项
 

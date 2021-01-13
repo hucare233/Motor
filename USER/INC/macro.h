@@ -25,7 +25,7 @@
 #define USE_ELMO
 #define USE_EPOS
 #define USE_DJ
-//#define USE_VESC
+#define USE_VESC
 #define backPos 1000 //下压时降低速度的位置
 #elif defined ActionMotor
 #define USE_ELMO
@@ -46,6 +46,7 @@
 #define MOTOR_0_3 1
 #define MOTOR_1_2 2
 #define MOROE_4_and_2 3
+#define Id MOTOR_all
 #define ID_SELF 0x00010500
 #define ID_BACK 0x00050101
 //#define GearRatio (104.0f/17.0f)
@@ -76,14 +77,6 @@
 #define BIT5 (0x01 << 5)
 #define BIT6 (0x01 << 6)
 #define BIT7 (0x01 << 7)
-
-/* math function */
-#define ABS(x) ((x) > 0 ? (x) : (-(x)))
-#define SIG(x) ((x < 0) ? -1 : 1)
-#define PEAK(A, B)  \
-	if (ABS(A) > B) \
-		A = SIG(A) * B; //此处默认B为正值
-#define SQ(x) ((x) * (x))
 
 #define EncodeS32Data(f, buff) \
 	{                          \

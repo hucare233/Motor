@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-11-06 19:26:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-05 14:59:44
+ * @LastEditTime: 2021-01-07 21:26:58
  * @FilePath: \MotoPro\USER\SRC\motor.c
  */
 #include "motor.h"
@@ -51,9 +51,9 @@ void Motor_Init(void)
     Motorlimit.timeoutmotion = 1;
   }
   {                               //电机其他参数设置
-    Motorargum.timeoutTicks = 40; //40*50=2000MS
+    Motorargum.timeoutTicks = 40; //40*50=2000ms
     Motorargum.lockPulse = 0;
-    Motorargum.stuckTicks = 100; //100ms
+    Motorargum.stuckTicks = 1000; //1000ms
   }
   /****0号电机初始化****/
   motor[0].intrinsic = M2006instrin; //| M2006instrin  M3508instrin
@@ -337,7 +337,7 @@ u8 ifstuck(u16 id) //判断是否堵转
 
     else if (motor[id].mode == position) //位置模式
     {
-      if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 50)
+      if (ABS(motor[id].valueReal.pulse - motor[id].valuePrv.pulse) < 200)
       {
         if (ABS(motor[id].valueReal.speed) < 100 && (motor[id].status.arrived == false)) //电机速度小于阈值并且没到达位置
         {

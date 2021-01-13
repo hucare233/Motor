@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-13 18:34:24
+ * @LastEditTime: 2021-01-13 10:02:00
  * @FilePath: \MotoPro\USER\SRC\can2.c
  */
 #include "can2.h"
@@ -423,13 +423,35 @@ void CAN2_RX1_IRQHandler(void)
 		if ((rx_message.IDE == CAN_ID_EXT) && (rx_message.RTR == CAN_RTR_Data)) //VESC报文
 		{
 			int32_t ind = 0;
-			VESCmotor[(rx_message.ExtId & 0xff) - 1].argum.timeout = 0;
+			u8 id = rx_message.ExtId & 0xff - 1;
 			if ((rx_message.ExtId >> 8) == CAN_PACKET_STATUS)
 			{
-				VESCmotor[(rx_message.ExtId & 0xff) - 1].valReal.speed = (s32)(buffer_32_to_float(rx_message.Data, 1e0, &ind) / VESCmotor[rx_message.ExtId & 0xff].instrinsic.POLE_PAIRS);
-				VESCmotor[(rx_message.ExtId & 0xff) - 1].valReal.current = buffer_16_to_float(rx_message.Data, 1e1, &ind);
-				VESCmotor[(rx_message.ExtId & 0xff) - 1].valReal.duty = buffer_16_to_float(rx_message.Data, 1e3, &ind);
+				VESCmotor[id].valReal.speed = get_s32_from_buffer(rx_message.Data, &ind) / VESCmotor[id].instrinsic.POLE_PAIRS;
+				VESCmotor[id].valReal.current = buffer_16_to_float(rx_message.Data, 1e1, &ind);
+				VESCmotor[id].valReal.angle = buffer_16_to_float(rx_message.Data, 1e1, &ind);
+				//位置计算
+				ChangeData(&rx_message.Data[6], &rx_message.Data[7]);
+				DecodeU16Data(&VESCmotor[id].argum.angleNow, &rx_message.Data[6]);
+				VESCmotor[id].argum.distance = VESCmotor[id].argum.angleNow - VESCmotor[id].argum.anglePrv;
+				if (VESCmotor[id].argum.fistPos) //TODO:清除起始误差
+				{
+					VESCmotor[id].argum.fistPos = false;
+					VESCmotor[id].argum.distance = 0;
+				}
+				VESCmotor[id].argum.anglePrv = VESCmotor[id].argum.angleNow;
+				if (ABS(VESCmotor[id].argum.distance) > 1800) //TODO:转角差值大于180°
+					VESCmotor[id].argum.distance -= SIG(VESCmotor[id].argum.distance) * 3600;
+				VESCmotor[id].valReal.position += VESCmotor[id].argum.distance;
+				//位置残差更新
+				VESCmotor[id].argum.difPosition = VESCmotor[id].valSet.position - VESCmotor[id].valReal.position;
+				//锁点记录
+				if (VESCmotor[id].begin)
+				{
+					VESCmotor[id].argum.lockAngle = VESCmotor[id].valReal.angle;
+					VESCmotor[id].argum.lockPosition = VESCmotor[id].valReal.position;
+				}
 			}
+			VESCmotor[id].argum.lastRxTim = OSTimeGet();
 		}
 #endif
 		//		if((Can2_Sendqueue.Can_DataSend[Can2_Sendqueue.Front].InConGrpFlag==true) && (Can2_Sendqueue.Rear!=Can2_Sendqueue.Front))

@@ -4,7 +4,7 @@
  * @Author: 叮咚蛋
  * @Date: 2020-10-17 14:52:41
  * @LastEditors: 叮咚蛋
- * @LastEditTime: 2020-12-22 18:31:02
+ * @LastEditTime: 2021-01-05 21:04:46
  * @FilePath: \MotoPro\USER\SRC\can1.c
  */
 /*
@@ -204,12 +204,12 @@ void CAN1_RX0_IRQHandler(void)
     if ((rx_message.IDE == CAN_Id_Standard) && (rx_message.RTR == CAN_RTR_Data))
     {
 #ifdef PassRobot
-#if ID_SELF == MOTOR_1_2
+#if Id == MOTOR_1_2
       if (( F == MOTOR_0_3
       if ((rx_message.StdId == 0x305) || (rx_message.StdId == 0x308))
-#elif ID_SELF == MOTOR_all
+#elif ID == MOROE_4_and_2
       if ((rx_message.StdId == 0x305) || (rx_message.StdId == 0x306) || (rx_message.StdId == 0x307))
-#elif ID_SELF == MOROE_4_and_2
+#elif Id == MOTOR_all
       if ((rx_message.StdId == 0x305) || (rx_message.StdId == 0x306) || (rx_message.StdId == 0x307) || (rx_message.StdId == 0x308)) //任务要求
 #endif
       {
@@ -257,21 +257,21 @@ void CAN1_RX0_IRQHandler(void)
         DecodeS16Data(&s16TempData[1], &rx_message.Data[2]);
         DecodeS16Data(&s16TempData[2], &rx_message.Data[4]);
         DecodeS16Data(&s16TempData[3], &rx_message.Data[6]);
-#if ID_SELF == MOTOR_1_2
+#if Id == MOTOR_1_2
         motor[1].valueSet.angle = s16TempData[1] / 30.f * motor[1].intrinsic.GearRatio;
         motor[1].begin = true;
         motor[1].mode = position;
         motor[2].valueSet.angle = s16TempData[2] / 30.f * motor[2].intrinsic.GearRatio;
         motor[2].begin = true;
         motor[2].mode = position;
-#elif ID_SELF == MOTOR_0_3
+#elif Id == MOTOR_0_3
         motor[0].valueSet.angle = s16TempData[0] / 30.f * motor[0].intrinsic.GearRatio;
         motor[0].begin = true;
         motor[0].mode = position;
         motor[3].valueSet.angle = s16TempData[3] / 30.f * motor[3].intrinsic.GearRatio;
         motor[3].begin = true;
         motor[3].mode = position;
-#elif ID_SELF == MOTOR_all
+#elif Id == MOROE_4_and_2
         motor[0].valueSet.angle = s16TempData[0] / 30.f * motor[0].intrinsic.GearRatio;
         motor[0].begin = true;
         motor[0].mode = position;
@@ -281,7 +281,7 @@ void CAN1_RX0_IRQHandler(void)
         motor[2].valueSet.angle = s16TempData[2] / 30.f * motor[2].intrinsic.GearRatio;
         motor[2].begin = true;
         motor[2].mode = position;
-#elif ID_SELF == MOROE_4_and_2
+#elif Id == MOTOR_all
         motor[0].valueSet.angle = s16TempData[0] / 30.f;
         motor[0].begin = true;
         motor[0].mode = position;
